@@ -1,0 +1,34 @@
+{
+    "invalid_api_key": {
+        "code": 1,
+        "message": "API Key is invalid"
+    },
+    "invalid_access_token": {
+        "code": 2,
+        "message": "Access token is invalid"
+    },
+    "user_not_exist": {
+        "code": 3,
+        "message": "User does not exist"
+    },
+    "login_failure": {
+        "code": 4,
+        "message": "The username or password is incorrect"
+    },
+    "need_admin_role": {
+        "code": 5,
+        "message": "Admin role is unauthorized"
+    },
+    "can_not_get_users": {
+        "code": 6,
+        "message": "Cannot get list users"
+    },
+    "please_check_email_to_active_account": {
+        "code": 100,
+        "message": "You have registered successfully. Please check your email to activate your account"
+    },
+    "message_not_found": {
+        "code": 1000,
+        "message": "Messgae not found"
+    }
+}
