@@ -1,0 +1,38 @@
+{
+    "invalid_api_key": {
+        "code": 1,
+        "message": "API Key không hợp lệ"
+    },
+    "invalid_access_token": {
+        "code": 2,
+        "message": "Access token không hợp lệ"
+    },
+    "user_not_exist": {
+        "code": 3,
+        "message": "Người dùng không tồn tại"
+    },
+    "login_failure": {
+        "code": 4,
+        "message": "Email hoặc mật khẩu không chính xác"
+    },
+    "need_admin_role": {
+        "code": 5,
+        "message": "Tài nguyên cần quyền của Admin"
+    },
+    "can_not_get_users": {
+        "code": 6,
+        "message": "Đã có lỗi xảy ra, không thể lấy được danh sách người dùng"
+    },
+    "can_not_create_feature":{
+		"code": 7,
+		"message": "Không tạo feature"
+	},
+    "please_check_email_to_active_account": {
+        "code": 100,
+        "message": "Bạn đã đăng ký thành công. Hãy kiểm tra tài khoản email để tiến hành kích hoạt tài khoản"
+    },
+    "unknown_message": {
+        "code": 1000,
+        "message": "Thông điệp không tìm thấy"
+    }
+}
