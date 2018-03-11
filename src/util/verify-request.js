@@ -8,6 +8,7 @@ const User = require('../model/index').User;
 const VerifyUtils = {};
 VerifyUtils.verifyPublicRequest = verifyPublicRequest;
 VerifyUtils.verifyProtectRequest = verifyProtectRequest;
+VerifyUtils.verifyWithSecretToken = verifyWithSecretToken;
 
 module.exports = VerifyUtils;
 
@@ -30,12 +31,14 @@ function verifyProtectRequest(req) {
                 .then(success => {
                     User.findById(userId)
                         .then(userExists => {
-                            JWT.verify(accessToken, Config.secret_token, (err, data) => {
-                                if (err) {
+                            verifyWithSecretToken(accessToken)
+                                .then(data => {
+                                    data.user.role = userExists.role;
+                                    resolve(data);
+                                })
+                                .catch(err => {
                                     reject(err);
-                                }
-                                resolve(data);
-                            });
+                                })
                         })
                 })
         }
@@ -54,4 +57,16 @@ function verifyApiKey(apiKey) {
             }
         }
     });
+}
+
+function verifyWithSecretToken(token) {
+    return new Promise((resolve, reject) => {
+        JWT.verify(token, Config.secret_token, (err, data) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(data);
+        });
+    });
+
 }

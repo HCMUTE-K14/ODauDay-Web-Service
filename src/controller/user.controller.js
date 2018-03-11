@@ -1,13 +1,20 @@
 const JWT = require('jsonwebtoken');
 
 const User = require('../model/index').User;
-const Models = require('../model/index');
+
 const ResponseModel = require('../util/response-model');
 const VerifyUtils = require('../util/verify-request');
 const TextUtils = require('../util/text-utils');
+const NumberUtils = require('../util/number-utils');
 const MessageHelper = require('../util/message/message-helper');
+const EmailHelper = require('../util/email/helper');
+const Template = require('../util/template');
+
 const Config = require('../config');
+const Logger = require('../logger');
 const Handler = require('./handling-helper');
+
+const TAG = 'USERCONTROLLER ';
 
 const UserController = {};
 
@@ -15,68 +22,23 @@ const UserController = {};
 UserController.login = login;
 UserController.create = register;
 // UserController.changePassword = changePassword;
-// UserController.active = active;
+// UserController.forgotPassword = forgotPassword;
 
 /* Protect Request */
 // UserController.update = update;
-// UserController.disabledUser = disableUser;
-// UserController.findById = findById;
 
 /*NEED ADMIN ROLE*/
-UserController.getByPage = getByPage;
-
 
 module.exports = UserController;
 
-function getByPage(req, res) {
-	VerifyUtils
-		.verifyProtectRequest(req)
-		.then(data => {
-			if (data.user.role != 'admin') {
-				Handler.unAuthorizedAdminRole(req, res);
-				return;
-			}
-			User.findAndCountAll()
-				.then((data) => {
-					let page = req.query.page || 1;
-					let limit = req.query.limit || 5;
-					limit = limit <= 0 ? 1 : limit;
-					let offset = 0;
-					let pages = Math.ceil(data.count / limit);
-					offset = limit * (page - 1);
-					User.findAll({
-							attributes: {
-								exclude: ['password', 'ping_number', 'date_created', 'date_modified']
-							},
-							limit: limit,
-							offset: offset,
-							$sort: { username: 1 }
-						})
-						.then((users) => {
-							res.status(200).json(new ResponseModel({
-								code: 200,
-								status_text: 'OK',
-								success: true,
-								data: { pages: pages, result: users },
-								errors: null
-							}));
-						})
-				})
-				.catch(error => {
-					handlingCannotGetUsers(req, res);
-				});
-		})
-		.catch(error => {
-			Handler.invalidAccessToken(req, res);
-		});
-}
+
 
 function login(req, res) {
 	VerifyUtils
 		.verifyPublicRequest(req)
 		.then(isAccess => {
 			if (!isAccess) {
-				handlingInvalidApiKey(res);
+				Handler.invalidApiKey(res);
 				return;
 			}
 			let query = { email: req.body.email };
@@ -85,7 +47,7 @@ function login(req, res) {
 			User.findOne({
 					where: query,
 					attributes: {
-						exclude: ['date_created', 'date_modified']
+						// exclude: ['date_created', 'date_modified']
 					}
 				})
 				.then(user => {
@@ -103,7 +65,11 @@ function login(req, res) {
 						})
 				})
 				.catch(error => {
-					handlingUserNotExists(req, res);
+					if (error.constructor.name == 'ConnectionRefusedError') {
+						Handler.cannotConnectDatabase(req, res);
+					} else {
+						handlingUserNotExists(req, res);
+					}
 				})
 		})
 		.catch(() => {
@@ -117,10 +83,18 @@ function register(req, res) {
 		.verifyPublicRequest(req)
 		.then(isAccess => {
 			if (!isAccess) {
-				handlingInvalidApiKey(res);
+				Handler.invalidApiKey(res);
 				return;
 			}
 			let user = req.body;
+
+			delete user.status;
+			delete user.ping_number;
+			delete user.role;
+
+			let randomPing = NumberUtils.random4Digit();
+			user.ping_number = randomPing;
+
 			User.create(user)
 				.then(data => {
 					res.status(200).json(new ResponseModel({
@@ -129,12 +103,26 @@ function register(req, res) {
 						success: true,
 						data: getMessage(req, 'please_check_email_to_active_account')
 					}));
+					//send mail 
+					let linkActivate = TextUtils.generateLinkActivateAccount(data);
+					let template = Template.activeAccountTemplate(linkActivate);
+					let mailOption = EmailHelper.createMailOptionsForActiveAccount(user.email, template);
+					EmailHelper.send(mailOption)
+						.then(info => {
+							Logger.info(TAG + 'sent to ' + user.email);
+						})
+						.catch(err => {
+							Logger.info(TAG + 'can not send to ' + user.email);
+						})
 				})
 				.catch(error => {
-					// if(error instanceof SequelizeValidationError){
-						
-					// }
-					console.log(error);
+					if (error.constructor.name == 'ConnectionRefusedError') {
+						Handler.cannotConnectDatabase(req, res);
+					} else if (error.constructor.name == 'ValidationError' || error.constructor.name == 'UniqueConstraintError') {
+						Handler.validateError(req, res, error);
+					} else {
+						handlingCannotRegister(req, res);
+					}
 				})
 		})
 		.catch(() => {
@@ -143,14 +131,13 @@ function register(req, res) {
 		});
 }
 
-
 function handlingLoginSuccessful(res, user) {
 	user.hideSecretInformation();
 	let token = JWT.sign({ user: user }, Config.secret_token);
 	res.status(200).json(new ResponseModel({
 		code: 200,
 		status_text: 'OK',
-		success: false,
+		success: true,
 		data: { access_token: token },
 		errors: null
 	}));
@@ -172,21 +159,22 @@ function handlingUserNotExists(req, res) {
 		status_text: 'SERVICE UNAVAILABLE',
 		success: false,
 		data: null,
-		errors: [getMessage(req, 'user_not_exist')]
+		errors: [getMessage(req, 'login_failure')]
 	}));
 }
 
-
-function handlingCannotGetUsers(req, res) {
+function handlingCannotRegister(req, res) {
 	res.status(503).json(new ResponseModel({
 		code: 503,
 		status_text: 'SERVICE UNAVAILABLE',
 		success: false,
 		data: null,
-		errors: [getMessage(req, 'can_not_get_users')]
+		errors: [getMessage(req, 'unknown_message')]
 	}));
 }
-function getMessage(req, errorText){
+
+
+function getMessage(req, errorText) {
 	let lang = req.query.lang || 'vi';
 	return MessageHelper.getMessage(lang, errorText);
 }

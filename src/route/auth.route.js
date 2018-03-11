@@ -6,7 +6,6 @@ const Router = Express.Router();
 
 Router.route('/')
     .post(UserController.login)
-    .put(UserController.create);
 
 
 // Router.route('/facebook')

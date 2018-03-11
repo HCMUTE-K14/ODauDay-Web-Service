@@ -1,5 +1,6 @@
 const Bcrypt = require('bcryptjs');
 const TextUtils = require('../util/text-utils');
+const MessageHelper = require('../util/message/message-helper');
 
 module.exports = (sequelize, DataTypes) => {
 	let User = sequelize.define('User', {
@@ -12,15 +13,18 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING,
 			allowNull: false,
 			unique: {
-				msg: 'Email already exists'
+				msg: JSON.stringify(MessageHelper.VI['email_already_exist'])
 			},
 			validate: {
 				len: {
 					args: [6, 128],
-					msg: 'Email address must be between 6 and 128 characters in length'
+					msg: JSON.stringify(MessageHelper.VI['email_len'])
 				},
 				isEmail: {
-					msg: 'Email address must be valid'
+					msg: JSON.stringify(MessageHelper.VI['email_is_invalid'])
+				},
+				notNull: {
+					msg: JSON.stringify(MessageHelper.VI['email_is_required'])
 				}
 			}
 		},
@@ -29,9 +33,15 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false,
 			validate: {
 				notEmpty: {
-					msg: 'Password can not be empty'
+					msg: JSON.stringify(MessageHelper.VI['password_can_not_be_empty'])
 				},
-				min: 6
+				len: {
+					args: [6, 32],
+					msg: JSON.stringify(MessageHelper.VI['password_len'])
+				},
+				notNull: {
+					msg: JSON.stringify(MessageHelper.VI['password_is_required'])
+				}
 			}
 		},
 		display_name: {
@@ -39,11 +49,14 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false,
 			validate: {
 				notEmpty: {
-					msg: 'Display name can not be empty'
+					msg: JSON.stringify(MessageHelper.VI['display_name_can_not_be_empty'])
 				},
 				len: {
-					arg: [1, 30],
-					msg: 'Display name has maxinum 30 characters'
+					args: [1, 30],
+					msg: JSON.stringify(MessageHelper.VI['display_name_maxinum_len'])
+				},
+				notNull: {
+					msg: JSON.stringify(MessageHelper.VI['display_name_is_required'])
 				}
 			}
 		},
@@ -56,19 +69,17 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		avatar: {
 			type: DataTypes.STRING,
-			allowNull: true,
-			validate: {
-				isUrl: true
-			}
+			allowNull: true
 		},
 		role: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			defaultValue: 'user',
 			validate: {
-				isIn: [
-					['user', 'admin']
-				]
+				isIn: {
+					args: [['user', 'admin']],
+					msg: JSON.stringify(MessageHelper.VI['role_is_invalid'])
+				}
 			}
 		},
 		status: {
@@ -76,9 +87,10 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false,
 			defaultValue: 'pending',
 			validate: {
-				isIn: [
-					['active', 'pending', 'disabled']
-				]
+				isIn: {
+					args: [['active', 'pending', 'disabled']],
+					msg: JSON.stringify(MessageHelper.VI['status_is_invalid'])
+				}
 			}
 		},
 		ping_number: {
