@@ -27,6 +27,14 @@
 		"code": 7,
 		"message": "Cannot create feature"
 	},
+	"can_not_update_feature":{
+		"code":8,
+		"message":"Cannot update feature"
+	},
+	"can_not_delete_feature":{
+		"code":9,
+		"message":"Cannot destroy feature"
+	},
 	"please_check_email_to_active_account": {
         "code": 100,
         "message": "You have registered successfully. Please check your email to activate your account"

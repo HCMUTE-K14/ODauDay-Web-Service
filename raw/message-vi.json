@@ -26,6 +26,14 @@
     "can_not_create_feature":{
 		"code": 7,
 		"message": "Không tạo feature"
+    },
+    "can_not_update_feature":{
+		"code":8,
+		"message":"Không thể cập nhấp feature"
+    },
+    "can_not_delete_feature":{
+		"code":9,
+		"message":"Không thể xóa feature"
 	},
     "please_check_email_to_active_account": {
         "code": 100,
