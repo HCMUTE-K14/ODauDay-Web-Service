@@ -1,8 +1,12 @@
 const User = require('../model/index').User;
+
 const VerifyUtils = require('../util/verify-request');
 const TextUtils = require('../util/text-utils');
-const Config = require('../config');
 const Template = require('../util/template');
+const EmailHelper = require('../util/email-helper');
+
+const Logger = require('../logger');
+const Config = require('../config');
 
 const Handler = require('./handling-helper');
 
@@ -13,6 +17,7 @@ const ACTIVED_FAILURE = 'actived_failure';
 const ActiveAccountController = {};
 
 ActiveAccountController.active = active;
+ActiveAccountController.resendActivation = reSendActivation;
 
 module.exports = ActiveAccountController;
 
@@ -60,8 +65,33 @@ function active(req, res) {
 		})
 }
 
-function reSendActivation() {
-
+function reSendActivation(req, res) {
+	let email = req.query.email;
+	let query = { email: email };
+	User.findOne({ where: query })
+		.then(userExists => {
+			let status = userExists.status;
+			if (status == 'active') {
+				let template = Template.activedAccountMailTemplate();
+				let mailOption = EmailHelper.createMailOptions({
+					to: email,
+					subject: 'Activate account at ODauDay',
+					html: template
+				});
+				EmailHelper.send(mailOption)
+					.then(info => {
+						Logger.info('Sent to ' + email);
+					})
+					.catch(err => {
+						Logger.info('Can not send to ' + email);
+					})
+				return;
+			}
+			EmailHelper.sendMailActivateAccount(userExists);
+		})
+		.catch(error => {
+			console.log(error);
+		});
 }
 
 function isExpiredToken(timeToExpired) {

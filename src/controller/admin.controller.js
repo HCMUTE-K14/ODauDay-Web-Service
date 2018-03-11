@@ -3,6 +3,7 @@ const User = require('../model/index').User;
 const ResponseModel = require('../util/response-model');
 const VerifyUtils = require('../util/verify-request');
 const MessageHelper = require('../util/message/message-helper');
+
 const Handler = require('./handling-helper');
 
 const AdminController = {};
@@ -22,7 +23,7 @@ function getUsers(req, res) {
 				.then((data) => {
 					let page = req.query.page || 1;
 					let limit = req.query.limit || 5;
-					limit = limit <= 0 ? 1 : limit;
+					limit = limit <= 0 ? 5 : limit;
 					let offset = 0;
 					let pages = Math.ceil(data.count / limit);
 					offset = limit * (page - 1);

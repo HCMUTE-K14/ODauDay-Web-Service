@@ -17,8 +17,8 @@ Router.route('/registration')
 Router.route('/active')
 	.get(ActiveAccountController.active) //Active account
 
-// Router.route('/resend-activation')
-// 	.post()
+Router.route('/resend-activation')
+	.post(ActiveAccountController.resendActivation);
 
 // Router.route('/forgot-password')
 // 	.post()

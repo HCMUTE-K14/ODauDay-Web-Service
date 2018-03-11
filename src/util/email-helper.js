@@ -1,5 +1,10 @@
 const Mailer = require('nodemailer');
-const Config = require('../../config');
+
+const Config = require('../config');
+const Template = require('./template');
+const TextUtils = require('./text-utils');
+
+const Logger = require('../logger');
 
 const Transporter = Mailer.createTransport({
   service: Config.email.client,
@@ -14,10 +19,9 @@ const EmailHelper = {};
 EmailHelper.getTransporter = getTransporter;
 EmailHelper.send = send;
 EmailHelper.createMailOptions = createMailOptions;
-EmailHelper.createMailOptionsForActiveAccount = createMailOptionsForActiveAccount;
+EmailHelper.sendMailActivateAccount = sendMailActivateAccount;
 
 module.exports = EmailHelper;
-
 
 function getTransporter() {
   return Transporter;
@@ -43,10 +47,19 @@ function createMailOptions({ to, subject, html }) {
   }
 }
 
-function createMailOptionsForActiveAccount(to, template) {
-  return createMailOptions({
-    to: to,
-    subject: 'Active Account ODauDay',
+function sendMailActivateAccount(user) {
+  let linkActivate = TextUtils.generateLinkActivateAccount(user);
+  let template = Template.activeAccountMailTemplate(linkActivate);
+  let mailOption = createMailOptions({
+    to: user.email,
+    subject: 'Activate account at ODauDay',
     html: template
   });
+  send(mailOption)
+    .then(info => {
+      Logger.info('Sent to ' + user.email);
+    })
+    .catch(err => {
+      Logger.info('Can not send to ' + user.email);
+    })
 }

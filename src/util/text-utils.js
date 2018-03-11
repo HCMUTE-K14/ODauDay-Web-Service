@@ -68,7 +68,7 @@ function generateTokenToActivateAccount(user) {
     };
 
     let timeStampUserCreated = new Date(user.date_created).getTime();
-    let timeStampOf1Week = DAY_IN_WEEK * HOUR_IN_DAY * HOUR_IN_SECOND * SECOND_IN_MILISECOND;
+    let timeStampOf1Week = DAY_IN_WEEK * HOUR_IN_DAY * HOUR_IN_SECOND * SECOND_IN_MILISECOND; //7 days
     let timeExpired = new Date(timeStampUserCreated + timeStampOf1Week);
 
     let data = {

@@ -4,17 +4,14 @@ const User = require('../model/index').User;
 
 const ResponseModel = require('../util/response-model');
 const VerifyUtils = require('../util/verify-request');
-const TextUtils = require('../util/text-utils');
 const NumberUtils = require('../util/number-utils');
 const MessageHelper = require('../util/message/message-helper');
-const EmailHelper = require('../util/email/helper');
-const Template = require('../util/template');
+const EmailHelper = require('../util/email-helper');
 
 const Config = require('../config');
 const Logger = require('../logger');
-const Handler = require('./handling-helper');
 
-const TAG = 'USERCONTROLLER ';
+const Handler = require('./handling-helper');
 
 const UserController = {};
 
@@ -26,8 +23,6 @@ UserController.create = register;
 
 /* Protect Request */
 // UserController.update = update;
-
-/*NEED ADMIN ROLE*/
 
 module.exports = UserController;
 
@@ -104,16 +99,7 @@ function register(req, res) {
 						data: getMessage(req, 'please_check_email_to_active_account')
 					}));
 					//send mail 
-					let linkActivate = TextUtils.generateLinkActivateAccount(data);
-					let template = Template.activeAccountTemplate(linkActivate);
-					let mailOption = EmailHelper.createMailOptionsForActiveAccount(user.email, template);
-					EmailHelper.send(mailOption)
-						.then(info => {
-							Logger.info(TAG + 'sent to ' + user.email);
-						})
-						.catch(err => {
-							Logger.info(TAG + 'can not send to ' + user.email);
-						})
+					EmailHelper.sendMailActivateAccount(data);
 				})
 				.catch(error => {
 					if (error.constructor.name == 'ConnectionRefusedError') {

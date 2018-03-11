@@ -7,12 +7,13 @@ const Config = require('./config');
 const Routes = require('./route/main.route');
 
 const App = Express();
+
 App.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods',
         'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers',
-        'X-Requested-With, Content-Type, charset, token');
+        'X-Requested-With, Content-Type, charset, token, x-api-key, x-access-token, x-user-id');
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
