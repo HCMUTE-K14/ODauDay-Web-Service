@@ -29,7 +29,7 @@ function getUsers(req, res) {
 					offset = limit * (page - 1);
 					User.findAll({
 							attributes: {
-								exclude: ['password', 'ping_number', 'date_created', 'date_modified']
+								exclude: ['password', 'ping_number', 'date_created', 'date_modified', 'role']
 							},
 							limit: limit,
 							offset: offset,
@@ -46,7 +46,11 @@ function getUsers(req, res) {
 						})
 				})
 				.catch(error => {
-					handlingCannotGetUsers(req, res);
+					if (error.constructor.name === 'ConnectionRefusedError') {
+						Handler.cannotConnectDatabase(req, res);
+					} else {
+						handlingCannotGetUsers(req, res);
+					}
 				});
 		})
 		.catch(error => {

@@ -14,9 +14,9 @@ module.exports = MessageHelper;
 function getMessage(language, errorText) {
 	let lang = language || 'vi';
 
-	if (lang == 'vi') {
+	if (lang === 'vi') {
 		return VI[errorText];
-	} else if (lang == 'en') {
+	} else if (lang === 'en') {
 		return EN[errorText];
 	} else {
 		return VI['message_not_found'];
@@ -26,9 +26,9 @@ function getMessage(language, errorText) {
 function getMessageByCode(language, code) {
 	let lang = language || 'vi';
 
-	if (lang == 'vi') {
+	if (lang === 'vi') {
 		return doGetMessage(VI, code);
-	} else if (lang == 'en') {
+	} else if (lang === 'en') {
 		return doGetMessage(EN, code);
 	} else {
 		return VI['message_not_found'];
@@ -38,7 +38,7 @@ function getMessageByCode(language, code) {
 function doGetMessage(list, code) {
 	try {
 		Object.keys(list).forEach(key => {
-			if (list[key].code == code) {
+			if (list[key].code === code) {
 				return list[key];
 			}
 		});

@@ -49,7 +49,7 @@
     },
     "password_len":{
         "code": 106,
-        "message": "Password must be at least 6 characters in length"
+        "message": "Password must be between 6 and 128 characters in length"
     },
     "password_is_required":{
         "code":107,
@@ -74,6 +74,30 @@
     "status_is_invalid": {
         "code": 112,
         "message": "Status is invalid"
+    },
+    "update_user_fail": {
+        "code": 113,
+        "message": "Can not update user"
+    },
+    "update_user_successful": {
+        "code": 114,
+        "message": "Your profile updated successfully"
+    },
+    "update_user_request_invalid": {
+        "code": 115,
+        "message": "Invalid update profile request"
+    },
+    "cannot_register": {
+        "code": 116,
+        "message": "Register failed. Please try later"
+    },
+    "please_check_email_cofirm_password":{
+        "code": 117,
+        "message": "Please check your email to confirm change password"
+    },
+    "sent_mail_fail":{
+        "code": 118,
+        "message": "Sent mail failure"
     },
     "message_not_found": {
         "code": 1000,

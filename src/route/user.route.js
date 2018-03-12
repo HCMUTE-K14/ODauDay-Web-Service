@@ -8,19 +8,25 @@ const Router = Express.Router();
 Router.route('/registration')
 	.post(UserController.create);
 
-// Router.route('/:id')
-// 	.put() //update Profile 
+Router.route('/:id')
+	.put(UserController.update); //update Profile 
 
-// Router.route('/change-password')
-//	.post() //change password
+Router.route('/change-password')
+	.post(UserController.changePassword); //change password
 
 Router.route('/active')
-	.get(ActiveAccountController.active) //Active account
+	.get(ActiveAccountController.active); //Active account
 
 Router.route('/resend-activation')
 	.post(ActiveAccountController.resendActivation);
 
-// Router.route('/forgot-password')
-// 	.post()
+Router.route('/forgot-password')
+	.post(UserController.forgotPassword);
+
+Router.route('/confirm-password-change')
+	.get(ActiveAccountController.confirmPasswordChange);
+
+Router.route('/receive-new-password')
+	.post(ActiveAccountController.receiveNewPassword);
 
 module.exports = Router;

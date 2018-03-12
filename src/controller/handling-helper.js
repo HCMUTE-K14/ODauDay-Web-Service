@@ -1,4 +1,4 @@
-const MessageHelper = require('../util/message/message-helper');
+ const MessageHelper = require('../util/message/message-helper');
 const ResponseModel = require('../util/response-model');
 
 const Handler = {};

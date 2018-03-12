@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
 					msg: JSON.stringify(MessageHelper.VI['password_can_not_be_empty'])
 				},
 				len: {
-					args: [6, 32],
+					args: [6, 128],
 					msg: JSON.stringify(MessageHelper.VI['password_len'])
 				},
 				notNull: {
@@ -136,6 +136,7 @@ module.exports = (sequelize, DataTypes) => {
 function encryptPasswordIfChanged(user, options) {
 	return new Promise((resolve, reject) => {
 		if (user.changed('password')) {
+			console.log('change password');
 			TextUtils.hash(user.password)
 				.then(hashPassword => {
 					user.password = hashPassword;

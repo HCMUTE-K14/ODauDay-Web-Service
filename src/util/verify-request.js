@@ -50,7 +50,7 @@ function verifyApiKey(apiKey) {
         if (TextUtils.isEmpty(apiKey)) {
             reject();
         } else {
-            if (apiKey == Config.api_key) {
+            if (apiKey === Config.api_key) {
                 resolve(true);
             } else {
                 resolve(false);

@@ -14,10 +14,10 @@ const TextUtils = {};
 TextUtils.isEmpty = isEmpty;
 TextUtils.hash = hash;
 TextUtils.hashMD5 = hashMD5;
-TextUtils.generateTokenToActivateAccount = generateTokenToActivateAccount;
+TextUtils.generateTokenAccount = generateTokenAccount;
 TextUtils.generateLinkActivateAccount = generateLinkActivateAccount;
 TextUtils.generateLinkResendActivateAccount = generateLinkResendActivateAccount;
-
+TextUtils.generateLinkForgotPassword = generateLinkForgotPassword;
 module.exports = TextUtils;
 
 function isEmpty(str) {
@@ -51,12 +51,18 @@ function generateLinkResendActivateAccount(email){
 }
 
 function generateLinkActivateAccount(user){
-    let token = generateTokenToActivateAccount(user);
+    let token = generateTokenAccount(user, 'active_account');
 
     return Config.base_url + '/users/active?token=' + token;
 }
 
-function generateTokenToActivateAccount(user) {
+function generateLinkForgotPassword(user){
+    let token = generateTokenAccount(user, 'forgot_password');
+
+    return Config.base_url + '/users/confirm-password-change?token=' + token;
+}
+
+function generateTokenAccount(user, method) {
 
     let hashPing = hashMD5(Config.secret_token + user.ping_number.toString());
 
@@ -72,6 +78,7 @@ function generateTokenToActivateAccount(user) {
     let timeExpired = new Date(timeStampUserCreated + timeStampOf1Week);
 
     let data = {
+        method: method,
         user: newUser,
         time_to_expried: {
             date: timeExpired,
