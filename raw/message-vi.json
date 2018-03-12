@@ -84,8 +84,24 @@
 		"message":"Không thể update Type"
 	},
 	"can_not_destroy_type":{
-		"code":19,
+		"code":22,
 		"message":"Không thể xóa Type"
+    },
+    "can_not_get_property":{
+		"code":23,
+		"message":"Không thể lấy property"
+	},
+	"can_not_create_property":{
+		"code":24,
+		"message":"Không thể tạo property"
+	},
+	"can_not_update_property":{
+		"code":25,
+		"message":"Không thể cập nhật property"
+	},
+	"can_not_destroy_property":{
+		"code":26,
+		"message":"Không thể xóa property"
 	},
     "please_check_email_to_active_account": {
         "code": 100,

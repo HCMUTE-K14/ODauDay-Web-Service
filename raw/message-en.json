@@ -84,8 +84,24 @@
 		"message":"Cannot update Type"
 	},
 	"can_not_destroy_type":{
-		"code":19,
+		"code":22,
 		"message":"Cannot destroy Type"
+	},
+	"can_not_get_property":{
+		"code":23,
+		"message":"Cannot get property"
+	},
+	"can_not_create_property":{
+		"code":24,
+		"message":"Cannot create property"
+	},
+	"can_not_update_property":{
+		"code":25,
+		"message":"Cannot update property"
+	},
+	"can_not_destroy_property":{
+		"code":26,
+		"message":"Cannot destroy property"
 	},
 	"please_check_email_to_active_account": {
         "code": 100,
