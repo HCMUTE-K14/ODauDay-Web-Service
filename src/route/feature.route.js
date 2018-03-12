@@ -5,6 +5,7 @@ const FeatureController = require('../controller/feature.controller');
 const Router = Express.Router();
 
 Router.route('/')
+    .get(FeatureController.getAll)
     .post(FeatureController.create)
     .put(FeatureController.update)
     .delete(FeatureController.destroy)

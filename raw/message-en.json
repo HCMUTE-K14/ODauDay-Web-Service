@@ -35,6 +35,58 @@
 		"code":9,
 		"message":"Cannot destroy feature"
 	},
+	"can_not_create_tag":{
+		"code":10,
+		"message":"Cannot create tag"
+	},
+	"can_not_update_tag":{
+		 "code":11,
+		 "message":"Cannot update tag"
+	},
+	"can_not_destroy_tag":{
+		"code":12,
+		"message":"Cannot destroy tag"
+	},
+	"can_not_create_category":{
+		"code":13,
+		"message":"Cannot create category"
+	},
+	"can_not_update_category":{
+		"code":14,
+		"message":"Cannot update category"
+	},
+	"can_not_destroy_category":{
+		"code":15,
+		"message":"Cannot destroy category"
+	},
+	"can_not_get_feature":{
+		"code":16,
+		"message":"Cannot get feature"
+	},
+	"can_not_get_category":{
+		"code":17,
+		"message":"Cannot get Category"
+	},
+	"can_not_get_tag":{
+		"code":18,
+		"message":"Cannot get Tag"
+	},
+	"can_not_get_type":{
+		"code":19,
+		"message":"Cannot get Type"
+	},
+	"can_not_create_type":{
+		"code":20,
+		"message":"Cannot create Type"
+	},
+	"can_not_update_type":{
+		"code":21,
+		"message":"Cannot update Type"
+	},
+	"can_not_destroy_type":{
+		"code":19,
+		"message":"Cannot destroy Type"
+	},
 	"please_check_email_to_active_account": {
         "code": 100,
         "message": "You have registered successfully. Please check your email to activate your account"

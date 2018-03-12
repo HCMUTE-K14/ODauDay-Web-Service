@@ -29,11 +29,63 @@
     },
     "can_not_update_feature":{
 		"code":8,
-		"message":"Không thể cập nhấp feature"
+		"message":"Không thể cập nhật feature"
     },
     "can_not_delete_feature":{
 		"code":9,
 		"message":"Không thể xóa feature"
+    },
+    "can_not_create_tag":{
+		"code":10,
+		"message":"Không thể tạo tag"
+    },
+    "can_not_update_tag":{
+        "code":11,
+        "message":"Không thể cập nhật tag"
+    },
+    "can_not_destroy_tag":{
+		"code":12,
+		"message":"Không thể xóa tag"
+    },
+    "can_not_create_category":{
+		"code":13,
+		"message":"Không thể tạo category"
+	},
+	"can_not_update_category":{
+		"code":14,
+		"message":"Không thể cập nhật category"
+	},
+	"can_not_destroy_category":{
+		"code":15,
+		"message":"Không thể xóa category"
+    },
+    "can_not_get_feature":{
+		"code":16,
+		"message":"Không thể lấy feature"
+    },
+    "can_not_get_category":{
+		"code":17,
+		"message":"Không thể lấy Category"
+    },
+    "can_not_get_tag":{
+		"code":18,
+		"message":"Không thể lấy Tag"
+    },
+    "can_not_get_type":{
+		"code":19,
+		"message":"Không thể lấy Type"
+	},
+	"can_not_create_type":{
+		"code":20,
+		"message":"Không thể tạo Type"
+	},
+	"can_not_update_type":{
+		"code":21,
+		"message":"Không thể update Type"
+	},
+	"can_not_destroy_type":{
+		"code":19,
+		"message":"Không thể xóa Type"
 	},
     "please_check_email_to_active_account": {
         "code": 100,

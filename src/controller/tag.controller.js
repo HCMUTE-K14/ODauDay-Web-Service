@@ -1,25 +1,25 @@
-const Feature = require("../model/index").Feature;
+const Tag = require("../model/index").Tag;
 const ResponseModel = require('../util/response-model');
 const Message = require('../util/message/en');
 const Handler = require('./handling-helper');
 const VerifyUtils = require('../util/verify-request');
 const MessageHelper = require('../util/message/message-helper');
 
-const FeatureController = {};
+const TagController={};
 
-FeatureController.getAll=getAll;
-FeatureController.create = create;
-FeatureController.update = update;
-FeatureController.destroy = destroy;
+TagController.getAll=getAll;
+TagController.create=create;
+TagController.update=update;
+TagController.destroy=destroy;
 
-module.exports = FeatureController;
+module.exports=TagController;
 
 function getAll(req,res){
     VerifyUtils
     .verifyPublicRequest(req)
     .then(data=>{
         if(data){
-            Feature.findAll({
+            Tag.findAll({
                 order: [
                     ['name', 'ASC']
                 ]
@@ -34,7 +34,7 @@ function getAll(req,res){
                 }));
             })
             .catch(error=>{
-                handlingCanotGetAllFeature(req,res);
+                handlingCanotGetAllTag(req,res);
             });
         }else{
             errorVerifyApiKey(req,res);
@@ -44,7 +44,8 @@ function getAll(req,res){
         Handler.invalidAccessToken(req, res);
     });
 }
-function create(req, res) {
+
+function create(req,res){
     VerifyUtils
         .verifyProtectRequest(req)
         .then(data => {
@@ -52,8 +53,8 @@ function create(req, res) {
                 Handler.unAuthorizedAdminRole(req, res);
                 return;
             }
-            let feature = req.body;
-            Feature.create(feature)
+            let tag = req.body;
+            Tag.create(tag)
                 .then(data => {
                     res.status(200).json(new ResponseModel({
                         code: 200,
@@ -64,14 +65,43 @@ function create(req, res) {
                     }));
                 })
                 .catch(error => {
-                    handlingCannotCreateFeature(req, res);
+                    handlingCannotCreateTag(req, res);
                 })
         })
         .catch(error => {
             Handler.invalidAccessToken(req, res);
         });
 }
-function update(req, res) {
+function update(req,res){
+    VerifyUtils
+    .verifyProtectRequest(req)
+    .then(data => {
+        if (data.user.role != 'admin') {
+            Handler.unAuthorizedAdminRole(req, res);
+            return;
+        }
+        let tag = req.body;
+        let tag_id = req.body.id;
+        Tag.update(tag, { where: { id: tag_id } })
+            .then(data => {
+                res.status(200).json(new ResponseModel({
+                    code: 200,
+                    status_text: 'OK',
+                    success: true,
+                    data: data,
+                    errors: null
+                }));
+            })
+            .catch(error => {
+                handlingCannotUpdateTag(req, res);
+            });
+
+    })
+    .catch(error => {
+        Handler.invalidAccessToken(req, res);
+    });
+}
+function destroy(req,res){
     VerifyUtils
         .verifyProtectRequest(req)
         .then(data => {
@@ -79,39 +109,9 @@ function update(req, res) {
                 Handler.unAuthorizedAdminRole(req, res);
                 return;
             }
-            let feature = req.body;
-            let feature_id = req.body.id;
-            Feature.update(feature, { where: { id: feature_id } })
-                .then(data => {
-                    res.status(200).json(new ResponseModel({
-                        code: 200,
-                        status_text: 'OK',
-                        success: true,
-                        data: data,
-                        errors: null
-                    }));
-                })
-                .catch(error => {
-                    handlingCannotUpdateFeature(req, res);
-                });
-
-        })
-        .catch(error => {
-            Handler.invalidAccessToken(req, res);
-        });
-}
-
-function destroy(req, res) {
-    VerifyUtils
-        .verifyProtectRequest(req)
-        .then(data => {
-            if (data.user.role != 'admin') {
-                Handler.unAuthorizedAdminRole(req, res);
-                return;
-            }
-            let feature_id = req.query.id;
-            Feature.destroy({
-                where: { id: feature_id }
+            let tag_id = req.query.id;
+            Tag.destroy({
+                where: { id: tag_id }
             })
                 .then(data => {
                     res.status(200).json(new ResponseModel({
@@ -123,48 +123,48 @@ function destroy(req, res) {
                     }));
                 })
                 .catch(error => {
-                    handlingCannotDestroyFeature(req, res);
+                    handlingCannotDestroyTag(req, res);
                 });
         })
         .catch(error => {
             Hander.invalidAccessToken(req, res);
         });
 }
-function handlingCanotGetAllFeature(req,res){
+function handlingCanotGetAllTag(req,res){
     res.status(503).json(new ResponseModel({
         code: 503,
         status_text: 'SERVICE UNAVAILABLE',
         success: false,
         data: null,
-        errors: [getMessage(req, 'can_not_get_feature')]
+        errors: [getMessage(req, 'can_not_get_tag')]
     }));
 }
-function handlingCannotCreateFeature(req, res) {
+function handlingCannotCreateTag(req,res){
     res.status(503).json(new ResponseModel({
         code: 503,
         status_text: 'SERVICE UNAVAILABLE',
         success: false,
         data: null,
-        errors: [getMessage(req, 'can_not_create_feature')]
+        errors: [getMessage(req, 'can_not_create_tag')]
     }));
 }
-function handlingCannotUpdateFeature(req, res) {
+function handlingCannotUpdateTag(req,res){
     res.status(503).json(new ResponseModel({
-        code: 503,
+        code:503,
         status_text: 'SERVICE UNAVAILABLE',
         success: false,
         data: null,
-        errors: [getMessage(req, 'can_not_update_feature')]
+        errors: [getMessage(req,'can_not_update_tag')]
     }));
 }
-function handlingCannotDestroyFeature(req, res) {
+function handlingCannotDestroyTag(req,res){
     res.status(503).json(new ResponseModel({
-        code: 503,
+        code:503,
         status_text: 'SERVICE UNAVAILABLE',
         success: false,
         data: null,
-        errors: [getMessage(req, 'can_not_delete_feature')]
-    }));
+        errors: [getMessage(req,'can_not_destroy_tag')]
+    }))
 }
 function errorVerifyApiKey(req,res){
     res.status(505).json(new ResponseModel({
@@ -175,6 +175,6 @@ function errorVerifyApiKey(req,res){
         errors: [getMessage(req, 'invalid_api_key')]
     }));
 }
-function getMessage(req, errorMessage) {
-    return MessageHelper.getMessage(req.query.lang || 'vi', errorMessage);
+function  getMessage(req,errorText){
+    return MessageHelper.getMessage(req.query.lang||'vi',errorText);
 }
