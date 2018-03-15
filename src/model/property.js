@@ -29,29 +29,6 @@ module.exports=(sequelize, DataTypes) =>{
             type: DataTypes.STRING,
             allowNull: false
         },
-        email:{
-            type: DataTypes.STRING,
-			allowNull: false,
-			unique: {
-				msg: 'Email already exists'
-			},
-			validate: {
-				len: {
-					args: [6, 128],
-					msg: 'Email address must be between 6 and 128 characters in length'
-				},
-				isEmail: {
-					msg: 'Email address must be valid'
-				}
-			}
-        },
-        phone:{
-            type: DataTypes.STRING,
-			allowNull: true,
-			validate: {
-				is: /^[+0-9]*$/i,
-			}
-        },
         price:{
             type: DataTypes.DOUBLE,
             allowNull: false
@@ -73,7 +50,9 @@ module.exports=(sequelize, DataTypes) =>{
             allowNull: false
         }
     },{
-		timestamps: false,
+		timestamps: true,
+		createdAt: 'date_created',
+		updatedAt: 'date_modified',
 		tableName: 'tbl_property'
     });
     

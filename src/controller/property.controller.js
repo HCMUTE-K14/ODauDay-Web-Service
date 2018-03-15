@@ -50,6 +50,7 @@ function create(req,res){
         .verifyProtectRequest(req)
         .then(data => {
             let property = req.body;
+            console.log(property);
             Property.create(property)
                 .then(data => {
                     res.status(200).json(new ResponseModel({
