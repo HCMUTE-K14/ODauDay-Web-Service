@@ -102,6 +102,38 @@
 	"can_not_destroy_property":{
 		"code":26,
 		"message":"Không thể xóa property"
+  },
+  "can_not_get_email_by_property":{
+		"code":27,
+		"message":"Không thể lấy email theo property"
+	},
+	"can_not_create_email":{
+		"code":28,
+		"message":"Không thể thêm email"
+	},
+	"can_not_update_email":{
+		"code":29,
+		"message":"Không thể cập nhật email"
+	},
+	"can_not_destroy_email":{
+		"code":30,
+		"message":"Không thể xóa email"
+  },
+  "can_not_get_phone_by_property":{
+		"code":31,
+		"message":"Không thể lấy phone theo property"
+	},
+	"can_not_create_phone":{
+		"code":32,
+		"message":"Không thể thêm phone"
+	},
+	"can_not_update_phone":{
+		"code":33,
+		"message":"Không thể cập nhật phone"
+	},
+	"can_not_destroy_phone":{
+		"code":34,
+		"message":"Không thể xóa phone"
 	},
     "please_check_email_to_active_account": {
         "code": 100,

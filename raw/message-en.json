@@ -103,6 +103,38 @@
 		"code":26,
 		"message":"Cannot destroy property"
 	},
+	"can_not_get_email_by_property":{
+		"code":27,
+		"message":"Cannot get email by property"
+	},
+	"can_not_create_email":{
+		"code":28,
+		"message":"Cannot create email"
+	},
+	"can_not_update_email":{
+		"code":29,
+		"message":"Cannot update email"
+	},
+	"can_not_destroy_email":{
+		"code":30,
+		"message":"Cannot destroy email"
+	},
+	"can_not_get_phone_by_property":{
+		"code":31,
+		"message":"Cannot get phone by property"
+	},
+	"can_not_create_phone":{
+		"code":32,
+		"message":"Cannot create phone"
+	},
+	"can_not_update_phone":{
+		"code":33,
+		"message":"Cannot update phone"
+	},
+	"can_not_destroy_phone":{
+		"code":34,
+		"message":"Cannot destroy phone"
+	},
 	"please_check_email_to_active_account": {
         "code": 100,
         "message": "You have registered successfully. Please check your email to activate your account"
