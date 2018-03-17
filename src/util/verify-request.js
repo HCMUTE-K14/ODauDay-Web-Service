@@ -38,6 +38,12 @@ function verifyProtectRequest(req) {
                                     data.user.role = userExists.role;
                                     resolve(data);
                                 })
+                                .catch(err => {
+                                    reject(new ErrorModel('Access token is invalid'));
+                                })
+                        })
+                        .catch(err => {
+                            reject(new ErrorModel('Access token is invalid'));
                         })
                 })
                 .catch(err => {
