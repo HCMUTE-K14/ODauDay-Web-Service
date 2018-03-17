@@ -23,6 +23,11 @@ Object.keys(db).forEach(modelName => {
 	}
 });
 
+
+Sequelize.Validator.notNull = function (item) {
+    return !this.isNull(item);
+};
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

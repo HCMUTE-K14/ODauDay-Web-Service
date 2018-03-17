@@ -4,10 +4,14 @@ const Config = require('../config');
 const Logger = require('../logger');
 const TextUtils = require('./text-utils');
 const User = require('../model/index').User;
+const ErrorModel = require('../util/error-model');
 
 const VerifyUtils = {};
 VerifyUtils.verifyPublicRequest = verifyPublicRequest;
 VerifyUtils.verifyProtectRequest = verifyProtectRequest;
+VerifyUtils.verifyWithSecretToken = verifyWithSecretToken;
+VerifyUtils.verifyApiKey = verifyApiKey;
+
 
 module.exports = VerifyUtils;
 
@@ -24,19 +28,27 @@ function verifyProtectRequest(req) {
         let userId = req.headers[Config.header.user_id];
 
         if (TextUtils.isEmpty(apiKey) || TextUtils.isEmpty(accessToken) || TextUtils.isEmpty(userId)) {
-            reject(new Error('Headers was wrong'));
+            reject(new ErrorModel('Access token is invalid'));
         } else {
             verifyApiKey(apiKey)
                 .then(success => {
                     User.findById(userId)
                         .then(userExists => {
-                            JWT.verify(accessToken, Config.secret_token, (err, data) => {
-                                if (err) {
-                                    reject(err);
-                                }
-                                resolve(data);
-                            });
+                            verifyWithSecretToken(accessToken)
+                                .then(data => {
+                                    data.user.role = userExists.role;
+                                    resolve(data);
+                                })
+                                .catch(err => {
+                                    reject(new ErrorModel('Access token is invalid'));
+                                })
                         })
+                        .catch(err => {
+                            reject(new ErrorModel('Access token is invalid'));
+                        })
+                })
+                .catch(err => {
+                    reject(new ErrorModel('Access token is invalid'));
                 })
         }
     });
@@ -45,13 +57,23 @@ function verifyProtectRequest(req) {
 function verifyApiKey(apiKey) {
     return new Promise((resolve, reject) => {
         if (TextUtils.isEmpty(apiKey)) {
-            reject();
+            reject(new ErrorModel('Apikey is invalid'));
         } else {
-            if (apiKey == Config.api_key) {
+            if (apiKey === Config.api_key) {
                 resolve(true);
-            } else {
-                resolve(false);
             }
+            reject(new ErrorModel('Apikey is invalid'));
         }
+    });
+}
+
+function verifyWithSecretToken(token) {
+    return new Promise((resolve, reject) => {
+        JWT.verify(token, Config.secret_token, (err, data) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(data);
+        });
     });
 }

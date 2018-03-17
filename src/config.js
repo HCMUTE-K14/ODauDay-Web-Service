@@ -38,7 +38,9 @@ const evnObject = Joi.object({
         EMAIL_CLIENT: Joi.string()
             .default('gmail'),
         EMAIL_USERNAME: Joi.string(),
-        EMAIL_PASSWORD: Joi.string()
+        EMAIL_PASSWORD: Joi.string(),
+        BASE_URL: Joi.string()
+            .default('http://localhost:8000')
     }).unknown()
     .required();
 
@@ -70,7 +72,9 @@ const config = {
         client: envVars.EMAIL_CLIENT,
         username: envVars.EMAIL_USERNAME,
         password: envVars.EMAIL_PASSWORD
-    }
+    },
+    base_url: envVars.BASE_URL,
+    root_folder: process.env.PWD
 };
 
 module.exports = config;

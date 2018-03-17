@@ -19,7 +19,7 @@ function getAll(req,res){
 
     let verify=await VerifyUtils.verifyPublicRequest(req);
     if(!verify){
-
+        
     }else{
 
     }

@@ -162,5 +162,85 @@
 	"unknown_message": {
 		"code": 1000,
 		"message": "Thông điệp không tìm thấy"
-	}
+	},
+    "email_already_exist": {
+        "code": 101,
+        "message": "Email đã tồn tại. Vui lòng chọn email khác"
+    },
+    "email_len": {
+        "code": 102,
+        "message": "Địa chỉ email phải có độ dài từ 6 đến 128 kí tự"
+    },
+    "email_is_invalid": {
+        "code": 103,
+        "message": "Email không hợp lệ"
+    },
+    "email_is_required": {
+        "code": 104,
+        "message": "Trường email là bắt buộc (không thể bỏ trống)"
+    },
+    "password_can_not_be_empty": {
+        "code": 105,
+        "message": "Mật khẩu không thể bỏ trống"
+    },
+    "password_len": {
+        "code": 106,
+        "message": "Mật khẩu có độ dài từ 6 đến 128 ký tự"
+    },
+    "password_is_required": {
+        "code": 107,
+        "message": "Trường mật khẩu là bắt buộc (không thể bỏ trống)"
+    },
+    "display_name_can_not_be_empty": {
+        "code": 108,
+        "message": "Tên hiển thị (Display name) không thể bỏ trống"
+    },
+    "display_name_maxinum_len": {
+        "code": 109,
+        "message": "Tên hiển thị (Display name) có độ dài tối đa 30 kí tự"
+    },
+    "display_name_is_required": {
+        "code": 110,
+        "message": "Trường tên hiển thị (Display name) là bắt buộc (không thể bỏ trống)"
+    },
+    "role_is_invalid": {
+        "code": 111,
+        "message": "Vai trò (role) không hợp lệ"
+    },
+    "status_is_invalid": {
+        "code": 112,
+        "message": "Trạng thái (status) không hợp lệ"
+    },
+     "update_user_fail": {
+        "code": 113,
+        "message": "Không thể cập nhật thông tin người dùng (user)"
+    },
+     "update_user_successful": {
+        "code": 114,
+        "message": "Thông tin cá nhân đã được cập nhật"
+    },
+    "update_user_request_invalid": {
+        "code": 115,
+        "message": "Yêu cầu cập nhật thông tin cá nhân không hợp lệ"
+    },
+     "cannot_register": {
+        "code": 116,
+        "message": "Tạo tài khoản thất bại. Vui lòng thử lại sau."
+    },
+     "please_check_email_cofirm_password":{
+        "code": 117,
+        "message": "Hãy kiểm tra email để xác nhận việc thay đổi mật khẩu"
+    },
+    "sent_mail_fail":{
+        "code": 118,
+        "message": "Gửi mail thất bại"
+    },
+    "message_not_found": {
+        "code": 1000,
+        "message": "Thông điệp không tìm thấy"
+    },
+    "database_is_down": {
+        "code": 1001,
+        "message": "Không thể kết nối đến cơ sở dữ liệu"
+    }
 }
