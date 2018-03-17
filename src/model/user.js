@@ -80,7 +80,9 @@ module.exports = (sequelize, DataTypes) => {
 			defaultValue: 'user',
 			validate: {
 				isIn: {
-					args: [['user', 'admin']],
+					args: [
+						['user', 'admin']
+					],
 					msg: JSON.stringify(MessageHelper.VI['role_is_invalid'])
 				}
 			}
@@ -91,7 +93,9 @@ module.exports = (sequelize, DataTypes) => {
 			defaultValue: 'pending',
 			validate: {
 				isIn: {
-					args: [['active', 'pending', 'disabled']],
+					args: [
+						['active', 'pending', 'disabled']
+					],
 					msg: JSON.stringify(MessageHelper.VI['status_is_invalid'])
 				}
 			}
@@ -105,6 +109,9 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		facebook_id: {
 			type: DataTypes.STRING
+		},
+		amount: {
+			type: DataTypes.DOUBLE
 		}
 	}, {
 		timestamps: true,
@@ -114,7 +121,10 @@ module.exports = (sequelize, DataTypes) => {
 	});
 
 	User.associate = function(models) {
-
+		User.belongsToMany(models.Property, {
+			through: 'Favorite',
+			as: 'favorites'
+		});
 	};
 
 	User.prototype.comparePassword = function(cadidatePassword) {
