@@ -35,12 +35,89 @@
 		"code":9,
 		"message":"Cannot destroy feature"
 	},
-	"please_check_email_to_active_account": {
-        "code": 100,
-        "message": "You have registered successfully. Please check your email to activate your account"
+    "email_already_exist":{
+        "code": 101,
+        "message": "Email already exist"
+    },
+    "email_len": {
+        "code": 102,
+        "message": "Email address must be between 6 and 128 characters in length"
+    },
+    "email_is_invalid": {
+        "code": 103,
+        "message": "Email is invalid"
+    },
+    "email_is_required": {
+        "code": 104,
+        "message": "Email is required"
+    },
+    "password_can_not_be_empty":{
+        "code": 105,
+        "message": "Password can not be empty"
+    },
+    "password_len":{
+        "code": 106,
+        "message": "Password must be between 6 and 128 characters in length"
+    },
+    "password_is_required":{
+        "code":107,
+        "message": "Password is required"
+    },
+    "display_name_can_not_be_empty": {
+        "code": 108,
+        "message": "Display name can not be empty"
+    },
+    "display_name_maxinum_len":{
+        "code": 109,
+        "message": "Display name has maxinum 30 characters"
+    },
+    "display_name_is_required": {
+        "code":110,
+        "message": "Display name is required"
+    },
+    "role_is_invalid": {
+        "code": 111,
+        "message": "Role is invalid"
+    },
+    "status_is_invalid": {
+        "code": 112,
+        "message": "Status is invalid"
+    },
+    "update_user_fail": {
+        "code": 113,
+        "message": "Can not update user"
+    },
+    "update_user_successful": {
+        "code": 114,
+        "message": "Your profile updated successfully"
+    },
+    "update_user_request_invalid": {
+        "code": 115,
+        "message": "Invalid update profile request"
+    },
+    "cannot_register": {
+        "code": 116,
+        "message": "Register failed. Please try later"
+    },
+    "please_check_email_cofirm_password":{
+        "code": 117,
+        "message": "Please check your email to confirm change password"
+    },
+    "sent_mail_fail":{
+        "code": 118,
+        "message": "Sent mail failure"
     },
     "message_not_found": {
         "code": 1000,
         "message": "Messgae not found"
-	}
+    },
+    "database_is_down": {
+        "code": 1001,
+        "message": "Database is down"
+    },
+    "unknown_message": {
+        "code": 1002,
+        "message": "Unknown"
+    }
 }
+
