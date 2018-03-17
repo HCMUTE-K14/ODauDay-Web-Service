@@ -4,7 +4,7 @@ const Message = require('../util/message/en');
 const Handler = require('./handling-helper');
 const VerifyUtils = require('../util/verify-request');
 const MessageHelper = require('../util/message/message-helper');
-
+const EmailController=require("./email.controller");
 const PropertyController={};
 
 PropertyController.getAll=getAll;
@@ -25,6 +25,7 @@ function getAll(req,res){
                 ]
             })
             .then(result=>{
+                
                 res.status(200).json(new ResponseModel({
                     code: 200,
                     status_text: 'OK',
@@ -50,7 +51,7 @@ function create(req,res){
         .verifyProtectRequest(req)
         .then(data => {
             let property = req.body;
-            console.log(property);
+            let emails=req.emails;
             Property.create(property)
                 .then(data => {
                     res.status(200).json(new ResponseModel({

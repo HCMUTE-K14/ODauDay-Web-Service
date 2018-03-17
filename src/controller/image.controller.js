@@ -1,63 +1,31 @@
-const Feature = require("../model/index").Feature;
+const Image = require("../model/index").Image;
 const ResponseModel = require('../util/response-model');
 const Message = require('../util/message/en');
 const Handler = require('./handling-helper');
 const VerifyUtils = require('../util/verify-request');
 const MessageHelper = require('../util/message/message-helper');
 
-const FeatureController = {};
+const ImageController = {};
 
-FeatureController.getAll=getAll;
-FeatureController.getFeatureByProperty=getFeatureByProperty;
-FeatureController.create = create;
-FeatureController.update = update;
-FeatureController.destroy = destroy;
+ImageController.getImageByProperty=getImageByProperty;
+ImageController.create = create;
+ImageController.update = update;
+ImageController.destroy = destroy;
 
-module.exports = FeatureController;
+module.exports = ImageController;
 
 
-function getAll(req,res){
-    VerifyUtils
-    .verifyPublicRequest(req)
-    .then(data=>{
-        if(data){
-            Feature.findAll({
-                order: [
-                    ['name', 'ASC']
-                ]
-            })
-            .then(result=>{
-                res.status(200).json(new ResponseModel({
-                    code: 200,
-                    status_text: 'OK',
-                    success: true,
-                    data: result,
-                    errors: null
-                }));
-            })
-            .catch(error=>{
-                handlingCanotGetAllFeature(req,res);
-            });
-        }else{
-            errorVerifyApiKey(req,res);
-        }
-    })
-    .catch(error=>{
-        Handler.invalidAccessToken(req, res);
-    });
-}
 
-function getFeatureByProperty(req,res){
+function getImageByProperty(req,res){
     VerifyUtils
     .verifyPublicRequest(req)
     .then(data=>{
         if(data){
             let property_id=req.query.property_id;
-            Feature.findAll({ where: { property_id: property_id },
-                order: [
-                    ['name', 'ASC']
-                ]
-            })
+            Image.findAll({ where: { property_id: property_id },
+                attributes: {
+                    include: ['id', 'url']
+                } })
             .then(result=>{
                 res.status(200).json(new ResponseModel({
                     code: 200,
@@ -68,7 +36,7 @@ function getFeatureByProperty(req,res){
                 }));
             })
             .catch(error=>{
-                handlingCanotGetFeatureByProperty(req,res);
+                handlingCanotGetImageByProperty(req,res);
             });
         }else{
             errorVerifyApiKey(req,res);
@@ -83,12 +51,8 @@ function create(req, res) {
     VerifyUtils
         .verifyProtectRequest(req)
         .then(data => {
-            if (data.user.role != 'admin') {
-                Handler.unAuthorizedAdminRole(req, res);
-                return;
-            }
-            let feature = req.body;
-            Feature.create(feature)
+            let image = req.body;
+            Image.create(image)
                 .then(data => {
                     res.status(200).json(new ResponseModel({
                         code: 200,
@@ -99,7 +63,7 @@ function create(req, res) {
                     }));
                 })
                 .catch(error => {
-                    handlingCannotCreateFeature(req, res);
+                    handlingCannotCreateImage(req, res);
                 })
         })
         .catch(error => {
@@ -110,13 +74,10 @@ function update(req, res) {
     VerifyUtils
         .verifyProtectRequest(req)
         .then(data => {
-            if (data.user.role != 'admin') {
-                Handler.unAuthorizedAdminRole(req, res);
-                return;
-            }
-            let feature = req.body;
-            let feature_id = req.body.id;
-            Feature.update(feature, { where: { id: feature_id } })
+           
+            let image = req.body;
+            let image_id = req.body.id;
+            Image.update(image, { where: { id: image_id } })
                 .then(data => {
                     res.status(200).json(new ResponseModel({
                         code: 200,
@@ -127,11 +88,12 @@ function update(req, res) {
                     }));
                 })
                 .catch(error => {
-                    handlingCannotUpdateFeature(req, res);
+                    handlingCannotUpdateImage(req, res);
                 });
 
         })
         .catch(error => {
+            console.log(error);
             Handler.invalidAccessToken(req, res);
         });
 }
@@ -140,13 +102,9 @@ function destroy(req, res) {
     VerifyUtils
         .verifyProtectRequest(req)
         .then(data => {
-            if (data.user.role != 'admin') {
-                Handler.unAuthorizedAdminRole(req, res);
-                return;
-            }
-            let feature_id = req.query.id;
-            Feature.destroy({
-                where: { id: feature_id }
+            let image_id = req.query.id;
+            Image.destroy({
+                where: { id: image_id }
             })
                 .then(data => {
                     res.status(200).json(new ResponseModel({
@@ -158,47 +116,38 @@ function destroy(req, res) {
                     }));
                 })
                 .catch(error => {
-                    handlingCannotDestroyFeature(req, res);
+                    handlingCannotDestroyImage(req, res);
                 });
         })
         .catch(error => {
             Hander.invalidAccessToken(req, res);
         });
 }
-function handlingCanotGetAllFeature(req,res){
+function handlingCannotCreateImage(req, res) {
     res.status(503).json(new ResponseModel({
         code: 503,
         status_text: 'SERVICE UNAVAILABLE',
         success: false,
         data: null,
-        errors: [getMessage(req, 'can_not_get_feature')]
+        errors: [getMessage(req, 'can_not_create_image')]
     }));
 }
-function handlingCannotCreateFeature(req, res) {
+function handlingCannotUpdateImage(req, res) {
     res.status(503).json(new ResponseModel({
         code: 503,
         status_text: 'SERVICE UNAVAILABLE',
         success: false,
         data: null,
-        errors: [getMessage(req, 'can_not_create_feature')]
+        errors: [getMessage(req, 'can_not_update_image')]
     }));
 }
-function handlingCannotUpdateFeature(req, res) {
+function handlingCannotDestroyImage(req, res) {
     res.status(503).json(new ResponseModel({
         code: 503,
         status_text: 'SERVICE UNAVAILABLE',
         success: false,
         data: null,
-        errors: [getMessage(req, 'can_not_update_feature')]
-    }));
-}
-function handlingCannotDestroyFeature(req, res) {
-    res.status(503).json(new ResponseModel({
-        code: 503,
-        status_text: 'SERVICE UNAVAILABLE',
-        success: false,
-        data: null,
-        errors: [getMessage(req, 'can_not_delete_feature')]
+        errors: [getMessage(req, 'can_not_delete_image')]
     }));
 }
 function handlingCanotGetFeatureByProperty(req,res){
@@ -207,7 +156,7 @@ function handlingCanotGetFeatureByProperty(req,res){
         status_text: 'SERVICE UNAVAILABLE',
         success: false,
         data: null,
-        errors: [getMessage(req, 'can_not_get_feature_by_property')]
+        errors: [getMessage(req, 'can_not_get_image_by_property')]
     }));
 }
 function errorVerifyApiKey(req,res){

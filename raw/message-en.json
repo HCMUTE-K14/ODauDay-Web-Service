@@ -15,132 +15,152 @@
 		"code": 4,
 		"message": "The username or password is incorrect"
 	},
-	"need_admin_role":{
+	"need_admin_role": {
 		"code": 5,
 		"message": "Admin role is unauthorized"
 	},
-	"can_not_get_users":{
+	"can_not_get_users": {
 		"code": 6,
 		"message": "Cannot get list users"
 	},
-	"can_not_create_feature":{
+	"can_not_create_feature": {
 		"code": 7,
 		"message": "Cannot create feature"
 	},
-	"can_not_update_feature":{
-		"code":8,
-		"message":"Cannot update feature"
+	"can_not_update_feature": {
+		"code": 8,
+		"message": "Cannot update feature"
 	},
-	"can_not_delete_feature":{
-		"code":9,
-		"message":"Cannot destroy feature"
+	"can_not_delete_feature": {
+		"code": 9,
+		"message": "Cannot destroy feature"
 	},
-	"can_not_create_tag":{
-		"code":10,
-		"message":"Cannot create tag"
+	"can_not_create_tag": {
+		"code": 10,
+		"message": "Cannot create tag"
 	},
-	"can_not_update_tag":{
-		 "code":11,
-		 "message":"Cannot update tag"
+	"can_not_update_tag": {
+		"code": 11,
+		"message": "Cannot update tag"
 	},
-	"can_not_destroy_tag":{
-		"code":12,
-		"message":"Cannot destroy tag"
+	"can_not_destroy_tag": {
+		"code": 12,
+		"message": "Cannot destroy tag"
 	},
-	"can_not_create_category":{
-		"code":13,
-		"message":"Cannot create category"
+	"can_not_create_category": {
+		"code": 13,
+		"message": "Cannot create category"
 	},
-	"can_not_update_category":{
-		"code":14,
-		"message":"Cannot update category"
+	"can_not_update_category": {
+		"code": 14,
+		"message": "Cannot update category"
 	},
-	"can_not_destroy_category":{
-		"code":15,
-		"message":"Cannot destroy category"
+	"can_not_destroy_category": {
+		"code": 15,
+		"message": "Cannot destroy category"
 	},
-	"can_not_get_feature":{
-		"code":16,
-		"message":"Cannot get feature"
+	"can_not_get_feature": {
+		"code": 16,
+		"message": "Cannot get feature"
 	},
-	"can_not_get_category":{
-		"code":17,
-		"message":"Cannot get Category"
+	"can_not_get_category": {
+		"code": 17,
+		"message": "Cannot get Category"
 	},
-	"can_not_get_tag":{
-		"code":18,
-		"message":"Cannot get Tag"
+	"can_not_get_tag": {
+		"code": 18,
+		"message": "Cannot get Tag"
 	},
-	"can_not_get_type":{
-		"code":19,
-		"message":"Cannot get Type"
+	"can_not_get_type": {
+		"code": 19,
+		"message": "Cannot get Type"
 	},
-	"can_not_create_type":{
-		"code":20,
-		"message":"Cannot create Type"
+	"can_not_create_type": {
+		"code": 20,
+		"message": "Cannot create Type"
 	},
-	"can_not_update_type":{
-		"code":21,
-		"message":"Cannot update Type"
+	"can_not_update_type": {
+		"code": 21,
+		"message": "Cannot update Type"
 	},
-	"can_not_destroy_type":{
-		"code":22,
-		"message":"Cannot destroy Type"
+	"can_not_destroy_type": {
+		"code": 22,
+		"message": "Cannot destroy Type"
 	},
-	"can_not_get_property":{
-		"code":23,
-		"message":"Cannot get property"
+	"can_not_get_property": {
+		"code": 23,
+		"message": "Cannot get property"
 	},
-	"can_not_create_property":{
-		"code":24,
-		"message":"Cannot create property"
+	"can_not_create_property": {
+		"code": 24,
+		"message": "Cannot create property"
 	},
-	"can_not_update_property":{
-		"code":25,
-		"message":"Cannot update property"
+	"can_not_update_property": {
+		"code": 25,
+		"message": "Cannot update property"
 	},
-	"can_not_destroy_property":{
-		"code":26,
-		"message":"Cannot destroy property"
+	"can_not_destroy_property": {
+		"code": 26,
+		"message": "Cannot destroy property"
 	},
-	"can_not_get_email_by_property":{
-		"code":27,
-		"message":"Cannot get email by property"
+	"can_not_get_email_by_property": {
+		"code": 27,
+		"message": "Cannot get email by property"
 	},
-	"can_not_create_email":{
-		"code":28,
-		"message":"Cannot create email"
+	"can_not_create_email": {
+		"code": 28,
+		"message": "Cannot create email"
 	},
-	"can_not_update_email":{
-		"code":29,
-		"message":"Cannot update email"
+	"can_not_update_email": {
+		"code": 29,
+		"message": "Cannot update email"
 	},
-	"can_not_destroy_email":{
-		"code":30,
-		"message":"Cannot destroy email"
+	"can_not_destroy_email": {
+		"code": 30,
+		"message": "Cannot destroy email"
 	},
-	"can_not_get_phone_by_property":{
-		"code":31,
-		"message":"Cannot get phone by property"
+	"can_not_get_phone_by_property": {
+		"code": 31,
+		"message": "Cannot get phone by property"
 	},
-	"can_not_create_phone":{
-		"code":32,
-		"message":"Cannot create phone"
+	"can_not_create_phone": {
+		"code": 32,
+		"message": "Cannot create phone"
 	},
-	"can_not_update_phone":{
-		"code":33,
-		"message":"Cannot update phone"
+	"can_not_update_phone": {
+		"code": 33,
+		"message": "Cannot update phone"
 	},
-	"can_not_destroy_phone":{
-		"code":34,
-		"message":"Cannot destroy phone"
+	"can_not_destroy_phone": {
+		"code": 34,
+		"message": "Cannot destroy phone"
+	},
+	"can_not_get_feature_by_property": {
+		"code": 35,
+		"message": "Cannot get feature by property"
+	},
+	"can_not_create_image": {
+		"code": 36,
+		"message": "Cannot create image"
+	},
+	"can_not_update_image": {
+		"code": 37,
+		"message": "Cannot update image"
+	},
+	"can_not_destroy_image": {
+		"code": 38,
+		"message": "Cannot destroy image"
+	},
+	"can_not_get_image_by_property": {
+		"code": 39,
+		"message": "Cannot get image by property"
 	},
 	"please_check_email_to_active_account": {
-        "code": 100,
-        "message": "You have registered successfully. Please check your email to activate your account"
-    },
-    "message_not_found": {
-        "code": 1000,
-        "message": "Messgae not found"
+		"code": 100,
+		"message": "You have registered successfully. Please check your email to activate your account"
+	},
+	"message_not_found": {
+		"code": 1000,
+		"message": "Messgae not found"
 	}
 }

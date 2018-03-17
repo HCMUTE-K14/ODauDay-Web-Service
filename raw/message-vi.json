@@ -1,146 +1,166 @@
 {
-    "invalid_api_key": {
-        "code": 1,
-        "message": "API Key không hợp lệ"
-    },
-    "invalid_access_token": {
-        "code": 2,
-        "message": "Access token không hợp lệ"
-    },
-    "user_not_exist": {
-        "code": 3,
-        "message": "Người dùng không tồn tại"
-    },
-    "login_failure": {
-        "code": 4,
-        "message": "Email hoặc mật khẩu không chính xác"
-    },
-    "need_admin_role": {
-        "code": 5,
-        "message": "Tài nguyên cần quyền của Admin"
-    },
-    "can_not_get_users": {
-        "code": 6,
-        "message": "Đã có lỗi xảy ra, không thể lấy được danh sách người dùng"
-    },
-    "can_not_create_feature":{
+	"invalid_api_key": {
+		"code": 1,
+		"message": "API Key không hợp lệ"
+	},
+	"invalid_access_token": {
+		"code": 2,
+		"message": "Access token không hợp lệ"
+	},
+	"user_not_exist": {
+		"code": 3,
+		"message": "Người dùng không tồn tại"
+	},
+	"login_failure": {
+		"code": 4,
+		"message": "Email hoặc mật khẩu không chính xác"
+	},
+	"need_admin_role": {
+		"code": 5,
+		"message": "Tài nguyên cần quyền của Admin"
+	},
+	"can_not_get_users": {
+		"code": 6,
+		"message": "Đã có lỗi xảy ra, không thể lấy được danh sách người dùng"
+	},
+	"can_not_create_feature": {
 		"code": 7,
 		"message": "Không tạo feature"
-    },
-    "can_not_update_feature":{
-		"code":8,
-		"message":"Không thể cập nhật feature"
-    },
-    "can_not_delete_feature":{
-		"code":9,
-		"message":"Không thể xóa feature"
-    },
-    "can_not_create_tag":{
-		"code":10,
-		"message":"Không thể tạo tag"
-    },
-    "can_not_update_tag":{
-        "code":11,
-        "message":"Không thể cập nhật tag"
-    },
-    "can_not_destroy_tag":{
-		"code":12,
-		"message":"Không thể xóa tag"
-    },
-    "can_not_create_category":{
-		"code":13,
-		"message":"Không thể tạo category"
 	},
-	"can_not_update_category":{
-		"code":14,
-		"message":"Không thể cập nhật category"
+	"can_not_update_feature": {
+		"code": 8,
+		"message": "Không thể cập nhật feature"
 	},
-	"can_not_destroy_category":{
-		"code":15,
-		"message":"Không thể xóa category"
-    },
-    "can_not_get_feature":{
-		"code":16,
-		"message":"Không thể lấy feature"
-    },
-    "can_not_get_category":{
-		"code":17,
-		"message":"Không thể lấy Category"
-    },
-    "can_not_get_tag":{
-		"code":18,
-		"message":"Không thể lấy Tag"
-    },
-    "can_not_get_type":{
-		"code":19,
-		"message":"Không thể lấy Type"
+	"can_not_delete_feature": {
+		"code": 9,
+		"message": "Không thể xóa feature"
 	},
-	"can_not_create_type":{
-		"code":20,
-		"message":"Không thể tạo Type"
+	"can_not_create_tag": {
+		"code": 10,
+		"message": "Không thể tạo tag"
 	},
-	"can_not_update_type":{
-		"code":21,
-		"message":"Không thể update Type"
+	"can_not_update_tag": {
+		"code": 11,
+		"message": "Không thể cập nhật tag"
 	},
-	"can_not_destroy_type":{
-		"code":22,
-		"message":"Không thể xóa Type"
-    },
-    "can_not_get_property":{
-		"code":23,
-		"message":"Không thể lấy property"
+	"can_not_destroy_tag": {
+		"code": 12,
+		"message": "Không thể xóa tag"
 	},
-	"can_not_create_property":{
-		"code":24,
-		"message":"Không thể tạo property"
+	"can_not_create_category": {
+		"code": 13,
+		"message": "Không thể tạo category"
 	},
-	"can_not_update_property":{
-		"code":25,
-		"message":"Không thể cập nhật property"
+	"can_not_update_category": {
+		"code": 14,
+		"message": "Không thể cập nhật category"
 	},
-	"can_not_destroy_property":{
-		"code":26,
-		"message":"Không thể xóa property"
-  },
-  "can_not_get_email_by_property":{
-		"code":27,
-		"message":"Không thể lấy email theo property"
+	"can_not_destroy_category": {
+		"code": 15,
+		"message": "Không thể xóa category"
 	},
-	"can_not_create_email":{
-		"code":28,
-		"message":"Không thể thêm email"
+	"can_not_get_feature": {
+		"code": 16,
+		"message": "Không thể lấy feature"
 	},
-	"can_not_update_email":{
-		"code":29,
-		"message":"Không thể cập nhật email"
+	"can_not_get_category": {
+		"code": 17,
+		"message": "Không thể lấy Category"
 	},
-	"can_not_destroy_email":{
-		"code":30,
-		"message":"Không thể xóa email"
-  },
-  "can_not_get_phone_by_property":{
-		"code":31,
-		"message":"Không thể lấy phone theo property"
+	"can_not_get_tag": {
+		"code": 18,
+		"message": "Không thể lấy Tag"
 	},
-	"can_not_create_phone":{
-		"code":32,
-		"message":"Không thể thêm phone"
+	"can_not_get_type": {
+		"code": 19,
+		"message": "Không thể lấy Type"
 	},
-	"can_not_update_phone":{
-		"code":33,
-		"message":"Không thể cập nhật phone"
+	"can_not_create_type": {
+		"code": 20,
+		"message": "Không thể tạo Type"
 	},
-	"can_not_destroy_phone":{
-		"code":34,
-		"message":"Không thể xóa phone"
+	"can_not_update_type": {
+		"code": 21,
+		"message": "Không thể update Type"
 	},
-    "please_check_email_to_active_account": {
-        "code": 100,
-        "message": "Bạn đã đăng ký thành công. Hãy kiểm tra tài khoản email để tiến hành kích hoạt tài khoản"
-    },
-    "unknown_message": {
-        "code": 1000,
-        "message": "Thông điệp không tìm thấy"
-    }
+	"can_not_destroy_type": {
+		"code": 22,
+		"message": "Không thể xóa Type"
+	},
+	"can_not_get_property": {
+		"code": 23,
+		"message": "Không thể lấy property"
+	},
+	"can_not_create_property": {
+		"code": 24,
+		"message": "Không thể tạo property"
+	},
+	"can_not_update_property": {
+		"code": 25,
+		"message": "Không thể cập nhật property"
+	},
+	"can_not_destroy_property": {
+		"code": 26,
+		"message": "Không thể xóa property"
+	},
+	"can_not_get_email_by_property": {
+		"code": 27,
+		"message": "Không thể lấy email theo property"
+	},
+	"can_not_create_email": {
+		"code": 28,
+		"message": "Không thể thêm email"
+	},
+	"can_not_update_email": {
+		"code": 29,
+		"message": "Không thể cập nhật email"
+	},
+	"can_not_destroy_email": {
+		"code": 30,
+		"message": "Không thể xóa email"
+	},
+	"can_not_get_phone_by_property": {
+		"code": 31,
+		"message": "Không thể lấy phone theo property"
+	},
+	"can_not_create_phone": {
+		"code": 32,
+		"message": "Không thể thêm phone"
+	},
+	"can_not_update_phone": {
+		"code": 33,
+		"message": "Không thể cập nhật phone"
+	},
+	"can_not_destroy_phone": {
+		"code": 34,
+		"message": "Không thể xóa phone"
+	},
+	"can_not_get_feature_by_property": {
+		"code": 35,
+		"message": "Không thể lấy feature theo property"
+	},
+	"can_not_create_image": {
+		"code": 36,
+		"message": "Không thể thêm hình ảnh"
+	},
+	"can_not_update_image": {
+		"code": 37,
+		"message": "Không thể cập nhật hình ảnh"
+	},
+	"can_not_destroy_image": {
+		"code": 38,
+		"message": "Không thể xóa hình ảnh"
+	},
+	"can_not_get_image_by_property": {
+		"code": 39,
+		"message": "Không thể lấy được hình ảnh theo property"
+	},
+	"please_check_email_to_active_account": {
+		"code": 100,
+		"message": "Bạn đã đăng ký thành công. Hãy kiểm tra tài khoản email để tiến hành kích hoạt tài khoản"
+	},
+	"unknown_message": {
+		"code": 1000,
+		"message": "Thông điệp không tìm thấy"
+	}
 }
