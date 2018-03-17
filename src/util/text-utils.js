@@ -18,10 +18,11 @@ TextUtils.generateTokenAccount = generateTokenAccount;
 TextUtils.generateLinkActivateAccount = generateLinkActivateAccount;
 TextUtils.generateLinkResendActivateAccount = generateLinkResendActivateAccount;
 TextUtils.generateLinkForgotPassword = generateLinkForgotPassword;
+
 module.exports = TextUtils;
 
 function isEmpty(str) {
-    return str === null || str.length === 0 || str === undefined;
+    return str === null || str === undefined || str.length === 0;
 }
 
 function hash(str) {
@@ -46,17 +47,17 @@ function hashMD5(str) {
         .digest("hex");
 }
 
-function generateLinkResendActivateAccount(email){
+function generateLinkResendActivateAccount(email) {
     return Config.base_url + '/users/resend-activation?email=' + email;
 }
 
-function generateLinkActivateAccount(user){
+function generateLinkActivateAccount(user) {
     let token = generateTokenAccount(user, 'active_account');
 
     return Config.base_url + '/users/active?token=' + token;
 }
 
-function generateLinkForgotPassword(user){
+function generateLinkForgotPassword(user) {
     let token = generateTokenAccount(user, 'forgot_password');
 
     return Config.base_url + '/users/confirm-password-change?token=' + token;
