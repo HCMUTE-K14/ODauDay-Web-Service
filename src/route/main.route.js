@@ -11,6 +11,6 @@ Router.get('/health-check', (req, res) => {
 
 Router.use('/users', UserRoutes);
 Router.use('/auth', AuthRoutes);
-Router.use('/admin', AdminRoutes);
+// Router.use('/admin', AdminRoutes);
 
 module.exports = Router;

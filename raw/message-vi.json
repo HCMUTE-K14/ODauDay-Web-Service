@@ -99,6 +99,10 @@
         "code": 118,
         "message": "Gửi mail thất bại"
     },
+    "user_is_disabled": {
+        "code": 119,
+        "message": "Tài khoản của bạn đã bị khóa"
+    },
     "message_not_found": {
         "code": 1000,
         "message": "Thông điệp không tìm thấy"

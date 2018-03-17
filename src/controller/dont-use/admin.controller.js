@@ -1,10 +1,10 @@
-const User = require('../model/index').User;
+const User = require('../../model/index').User;
 
-const ResponseModel = require('../util/response-model');
-const VerifyUtils = require('../util/verify-request');
-const MessageHelper = require('../util/message/message-helper');
+const ResponseModel = require('../../util/response-model');
+const VerifyUtils = require('../../util/verify-request');
+const MessageHelper = require('../../util/message/message-helper');
 
-const Handler = require('./handling-helper');
+const Handler = require('../handling-helper');
 
 const AdminController = {};
 AdminController.getUsers = getUsers;
