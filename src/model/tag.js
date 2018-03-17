@@ -15,11 +15,11 @@ module.exports=(sequelize, DataTypes) =>{
     });
     
     Tag.assosiate=function(models){
-        Tag.belongsToMany(models.Property, {
-            through: models.PropertyTag,
-            as: 'propertys',
-            foreignKey: 'tag_id'
-        });
+        // Tag.belongsToMany(models.Property, {
+        //     through: models.PropertyTag,
+        //     as: 'propertys',
+        //     foreignKey: 'tag_id'
+        // });
     };
 
     return Tag;

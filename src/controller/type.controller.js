@@ -14,121 +14,117 @@ TypeController.destroy=destroy;
 
 module.exports=TypeController;
 
-function getAll(req,res){
-    VerifyUtils
-    .verifyPublicRequest(req)
-    .then(data=>{
-        if(data){
-            Type.findAll({
-                order: [
+async function getAll(req,res){
+    try{
+        let verify=await VerifyUtils.verifyPublicRequest(req);
+        let data=await Type.findAll({order: [
                     ['name', 'ASC']
                 ]
-            })
-            .then(result=>{
-                res.status(200).json(new ResponseModel({
-                    code: 200,
-                    status_text: 'OK',
-                    success: true,
-                    data: result,
-                    errors: null
-                }));
-            })
-            .catch(error=>{
-                handlingCanotGetAllType(req,res);
-            });
-        }else{
-            errorVerifyApiKey(req,res);
-        }
-    })
-    .catch(error=>{
-        Handler.invalidAccessToken(req, res);
-    });
+        });
+
+        responseData(res,data);
+
+    }catch(error){
+        console.log(error);
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCanotGetAllType(req, res);
+		}
+    }
 }
 
-function create(req,res){
-    VerifyUtils
-        .verifyProtectRequest(req)
-        .then(data => {
-            if (data.user.role != 'admin') {
-                Handler.unAuthorizedAdminRole(req, res);
-                return;
-            }
-            let type = req.body;
-            Type.create(type)
-                .then(data => {
-                    res.status(200).json(new ResponseModel({
-                        code: 200,
-                        status_text: 'OK',
-                        success: true,
-                        data: data,
-                        errors: null
-                    }));
-                })
-                .catch(error => {
-                    handlingCannotCreateType(req, res);
-                })
-        })
-        .catch(error => {
-            Handler.invalidAccessToken(req, res);
-        });
+async function create(req,res){
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
+        if (verify.user.role != 'admin') {
+            Handler.unAuthorizedAdminRole(req, res);
+            return;
+        }
+        let type = req.body;
+        let data = await Type.create(type);
+        responseData(res,data);
+
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotCreateType(req, res);
+		}
+    }
 }
-function update(req,res){
-    VerifyUtils
-    .verifyProtectRequest(req)
-    .then(data => {
-        if (data.user.role != 'admin') {
+async function update(req,res){
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
+        if (verify.user.role != 'admin') {
             Handler.unAuthorizedAdminRole(req, res);
             return;
         }
         let type = req.body;
         let type_id = req.body.id;
-        Type.update(type, { where: { id: type_id } })
-            .then(data => {
-                res.status(200).json(new ResponseModel({
-                    code: 200,
-                    status_text: 'OK',
-                    success: true,
-                    data: data,
-                    errors: null
-                }));
-            })
-            .catch(error => {
-                handlingCannotUpdateType(req, res);
-            });
-
-    })
-    .catch(error => {
-        Handler.invalidAccessToken(req, res);
-    });
+        let data = await Type.update(type, { where: { id: type_id } })
+        if(data){
+            responseData(res,data);
+        }
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotUpdateType(req, res);
+		}
+    }
 }
-function destroy(req,res){
-    VerifyUtils
-        .verifyProtectRequest(req)
-        .then(data => {
-            if (data.user.role != 'admin') {
-                Handler.unAuthorizedAdminRole(req, res);
-                return;
-            }
-            let type_id = req.query.id;
-            Type.destroy({
-                where: { id: type_id }
-            })
-                .then(data => {
-                    res.status(200).json(new ResponseModel({
-                        code: 200,
-                        status_text: 'OK',
-                        success: true,
-                        data: data,
-                        errors: null
-                    }));
-                })
-                .catch(error => {
-                    handlingCannotDestroyType(req, res);
-                });
+async function destroy(req,res){
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
+        if (verify.user.role != 'admin') {
+            Handler.unAuthorizedAdminRole(req, res);
+            return;
+        }
+        let type_id = req.query.id;
+        let data = await Type.destroy({
+            where: { id: type_id }
         })
-        .catch(error => {
-            Hander.invalidAccessToken(req, res);
-        });
+        if(data){
+            responseData(res,data);
+        }
+        
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotDestroyTag(req, res);
+		}
+    }
+}
+function responseData(res,data){
+    res.status(200).json(new ResponseModel({
+        code: 200,
+        status_text: 'OK',
+        success: true,
+        data: data,
+        errors: null
+    }));
 }
 function handlingCanotGetAllType(req,res){
     res.status(503).json(new ResponseModel({

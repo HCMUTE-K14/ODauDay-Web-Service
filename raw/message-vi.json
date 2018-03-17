@@ -59,10 +59,6 @@
 		"code": 15,
 		"message": "Không thể xóa category"
 	},
-	"can_not_get_feature": {
-		"code": 16,
-		"message": "Không thể lấy feature"
-	},
 	"can_not_get_category": {
 		"code": 17,
 		"message": "Không thể lấy Category"
@@ -234,6 +230,10 @@
     "sent_mail_fail":{
         "code": 118,
         "message": "Gửi mail thất bại"
+    },
+    "user_is_disabled": {
+        "code": 119,
+        "message": "Tài khoản của bạn đã bị khóa"
     },
     "message_not_found": {
         "code": 1000,

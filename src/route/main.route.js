@@ -9,6 +9,9 @@ const CategoryRoutes=require("./category.route");
 const TypeRoutes=require("./type.route");
 const PropertyRoutes=require("./property.route");
 const AdminRoutes = require('./admin.route');
+const EmailRoutes=require("./email.route");
+const PhoneRoutes=require("./phone.route");
+const ImageRoutes=require("./image.route");
 
 Router.get('/health-check', (req, res) => {
 	res.send('OK');
@@ -22,5 +25,9 @@ Router.use("/category",CategoryRoutes);
 Router.use("/type",TypeRoutes);
 Router.use("/property",PropertyRoutes);
 Router.use('/admin', AdminRoutes);
+Router.use("/property/email",EmailRoutes);
+Router.use("/property/phone",PhoneRoutes);
+Router.use("/property/image",ImageRoutes);
+// Router.use('/admin', AdminRoutes);
 
 module.exports = Router;

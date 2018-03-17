@@ -15,128 +15,120 @@ CategoryController.destroy=destroy;
 module.exports=CategoryController;
 
 
-function getAll(req,res){
-
-    let verify=await VerifyUtils.verifyPublicRequest(req);
-    if(!verify){
+async function getAll(req,res){
+    try{
+        let verify=await VerifyUtils.verifyPublicRequest(req);
         
-    }else{
-
-    }
-
-    
-    VerifyUtils
-    .verifyPublicRequest(req)
-    .then(data=>{
-        if(data){
-            Category.findAll({
-                order: [
-                    ['name', 'ASC']
-                ]
-            })
-            .then(result=>{
-                res.status(200).json(new ResponseModel({
-                    code: 200,
-                    status_text: 'OK',
-                    success: true,
-                    data: result,
-                    errors: null
-                }));
-            })
-            .catch(error=>{
-                handlingCanotGetAllCategory(req,res);
-            });
-        }else{
-            errorVerifyApiKey(req,res);
-        }
-    })
-    .catch(error=>{
-        Handler.invalidAccessToken(req, res);
-    });
-}
-function create(req,res){
-    VerifyUtils
-    .verifyProtectRequest(req)
-    .then(data => {
-        if (data.user.role != 'admin') {
-            Handler.unAuthorizedAdminRole(req, res);
-            return;
-        }
-        let category = req.body;
-        Category.create(category)
-            .then(data => {
-                res.status(200).json(new ResponseModel({
-                    code: 200,
-                    status_text: 'OK',
-                    success: true,
-                    data: data,
-                    errors: null
-                }));
-            })
-            .catch(error => {
-                handlingCannotCreateCategory(req, res);
-            })
-    })
-    .catch(error => {
-        Handler.invalidAccessToken(req, res);
-    });
-}
-function update(req,res){
-    VerifyUtils
-    .verifyProtectRequest(req)
-    .then(data=>{
-        if (data.user.role != 'admin') {
-            Handler.unAuthorizedAdminRole(req, res);
-            return;
-        }
-        let category = req.body;
-        let categoey_id = req.body.id;
-        Category.update(category, { where: { id: categoey_id } })
-            .then(data => {
-                res.status(200).json(new ResponseModel({
-                    code: 200,
-                    status_text: 'OK',
-                    success: true,
-                    data: data,
-                    errors: null
-                }));
-            })
-            .catch(error => {
-                handlingCannotUpdateCategory(req, res);
-            });
-    })
-    .catch(error=>{
-        Handler.invalidAccessToken(req,res);
-    });
-}
-function destroy(req,res){
-    VerifyUtils
-        .verifyProtectRequest(req)
-        .then(data => {
-            if (data.user.role != 'admin') {
-                Handler.unAuthorizedAdminRole(req, res);
-                return;
-            }
-            let categoey_id = req.query.id;
-            Category.destroy({
-                where: { id: categoey_id }
-            })
-                .then(data => {
-                    res.status(200).json(new ResponseModel({
-                        code: 200,
-                        status_text: 'OK',
-                        success: true,
-                        data: data,
-                        errors: null
-                    }));
-                })
-                .catch(error => {
-                    handlingCannotDestroyCategory(req, res);
-                });
-        })
-        .catch(error => {
-            Hander.invalidAccessToken(req, res);
+        let data=await Category.findAll({
+            order: [
+                ['name', 'ASC']
+            ]
         });
+
+        responseData(res,data);
+
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCanotGetAllCategory(req, res);
+		}
+    }
+    
+}
+async function create(req,res){
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
+        if(verify.user.role!="admin"){
+            Handler.unAuthorizedAdminRole(req, res);
+            return;
+        }
+        let category = req.body;
+        let data = await Category.create(category);
+        responseData(res,data);
+
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotCreateCategory(req, res);
+		}
+    }
+}
+async function update(req,res){
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
+        if(verify.user.role!="admin"){
+            Handler.unAuthorizedAdminRole(req, res);
+            return;
+        }
+
+        let category = req.body;
+        let category_id = req.body.id;
+        let data = await Category.update(category, { where: { id: category_id } })
+        if(data){
+            responseData(res,data);
+        }
+        
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotUpdateCategory(req, res);
+		}
+    }
+}
+async function destroy(req,res){
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
+        if(verify.user.role!="admin"){
+            Handler.unAuthorizedAdminRole(req, res);
+            return;
+        }
+        let category_id = req.query.id;
+        let data = await Category.destroy({
+            where: { id: category_id }
+        })
+        if(data){
+            responseData(res,data);
+        }
+        
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotDestroyCategory(req, res);
+		}
+    }
+}
+function responseData(res,data){
+    res.status(200).json(new ResponseModel({
+        code: 200,
+        status_text: 'OK',
+        success: true,
+        data: data,
+        errors: null
+    }));
 }
 function handlingCanotGetAllCategory(req,res){
     res.status(503).json(new ResponseModel({

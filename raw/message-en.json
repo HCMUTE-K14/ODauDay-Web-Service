@@ -59,10 +59,6 @@
 		"code": 15,
 		"message": "Cannot destroy category"
 	},
-	"can_not_get_feature": {
-		"code": 16,
-		"message": "Cannot get feature"
-	},
 	"can_not_get_category": {
 		"code": 17,
 		"message": "Cannot get Category"
@@ -230,6 +226,22 @@
     "sent_mail_fail":{
         "code": 118,
         "message": "Sent mail failure"
+    },
+    "user_is_disabled": {
+        "code": 119,
+        "message": "Your account is disabled"
+    },
+    "code_premium_len":{
+        "code": 120,
+        "message": "Code must be between 6 and 10 characters in length"
+    },
+    "type_code_premium_invalid":{
+        "code": 121,
+        "message": "Type is invalid"
+    },
+    "status_code_premium_invalid":{
+        "code": 121,
+        "message": "Status is invalid"
     },
     "message_not_found": {
         "code": 1000,

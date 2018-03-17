@@ -28,8 +28,10 @@ function verifyProtectRequest(req) {
         let userId = req.headers[Config.header.user_id];
 
         if (TextUtils.isEmpty(apiKey) || TextUtils.isEmpty(accessToken) || TextUtils.isEmpty(userId)) {
+            console.log("Khong ahh");
             reject(new ErrorModel('Access token is invalid'));
         } else {
+           
             verifyApiKey(apiKey)
                 .then(success => {
                     User.findById(userId)
@@ -40,6 +42,7 @@ function verifyProtectRequest(req) {
                                     resolve(data);
                                 })
                                 .catch(err => {
+                                    console.log(err);
                                     reject(new ErrorModel('Access token is invalid'));
                                 })
                         })

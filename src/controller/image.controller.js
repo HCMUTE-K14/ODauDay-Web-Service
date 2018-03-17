@@ -16,112 +16,110 @@ module.exports = ImageController;
 
 
 
-function getImageByProperty(req,res){
-    VerifyUtils
-    .verifyPublicRequest(req)
-    .then(data=>{
+async function getImageByProperty(req,res){
+    try{
+        let verify=await VerifyUtils.verifyPublicRequest(req);
+
+        let property_id=req.query.property_id;
+        let data=await Image.findAll({
+            where: { property_id: property_id },
+            attributes:['id', 'url']
+        });
+
+        responseData(res,data);
+
+    }catch(error){
+        console.log(error);
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotGetImageByProperty(req, res);
+		}
+    }
+}
+
+async function create(req, res) {
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
+
+        let image = req.body;
+        let data = await Image.create(image);
+        responseData(res,data);
+
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotCreateImage(req, res);
+		}
+    }
+}
+async function update(req, res) {
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
+        let image = req.body;
+        let image_id = req.body.id;
+        let data = await Image.update(image, { where: { id: image_id } })
         if(data){
-            let property_id=req.query.property_id;
-            Image.findAll({ where: { property_id: property_id },
-                attributes: {
-                    include: ['id', 'url']
-                } })
-            .then(result=>{
-                res.status(200).json(new ResponseModel({
-                    code: 200,
-                    status_text: 'OK',
-                    success: true,
-                    data: result,
-                    errors: null
-                }));
-            })
-            .catch(error=>{
-                handlingCanotGetImageByProperty(req,res);
-            });
-        }else{
-            errorVerifyApiKey(req,res);
+            responseData(res,data);
         }
-    })
-    .catch(error=>{
-        Handler.invalidAccessToken(req, res);
-    });
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotUpdateImage(req, res);
+		}
+    }
 }
 
-function create(req, res) {
-    VerifyUtils
-        .verifyProtectRequest(req)
-        .then(data => {
-            let image = req.body;
-            Image.create(image)
-                .then(data => {
-                    res.status(200).json(new ResponseModel({
-                        code: 200,
-                        status_text: 'OK',
-                        success: true,
-                        data: data,
-                        errors: null
-                    }));
-                })
-                .catch(error => {
-                    handlingCannotCreateImage(req, res);
-                })
-        })
-        .catch(error => {
-            Handler.invalidAccessToken(req, res);
-        });
-}
-function update(req, res) {
-    VerifyUtils
-        .verifyProtectRequest(req)
-        .then(data => {
-           
-            let image = req.body;
-            let image_id = req.body.id;
-            Image.update(image, { where: { id: image_id } })
-                .then(data => {
-                    res.status(200).json(new ResponseModel({
-                        code: 200,
-                        status_text: 'OK',
-                        success: true,
-                        data: data,
-                        errors: null
-                    }));
-                })
-                .catch(error => {
-                    handlingCannotUpdateImage(req, res);
-                });
+async function destroy(req, res) {
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
 
+        let image_id = req.query.id;
+        let data = await Image.destroy({
+            where: { id: image_id }
         })
-        .catch(error => {
-            console.log(error);
-            Handler.invalidAccessToken(req, res);
-        });
+        if(data){
+            responseData(res,data);
+        }
+        
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotDestroyImage(req, res);
+		}
+    }
 }
-
-function destroy(req, res) {
-    VerifyUtils
-        .verifyProtectRequest(req)
-        .then(data => {
-            let image_id = req.query.id;
-            Image.destroy({
-                where: { id: image_id }
-            })
-                .then(data => {
-                    res.status(200).json(new ResponseModel({
-                        code: 200,
-                        status_text: 'OK',
-                        success: true,
-                        data: data,
-                        errors: null
-                    }));
-                })
-                .catch(error => {
-                    handlingCannotDestroyImage(req, res);
-                });
-        })
-        .catch(error => {
-            Hander.invalidAccessToken(req, res);
-        });
+function responseData(res,data){
+    res.status(200).json(new ResponseModel({
+        code: 200,
+        status_text: 'OK',
+        success: true,
+        data: data,
+        errors: null
+    }));
 }
 function handlingCannotCreateImage(req, res) {
     res.status(503).json(new ResponseModel({
@@ -150,7 +148,7 @@ function handlingCannotDestroyImage(req, res) {
         errors: [getMessage(req, 'can_not_delete_image')]
     }));
 }
-function handlingCanotGetFeatureByProperty(req,res){
+function handlingCannotGetImageByProperty(req,res){
     res.status(503).json(new ResponseModel({
         code: 503,
         status_text: 'SERVICE UNAVAILABLE',

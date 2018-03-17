@@ -6,7 +6,6 @@ const Router = Express.Router();
 
 Router.route('/')
     .get(FeatureController.getFeatureByProperty)
-    .get(FeatureController.getAll)
     .post(FeatureController.create)
     .put(FeatureController.update)
     .delete(FeatureController.destroy)

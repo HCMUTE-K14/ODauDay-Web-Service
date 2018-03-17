@@ -14,82 +14,106 @@ EmailController.destroy = destroy;
 
 module.exports = EmailController;
 
-function getEmailByProperty(property_id) {
-    Email.findAll({
-        where: { property_id: property_id },
-        attributes: {
-            include: ['id', 'url']
-        }
-    })
-        .then(data => {
-            return data;
-        })
-        .catch(error => {
-            throw error;
-        })
-}
-function create(emails) {
-    Email.create(email)
-        .then(data => {
-            return data;
-        })
-        .catch(error => {
-            throw error;
+async function getEmailByProperty(req,res) {
+    try{
+        let verify=await VerifyUtils.verifyPublicRequest(req);
+        let property_id=req.query.property_id;
+        let data=await Email.findAll({
+            where: { property_id: property_id }
         });
-}
-function update(req, res) {
-    VerifyUtils
-        .verifyProtectRequest(req)
-        .then(data => {
-            let email = req.body;
-            let email_id = req.body.id;
-            Email.update(email, { where: { id: email_id } })
-                .then(data => {
-                    res.status(200).json(new ResponseModel({
-                        code: 200,
-                        status_text: 'OK',
-                        success: true,
-                        data: data,
-                        errors: null
-                    }));
-                })
-                .catch(error => {
-                    handlingCannotUpdateEmail(req, res);
-                });
 
-        })
-        .catch(error => {
-            Handler.invalidAccessToken(req, res);
-        });
+        responseData(res,data);
+
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCanotGetEmailByProperty(req, res);
+		}
+    }
 }
-function destroy(req, res) {
-    VerifyUtils
-        .verifyProtectRequest(req)
-        .then(data => {
-            // if (data.user.role != 'admin') {
-            //     Handler.unAuthorizedAdminRole(req, res);
-            //     return;
-            // }
-            let email_id = req.query.id;
-            Email.destroy({
-                where: { id: email_id }
-            })
-                .then(data => {
-                    res.status(200).json(new ResponseModel({
-                        code: 200,
-                        status_text: 'OK',
-                        success: true,
-                        data: data,
-                        errors: null
-                    }));
-                })
-                .catch(error => {
-                    handlingCannotDestroyEmail(req, res);
-                });
+async function create(req,res) {
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
+
+        let email = req.body;
+        let data = await Email.create(email);
+        responseData(res,data);
+
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotCreateEmail(req, res);
+		}
+    }
+}
+async function update(req, res) {
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
+        let email = req.body;
+        let email_id = req.body.id;
+        let data = await Email.update(email, { where: { id: email_id } })
+        if(data){
+            responseData(res,data);
+        }
+        
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotUpdateCategory(req, res);
+		}
+    }
+}
+async function destroy(req, res) {
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
+
+        let email_id = req.query.id;
+        let data = await Email.destroy({
+            where: { id: email_id }
         })
-        .catch(error => {
-            Hander.invalidAccessToken(req, res);
-        });
+        if(data){
+            responseData(res,data);
+        }
+        
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotDestroyCategory(req, res);
+		}
+    }
+}
+function responseData(res,data){
+    res.status(200).json(new ResponseModel({
+        code: 200,
+        status_text: 'OK',
+        success: true,
+        data: data,
+        errors: null
+    }));
 }
 function handlingCanotGetEmailByProperty(req, res) {
     res.status(503).json(new ResponseModel({

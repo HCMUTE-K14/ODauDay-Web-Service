@@ -56,11 +56,16 @@ module.exports = (sequelize, DataTypes) => {
 		tableName: 'tbl_property'
     });  
     Property.assosiate=function(models){
-        Property.belongsToMany(models.Tag, {
-            through: models.PropertyTag,
-            as: 'tags',
-            foreignKey: 'property_id'
-        });
+        // Property.belongsToMany(models.Tag, {
+        //     through: models.PropertyTag,
+        //     as: 'tags',
+        //     foreignKey: 'property_id'
+		// });
+		// Property.belongsToMany(models.Category, {
+        //     through: models.PropertyCategory,
+        //     as: 'categorys',
+        //     foreignKey: 'property_id'
+		// });
     };
     return Property;
 }

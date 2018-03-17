@@ -14,118 +14,108 @@ PhoneController.destroy=destroy;
 
 module.exports=PhoneController;
 
-function getPhoneByProperty(req,res){
-    VerifyUtils
-    .verifyPublicRequest(req)
-    .then(data=>{
-        if(data){
-            let property_id=req.query.property_id;
-            Phone.findAll({ where: { property_id: property_id } })
-            .then(result=>{
-                res.status(200).json(new ResponseModel({
-                    code: 200,
-                    status_text: 'OK',
-                    success: true,
-                    data: result,
-                    errors: null
-                }));
-            })
-            .catch(error=>{
-                handlingCanotGetPhoneByProperty(req,res);
-            });
-        }else{
-            errorVerifyApiKey(req,res);
-        }
-    })
-    .catch(error=>{
-        Handler.invalidAccessToken(req, res);
-    });
+async function getPhoneByProperty(req,res){
+    try{
+        let verify=await VerifyUtils.verifyPublicRequest(req);
+
+        let property_id=req.query.property_id;
+        let data=await Phone.findAll({
+            where: { property_id: property_id }
+        });
+
+        responseData(res,data);
+
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCanotGetPhoneByProperty(req, res);
+		}
+    }
 }
 
-function create(req,res){
-    VerifyUtils
-        .verifyProtectRequest(req)
-        .then(data => {
-            // if (data.user.role != 'admin') {
-            //     Handler.unAuthorizedAdminRole(req, res);
-            //     return;
-            // }
-            let phone = req.body;
-            Phone.create(phone)
-                .then(data => {
-                    res.status(200).json(new ResponseModel({
-                        code: 200,
-                        status_text: 'OK',
-                        success: true,
-                        data: data,
-                        errors: null
-                    }));
-                })
-                .catch(error => {
-                    handlingCannotCreatePhone(req, res);
-                })
-        })
-        .catch(error => {
-            Handler.invalidAccessToken(req, res);
-        });
+async function create(req,res){
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
+
+        let phone = req.body;
+        let data = await Phone.create(phone);
+        responseData(res,data);
+
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotCreatePhone(req, res);
+		}
+    }
 }
-function update(req,res){
-    VerifyUtils
-    .verifyProtectRequest(req)
-    .then(data => {
-        // if (data.user.role != 'admin') {
-        //     Handler.unAuthorizedAdminRole(req, res);
-        //     return;
-        // }
+async function update(req,res){
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
         let phone = req.body;
         let phone_id = req.body.id;
-        Phone.update(phone, { where: { id: phone_id } })
-            .then(data => {
-                res.status(200).json(new ResponseModel({
-                    code: 200,
-                    status_text: 'OK',
-                    success: true,
-                    data: data,
-                    errors: null
-                }));
-            })
-            .catch(error => {
-                handlingCannotUpdatePhone(req, res);
-            });
-
-    })
-    .catch(error => {
-        Handler.invalidAccessToken(req, res);
-    });
+        let data = await Phone.update(phone, { where: { id: phone_id } })
+        if(data){
+            responseData(res,data);
+        }
+        
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotUpdatePhone(req, res);
+		}
+    }
 }
-function destroy(req,res){
-    VerifyUtils
-        .verifyProtectRequest(req)
-        .then(data => {
-            // if (data.user.role != 'admin') {
-            //     Handler.unAuthorizedAdminRole(req, res);
-            //     return;
-            // }
-            let phone_id = req.query.id;
-            Phone.destroy({
-                where: { id: phone_id }
-            })
-                .then(data => {
-                    res.status(200).json(new ResponseModel({
-                        code: 200,
-                        status_text: 'OK',
-                        success: true,
-                        data: data,
-                        errors: null
-                    }));
-                })
-                .catch(error => {
-                    handlingCannotDestroyPhone(req, res);
-                });
+async function destroy(req,res){
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
+
+        let phone_id = req.query.id;
+        let data = await Phone.destroy({
+            where: { id: phone_id }
         })
-        .catch(error => {
-            Hander.invalidAccessToken(req, res);
-        });
+        if(data){
+            responseData(res,data);
+        }
+        
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotDestroyPhone(req, res);
+		}
+    }
+}
+function responseData(res,data){
+    res.status(200).json(new ResponseModel({
+        code: 200,
+        status_text: 'OK',
+        success: true,
+        data: data,
+        errors: null
+    }));
 }
 function handlingCanotGetPhoneByProperty(req,res){
     res.status(503).json(new ResponseModel({

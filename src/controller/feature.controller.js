@@ -7,7 +7,6 @@ const MessageHelper = require('../util/message/message-helper');
 
 const FeatureController = {};
 
-FeatureController.getAll=getAll;
 FeatureController.getFeatureByProperty=getFeatureByProperty;
 FeatureController.create = create;
 FeatureController.update = update;
@@ -16,162 +15,109 @@ FeatureController.destroy = destroy;
 module.exports = FeatureController;
 
 
-function getAll(req,res){
-    VerifyUtils
-    .verifyPublicRequest(req)
-    .then(data=>{
+async function getFeatureByProperty(req,res){
+    try{
+        let verify=await VerifyUtils.verifyPublicRequest(req);
+        let property_id=req.query.property_id;
+        let data=await Feature.findAll({
+            where: { property_id: property_id },
+            order: [
+                ['name', 'ASC']
+            ]
+        });
+        responseData(res,data);
+
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCanotGetFeatureByProperty(req, res);
+		}
+    }
+}
+
+async function create(req, res) {
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
+
+        let feature = req.body;
+        let data = await Feature.create(feature);
+        responseData(res, data);
+
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotCreateFeature(req, res);
+		}
+    }
+}
+async function update(req, res) {
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
+        let feature = req.body;
+        let feature_id = req.body.id;
+        let data = await Feature.update(feature, { where: { id: feature_id } })
         if(data){
-            Feature.findAll({
-                order: [
-                    ['name', 'ASC']
-                ]
-            })
-            .then(result=>{
-                res.status(200).json(new ResponseModel({
-                    code: 200,
-                    status_text: 'OK',
-                    success: true,
-                    data: result,
-                    errors: null
-                }));
-            })
-            .catch(error=>{
-                handlingCanotGetAllFeature(req,res);
-            });
-        }else{
-            errorVerifyApiKey(req,res);
+            responseData(res,data);
         }
-    })
-    .catch(error=>{
-        Handler.invalidAccessToken(req, res);
-    });
+        
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotUpdateFeature(req, res);
+		}
+    }
 }
 
-function getFeatureByProperty(req,res){
-    VerifyUtils
-    .verifyPublicRequest(req)
-    .then(data=>{
+async function destroy(req, res) {
+    try{
+        let verify=await VerifyUtils.verifyProtectRequest(req);
+
+        let feature_id = req.query.id;
+        let data = await Feature.destroy({
+            where: { id: feature_id }
+        })
         if(data){
-            let property_id=req.query.property_id;
-            Feature.findAll({ where: { property_id: property_id },
-                order: [
-                    ['name', 'ASC']
-                ]
-            })
-            .then(result=>{
-                res.status(200).json(new ResponseModel({
-                    code: 200,
-                    status_text: 'OK',
-                    success: true,
-                    data: result,
-                    errors: null
-                }));
-            })
-            .catch(error=>{
-                handlingCanotGetFeatureByProperty(req,res);
-            });
-        }else{
-            errorVerifyApiKey(req,res);
+            responseData(res,data);
         }
-    })
-    .catch(error=>{
-        Handler.invalidAccessToken(req, res);
-    });
+        
+    }catch(error){
+        if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotDestroyFeature(req, res);
+		}
+    }
 }
-
-function create(req, res) {
-    VerifyUtils
-        .verifyProtectRequest(req)
-        .then(data => {
-            if (data.user.role != 'admin') {
-                Handler.unAuthorizedAdminRole(req, res);
-                return;
-            }
-            let feature = req.body;
-            Feature.create(feature)
-                .then(data => {
-                    res.status(200).json(new ResponseModel({
-                        code: 200,
-                        status_text: 'OK',
-                        success: true,
-                        data: data,
-                        errors: null
-                    }));
-                })
-                .catch(error => {
-                    handlingCannotCreateFeature(req, res);
-                })
-        })
-        .catch(error => {
-            Handler.invalidAccessToken(req, res);
-        });
-}
-function update(req, res) {
-    VerifyUtils
-        .verifyProtectRequest(req)
-        .then(data => {
-            if (data.user.role != 'admin') {
-                Handler.unAuthorizedAdminRole(req, res);
-                return;
-            }
-            let feature = req.body;
-            let feature_id = req.body.id;
-            Feature.update(feature, { where: { id: feature_id } })
-                .then(data => {
-                    res.status(200).json(new ResponseModel({
-                        code: 200,
-                        status_text: 'OK',
-                        success: true,
-                        data: data,
-                        errors: null
-                    }));
-                })
-                .catch(error => {
-                    handlingCannotUpdateFeature(req, res);
-                });
-
-        })
-        .catch(error => {
-            Handler.invalidAccessToken(req, res);
-        });
-}
-
-function destroy(req, res) {
-    VerifyUtils
-        .verifyProtectRequest(req)
-        .then(data => {
-            if (data.user.role != 'admin') {
-                Handler.unAuthorizedAdminRole(req, res);
-                return;
-            }
-            let feature_id = req.query.id;
-            Feature.destroy({
-                where: { id: feature_id }
-            })
-                .then(data => {
-                    res.status(200).json(new ResponseModel({
-                        code: 200,
-                        status_text: 'OK',
-                        success: true,
-                        data: data,
-                        errors: null
-                    }));
-                })
-                .catch(error => {
-                    handlingCannotDestroyFeature(req, res);
-                });
-        })
-        .catch(error => {
-            Hander.invalidAccessToken(req, res);
-        });
-}
-function handlingCanotGetAllFeature(req,res){
-    res.status(503).json(new ResponseModel({
-        code: 503,
-        status_text: 'SERVICE UNAVAILABLE',
-        success: false,
-        data: null,
-        errors: [getMessage(req, 'can_not_get_feature')]
+function responseData(res,data){
+    res.status(200).json(new ResponseModel({
+        code: 200,
+        status_text: 'OK',
+        success: true,
+        data: data,
+        errors: null
     }));
 }
 function handlingCannotCreateFeature(req, res) {
