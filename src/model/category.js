@@ -14,12 +14,12 @@ module.exports=(sequelize, DataTypes) =>{
 		tableName: 'tbl_category'
     });
     
-    Category.assosiate=function(models){
-        // Category.belongsToMany(models.Property, {
-        //     through: models.PropertyCategory,
-        //     as: 'propertys',
-        //     foreignKey: 'category_id'
-		// });
+    Category.associate=function(models){
+        Category.belongsToMany(models.Property, {
+            through: models.PropertyCategory,
+            as: 'propertys',
+            foreignKey: 'category_id'
+		});
     };
 
     return Category;

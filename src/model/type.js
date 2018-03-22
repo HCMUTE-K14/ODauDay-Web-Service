@@ -14,8 +14,12 @@ module.exports=(sequelize, DataTypes) =>{
 		tableName: 'tbl_type'
     });
     
-    Type.assosiate=function(model){
-
+    Type.associate=function(models){
+        Type.belongsToMany(models.Property, {
+            through: models.PropertyType,
+            as: 'propertys',
+            foreignKey: 'type_id'
+		});
     };
 
     return Type;

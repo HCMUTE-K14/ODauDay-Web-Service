@@ -55,17 +55,26 @@ module.exports = (sequelize, DataTypes) => {
 		updatedAt: 'date_modified',
 		tableName: 'tbl_property'
     });  
-    Property.assosiate=function(models){
-        // Property.belongsToMany(models.Tag, {
-        //     through: models.PropertyTag,
-        //     as: 'tags',
-        //     foreignKey: 'property_id'
-		// });
-		// Property.belongsToMany(models.Category, {
-        //     through: models.PropertyCategory,
-        //     as: 'categorys',
-        //     foreignKey: 'property_id'
-		// });
+    Property.associate=function(models){
+    	Property.belongsToMany(models.Tag, {
+            through: models.PropertyTag,
+            as: 'tags',
+    	    foreignKey: 'property_id'
+		});
+		Property.belongsToMany(models.Category, {
+            through: models.PropertyCategory,
+            as: 'categorys',
+            foreignKey: 'property_id'
+		});
+		Property.belongsToMany(models.Type, {
+            through: models.PropertyType,
+            as: 'types',
+            foreignKey: 'property_id'
+		});
+		Property.hasMany(models.Feature,{foreignKey: 'property_id', sourceKey: 'id'});
+		Property.hasMany(models.Email,{foreignKey: 'property_id', sourceKey: 'id'});
+		Property.hasMany(models.Phone,{foreignKey: 'property_id', sourceKey: 'id'});
+		Property.hasMany(models.Image,{foreignKey: 'property_id', sourceKey: 'id'});
     };
     return Property;
 }

@@ -18,8 +18,8 @@ module.exports=(sequelize, DataTypes) =>{
 		tableName: 'tbl_feature'
     });
     
-    Feature.assosiate=function(model){
-
+    Feature.associate=function(models){
+        Feature.belongsTo(models.Property, {foreignKey: 'property_id', targetKey: 'id'});
     };
 
     return Feature;

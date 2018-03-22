@@ -19,8 +19,8 @@ module.exports=(sequelize, DataTypes) =>{
 		tableName: 'tbl_image'
     });
     
-    Image.assosiate=function(model){
-
+    Image.associate=function(models){
+        Image.belongsTo(models.Property, {foreignKey: 'property_id', targetKey: 'id'});
     };
 
     return Image;

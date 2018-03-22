@@ -35,8 +35,8 @@ module.exports=(sequelize, DataTypes) =>{
 		tableName: 'tbl_email'
     });
     
-    Email.assosiate=function(models){
-		Email.belongsTo(models.Property, {foreignKey: 'id'});
+    Email.associate=function(models){
+		Email.belongsTo(models.Property, {foreignKey: 'property_id', targetKey: 'id'});
     };
 
     return Email;

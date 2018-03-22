@@ -9,7 +9,7 @@ module.exports=(sequelize, DataTypes) =>{
             type: DataTypes.STRING,
             allowNull: false
         },
-        phone: {
+        phone_number: {
 			type: DataTypes.STRING,
 			allowNull: true,
 			validate: {
@@ -26,8 +26,8 @@ module.exports=(sequelize, DataTypes) =>{
 		tableName: 'tbl_phone'
     });
     
-    Phone.assosiate=function(model){
-
+    Phone.associate=function(models){
+        Phone.belongsTo(models.Property, {foreignKey: 'property_id', targetKey: 'id'});
     };
 
     return Phone;

@@ -1,16 +1,16 @@
 module.exports=(sequelize, DataTypes) =>{
-    let PropertyTag=sequelize.define('PropertyTag',{
+    let PropertyTag=sequelize.define('PropertyType',{
         property_id: {
 			type: DataTypes.STRING,
 			primaryKey: true
         },
-        tag_id:{
+        type_id:{
             type: DataTypes.STRING,
             primaryKey: true
         }
     },{
 		timestamps: false,
-		tableName: 'tbl_property_tag'
+		tableName: 'tbl_property_type'
     });
     
     return PropertyTag;

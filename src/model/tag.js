@@ -14,12 +14,12 @@ module.exports=(sequelize, DataTypes) =>{
 		tableName: 'tbl_tag'
     });
     
-    Tag.assosiate=function(models){
-        // Tag.belongsToMany(models.Property, {
-        //     through: models.PropertyTag,
-        //     as: 'propertys',
-        //     foreignKey: 'tag_id'
-        // });
+    Tag.associate=function(models){
+         Tag.belongsToMany(models.Property, {
+             through: models.PropertyTag,
+             as: 'propertys',
+             foreignKey: 'tag_id'
+         });
     };
 
     return Tag;
