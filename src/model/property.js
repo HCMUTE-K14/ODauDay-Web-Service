@@ -48,6 +48,12 @@ module.exports = (sequelize, DataTypes) => {
 		land_size: {
 			type: DataTypes.DOUBLE,
 			allowNull: false
+		},
+		user_id_created:{
+			type:DataTypes.STRING,
+		},
+		user_id_checked:{
+			type:DataTypes.STRING,
 		}
 	}, {
 		timestamps: true,
@@ -75,6 +81,7 @@ module.exports = (sequelize, DataTypes) => {
 		Property.hasMany(models.Email,{foreignKey: 'property_id', sourceKey: 'id'});
 		Property.hasMany(models.Phone,{foreignKey: 'property_id', sourceKey: 'id'});
 		Property.hasMany(models.Image,{foreignKey: 'property_id', sourceKey: 'id'});
+		Property.belongsTo(models.Property, {foreignKey: 'user_id_created', targetKey: 'id'});
     };
     return Property;
 }

@@ -151,6 +151,22 @@
 		"code": 39,
 		"message": "Cannot get image by property"
 	},
+	"can_not_get_property_by_user":{
+		"code":40,
+		"message":"Cannot get property by user"
+	},
+	"create_property_success":{
+		"code":41,
+		"message":"Create property is successfully"
+	},
+	"delete_property_success":{
+		"code":42,
+		"message":"Delete property is successfully"
+	},
+	"update_property_success":{
+		"code":43,
+		"message":"Update property is successfully"
+	},
 	"please_check_email_to_active_account": {
 		"code": 100,
 		"message": "You have registered successfully. Please check your email to activate your account"

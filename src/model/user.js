@@ -125,6 +125,7 @@ module.exports = (sequelize, DataTypes) => {
 			through: 'Favorite',
 			as: 'favorites'
 		});
+		User.hasMany(models.Property,{foreignKey: 'user_id_created', sourceKey: 'id'});
 	};
 
 	User.prototype.comparePassword = function(cadidatePassword) {

@@ -6,5 +6,7 @@ Router.route('/')
     .post(PropertyController.create)
     .put(PropertyController.update)
     .delete(PropertyController.destroy)
+Router.route('/user')
+    .get(PropertyController.getPropertyByUser)
 
 module.exports = Router;

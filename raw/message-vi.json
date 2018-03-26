@@ -151,6 +151,22 @@
 		"code": 39,
 		"message": "Không thể lấy được hình ảnh theo property"
 	},
+	"can_not_get_property_by_user":{
+		"code":40,
+		"message":"Không thể lấy property theo user"
+	},
+	"create_property_success":{
+		"code":41,
+		"message":"Thêm phòng thành công"
+	},
+	"delete_property_success":{
+		"code":42,
+		"message":"Xóa phòng thành công"
+	},
+	"update_property_success":{
+		"code":43,
+		"message":"Cập nhật phòng thành công"
+	},
 	"please_check_email_to_active_account": {
 		"code": 100,
 		"message": "Bạn đã đăng ký thành công. Hãy kiểm tra tài khoản email để tiến hành kích hoạt tài khoản"
