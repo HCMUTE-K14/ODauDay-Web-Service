@@ -49,11 +49,17 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.DOUBLE,
 			allowNull: false
 		},
+		type_id:{
+			type:DataTypes.STRING
+		},
 		user_id_created:{
-			type:DataTypes.STRING,
+			type:DataTypes.STRING
 		},
 		user_id_checked:{
-			type:DataTypes.STRING,
+			type:DataTypes.STRING
+		},
+		date_end:{
+			type:DataTypes.DATE
 		}
 	}, {
 		timestamps: true,
@@ -72,16 +78,11 @@ module.exports = (sequelize, DataTypes) => {
             as: 'categorys',
             foreignKey: 'property_id'
 		});
-		Property.belongsToMany(models.Type, {
-            through: models.PropertyType,
-            as: 'types',
-            foreignKey: 'property_id'
-		});
-		Property.hasMany(models.Feature,{foreignKey: 'property_id', sourceKey: 'id'});
-		Property.hasMany(models.Email,{foreignKey: 'property_id', sourceKey: 'id'});
-		Property.hasMany(models.Phone,{foreignKey: 'property_id', sourceKey: 'id'});
-		Property.hasMany(models.Image,{foreignKey: 'property_id', sourceKey: 'id'});
-		Property.belongsTo(models.Property, {foreignKey: 'user_id_created', targetKey: 'id'});
+		Property.hasMany(models.Feature,{foreignKey: 'property_id', as:'features',onDelete:'cascade'});
+		Property.hasMany(models.Email,{foreignKey: 'property_id' ,as:'emails',onDelete:'cascade'});
+		Property.hasMany(models.Phone,{foreignKey: 'property_id', as:'phones',onDelete:'cascade'});
+		Property.hasMany(models.Image,{foreignKey: 'property_id', as:'images',onDelete:'cascade'});
+		Property.belongsTo(models.User, {foreignKey: 'user_id_created', as:'users'});
     };
     return Property;
 }

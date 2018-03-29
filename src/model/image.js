@@ -20,7 +20,7 @@ module.exports=(sequelize, DataTypes) =>{
     });
     
     Image.associate=function(models){
-        Image.belongsTo(models.Property, {foreignKey: 'property_id', targetKey: 'id'});
+        Image.belongsTo(models.Property, {foreignKey: 'property_id', as: 'images',onDelete:'cascade'});
     };
 
     return Image;

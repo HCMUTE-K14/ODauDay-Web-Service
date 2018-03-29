@@ -8,7 +8,6 @@ const Phone = require("../model/index").Phone;
 const Image = require("../model/index").Image;
 const PropertyTag = require("../model/index").PropertyTag;
 const PropertyCategory = require("../model/index").PropertyCategory;
-const PropertyType = require("../model/index").PropertyType;
 
 const ResponseModel = require('../util/response-model');
 const Message = require('../util/message/en');
@@ -78,31 +77,37 @@ async function create(req, res) {
         let verify = await VerifyUtils.verifyProtectRequest(req);
         let property = req.body;
 
-        let data = await Property.create(property);
-
-        let features = getFeatureSetPropertyId(req.body.Features, data.id);
-        let result_feature = await Feature.bulkCreate(features);
-
-        let emails = getEmailSetPropertyId(req.body.Emails, data.id);
-        let result_email = await Email.bulkCreate(emails);
-
-        let phones = getPhoneSetPropertyId(req.body.Phones, data.id);
-        let result_phone = await Phone.bulkCreate(phones);
-
-        let images = getImageSetPropertyId(req.body.Images, data.id);
-        let result_image = await Image.bulkCreate(images);
-
+        let data = await Property.create(property,{include:[
+            {
+                model: Feature,
+                as: 'features',
+                attributes: ['id', 'name']
+            },
+            {
+                model: Email,
+                as:'emails',
+                attributes: ['id', 'name', 'email']
+            },
+            {
+                model: Phone,
+                as:'phones',
+                attributes: ['id', 'name', 'phone_number']
+            },
+            {
+                model: Image,
+                as:'images',
+                attributes: ['id', 'url']
+            }
+        ]});
 
         //tag, category, type {id,name}
 
-        let property_tags = getPropertyTag(req.body.tags, data.id);
-        let result_property_tag = await PropertyTag.bulkCreate(property_tags);
+         let property_tags = getPropertyTag(req.body.tags, data.id);
+         let result_property_tag = await PropertyTag.bulkCreate(property_tags);
 
-        let property_categorys = getPropertyCategory(req.body.categorys, data.id);
-        let result_property_category = await PropertyCategory.bulkCreate(property_categorys);
+         let property_categorys = getPropertyCategory(req.body.categorys, data.id);
+         let result_property_category = await PropertyCategory.bulkCreate(property_categorys);
 
-        let property_types = getPropertyType(req.body.types, data.id);
-        let result_property_type = await PropertyType.bulkCreate(property_types);
 
 
         responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "create_property_success"));
@@ -177,10 +182,10 @@ async function destroy(req, res) {
     try {
         let verify = await VerifyUtils.verifyProtectRequest(req);
         let property_id = req.query.id;
-        deleteProperty(property_id);
-
+        let data=await Property.destroy({include:getModels(), where:{id:property_id}});        
         responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "delete_property_success"));
     } catch (error) {
+        console.log("lang thang"+error);
         if (error.constructor.name === 'ConnectionRefusedError') {
             Handler.cannotConnectDatabase(req, res);
         } else if (error.constructor.name === 'ValidationError' ||
@@ -193,22 +198,11 @@ async function destroy(req, res) {
         }
     }
 }
-async function deleteProperty(property_id){
-    let data = await Property.destroy({ where: { id: property_id } });
-    //relationship
-    let result_feature = await Feature.destroy({ where: { property_id: property_id } });
-    let result_email = await Email.destroy({ where: { property_id: property_id } });
-    let result_phone = await Phone.destroy({ where: { property_id: property_id } });
-    let result_image = await Image.destroy({ where: { property_id: property_id } });
-    let result_property_tag = await PropertyTag.destroy({ where: { property_id: property_id } });
-    let result_property_type = await PropertyType.destroy({ where: { property_id: property_id } });
-    let result_property_category = await PropertyCategory.destroy({ where: { property_id: property_id } });
-     //favorite, history,comment
-}
 function getModels(){
     let result=[
         {
             model: Feature,
+            as: 'features',
             attributes: ['id', 'name']
         },
         {
@@ -228,23 +222,18 @@ function getModels(){
             through: { attributes: [] }
         },
         {
-            model: Type,
-            as: 'types',
-            attributes: {
-                exclude: ['PropertyType']
-            },
-            through: { attributes: [] }
-        },
-        {
             model: Email,
+            as:'emails',
             attributes: ['id', 'name', 'email']
         },
         {
             model: Phone,
+            as:'phones',
             attributes: ['id', 'name', 'phone_number']
         },
         {
             model: Image,
+            as:'images',
             attributes: ['id', 'url']
         }
     ];

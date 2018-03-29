@@ -33,7 +33,7 @@ module.exports=(sequelize, DataTypes) =>{
     });
     
     Email.associate=function(models){
-		Email.belongsTo(models.Property, {foreignKey: 'property_id', targetKey: 'id'});
+		Email.belongsTo(models.Property, {foreignKey: 'property_id', as:'emails',onDelete:'cascade'});
     };
 
     return Email;

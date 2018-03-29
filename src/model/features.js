@@ -19,7 +19,7 @@ module.exports=(sequelize, DataTypes) =>{
     });
     
     Feature.associate=function(models){
-        Feature.belongsTo(models.Property, {foreignKey: 'property_id', targetKey: 'id'});
+        Feature.belongsTo(models.Property, {foreignKey: 'property_id', as:'features',onDelete:'cascade'});
     };
 
     return Feature;

@@ -27,7 +27,7 @@ module.exports=(sequelize, DataTypes) =>{
     });
     
     Phone.associate=function(models){
-        Phone.belongsTo(models.Property, {foreignKey: 'property_id', targetKey: 'id'});
+        Phone.belongsTo(models.Property, {foreignKey: 'property_id', as: 'phones',onDelete:'cascade'});
     };
 
     return Phone;
