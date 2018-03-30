@@ -50,7 +50,7 @@ async function create(req,res){
         }
         let category = req.body;
         let data = await Category.create(category);
-        responseData(res,data);
+        responseData(res,MessageHelper.getMessage(req.query.lang||'vi',"create_category_success"));
 
     }catch(error){
         if (error.constructor.name === 'ConnectionRefusedError') {
@@ -76,9 +76,7 @@ async function update(req,res){
         let category = req.body;
         let category_id = req.body.id;
         let data = await Category.update(category, { where: { id: category_id } })
-        if(data){
-            responseData(res,data);
-        }
+        responseData(res,res,MessageHelper.getMessage(req.query.lang||'vi',"update_category_success"));
         
     }catch(error){
         if (error.constructor.name === 'ConnectionRefusedError') {
@@ -103,10 +101,8 @@ async function destroy(req,res){
         let category_id = req.query.id;
         let data = await Category.destroy({
             where: { id: category_id }
-        })
-        if(data){
-            responseData(res,data);
-        }
+        });
+        responseData(res,res,MessageHelper.getMessage(req.query.lang||'vi',"destroy_category_success"));
         
     }catch(error){
         if (error.constructor.name === 'ConnectionRefusedError') {

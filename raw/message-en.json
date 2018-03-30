@@ -23,149 +23,93 @@
 		"code": 6,
 		"message": "Cannot get list users"
 	},
-	"can_not_create_feature": {
+	"can_not_get_tag": {
 		"code": 7,
-		"message": "Cannot create feature"
-	},
-	"can_not_update_feature": {
-		"code": 8,
-		"message": "Cannot update feature"
-	},
-	"can_not_delete_feature": {
-		"code": 9,
-		"message": "Cannot destroy feature"
+		"message": "Cannot get Tag"
 	},
 	"can_not_create_tag": {
-		"code": 10,
+		"code": 8,
 		"message": "Cannot create tag"
 	},
+	"create_tag_success":{
+		"code": 9,
+		"message": "Create tag is successfully"
+	},
 	"can_not_update_tag": {
-		"code": 11,
+		"code": 10,
 		"message": "Cannot update tag"
+	},
+	"update_tag_success": {
+		"code": 11,
+		"message": "Update tag is successfully"
 	},
 	"can_not_destroy_tag": {
 		"code": 12,
 		"message": "Cannot destroy tag"
 	},
-	"can_not_create_category": {
+	"destroy_tag_success": {
 		"code": 13,
+		"message": "Destroy tag is successfully"
+	},
+	"can_not_create_category": {
+		"code": 14,
 		"message": "Cannot create category"
 	},
+	"create_category_success": {
+		"code": 15,
+		"message": "Create category is successfully"
+	},
 	"can_not_update_category": {
-		"code": 14,
+		"code": 16,
 		"message": "Cannot update category"
 	},
+	"update_category_success": {
+		"code": 17,
+		"message": "Update category is successfully"
+	},
 	"can_not_destroy_category": {
-		"code": 15,
+		"code": 18,
 		"message": "Cannot destroy category"
 	},
-	"can_not_get_category": {
-		"code": 17,
-		"message": "Cannot get Category"
-	},
-	"can_not_get_tag": {
-		"code": 18,
-		"message": "Cannot get Tag"
-	},
-	"can_not_get_type": {
+	"destroy_category_success": {
 		"code": 19,
-		"message": "Cannot get Type"
+		"message": "Destroy category is successfully"
 	},
-	"can_not_create_type": {
+	"can_not_get_category": {
 		"code": 20,
-		"message": "Cannot create Type"
-	},
-	"can_not_update_type": {
-		"code": 21,
-		"message": "Cannot update Type"
-	},
-	"can_not_destroy_type": {
-		"code": 22,
-		"message": "Cannot destroy Type"
+		"message": "Cannot get category"
 	},
 	"can_not_get_property": {
-		"code": 23,
+		"code": 21,
 		"message": "Cannot get property"
 	},
 	"can_not_create_property": {
-		"code": 24,
+		"code": 22,
 		"message": "Cannot create property"
 	},
+	"create_property_success":{
+		"code":23,
+		"message":"Create property is successfully"
+	},
 	"can_not_update_property": {
-		"code": 25,
+		"code": 24,
 		"message": "Cannot update property"
+	},
+	"update_property_success":{
+		"code":25,
+		"message":"Update property is successfully"
 	},
 	"can_not_destroy_property": {
 		"code": 26,
 		"message": "Cannot destroy property"
 	},
-	"can_not_get_email_by_property": {
-		"code": 27,
-		"message": "Cannot get email by property"
-	},
-	"can_not_create_email": {
-		"code": 28,
-		"message": "Cannot create email"
-	},
-	"can_not_update_email": {
-		"code": 29,
-		"message": "Cannot update email"
-	},
-	"can_not_destroy_email": {
-		"code": 30,
-		"message": "Cannot destroy email"
-	},
-	"can_not_get_phone_by_property": {
-		"code": 31,
-		"message": "Cannot get phone by property"
-	},
-	"can_not_create_phone": {
-		"code": 32,
-		"message": "Cannot create phone"
-	},
-	"can_not_update_phone": {
-		"code": 33,
-		"message": "Cannot update phone"
-	},
-	"can_not_destroy_phone": {
-		"code": 34,
-		"message": "Cannot destroy phone"
-	},
-	"can_not_get_feature_by_property": {
-		"code": 35,
-		"message": "Cannot get feature by property"
-	},
-	"can_not_create_image": {
-		"code": 36,
-		"message": "Cannot create image"
-	},
-	"can_not_update_image": {
-		"code": 37,
-		"message": "Cannot update image"
-	},
-	"can_not_destroy_image": {
-		"code": 38,
-		"message": "Cannot destroy image"
-	},
-	"can_not_get_image_by_property": {
-		"code": 39,
-		"message": "Cannot get image by property"
-	},
-	"can_not_get_property_by_user":{
-		"code":40,
-		"message":"Cannot get property by user"
-	},
-	"create_property_success":{
-		"code":41,
-		"message":"Create property is successfully"
-	},
-	"delete_property_success":{
-		"code":42,
+	"destroy_property_success":{
+		"code":27,
 		"message":"Delete property is successfully"
 	},
-	"update_property_success":{
-		"code":43,
-		"message":"Update property is successfully"
+	"can_not_get_property_by_user":{
+		"code":28,
+		"message":"Cannot get property by user"
 	},
 	"please_check_email_to_active_account": {
 		"code": 100,

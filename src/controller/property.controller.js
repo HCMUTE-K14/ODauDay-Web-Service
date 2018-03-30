@@ -14,7 +14,7 @@ const Message = require('../util/message/en');
 const Handler = require('./handling-helper');
 const VerifyUtils = require('../util/verify-request');
 const MessageHelper = require('../util/message/message-helper');
-const EmailController = require("./email.controller");
+
 const PropertyController = {};
 
 PropertyController.getAll = getAll;
@@ -131,6 +131,7 @@ async function update(req, res) {
         let property_id = req.body.id;
 
         let data = await Property.update(property, { where: { id: property_id } });
+        
         //feature, email, phone, image
         let delete_feature_old = await Feature.destroy({ where: { property_id: property_id } });
         let features = getFeatureSetPropertyId(req.body.Features, property_id);
@@ -149,7 +150,7 @@ async function update(req, res) {
         let images = getImageSetPropertyId(req.body.Images, property_id);
         let result_image = await Image.bulkCreate(images);
 
-        //tag, category, type
+        //tag, category
         let delete_tag_old = await PropertyTag.destroy({ where: { property_id: property_id } });
         let tags = getPropertyTag(req.body.tags, property_id);
         let result_tag = await PropertyTag.bulkCreate(tags);
@@ -165,6 +166,7 @@ async function update(req, res) {
 
         responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "update_property_success"));
     } catch (error) {
+        
         if (error.constructor.name === 'ConnectionRefusedError') {
             Handler.cannotConnectDatabase(req, res);
         } else if (error.constructor.name === 'ValidationError' ||
@@ -183,7 +185,7 @@ async function destroy(req, res) {
         let verify = await VerifyUtils.verifyProtectRequest(req);
         let property_id = req.query.id;
         let data=await Property.destroy({include:getModels(), where:{id:property_id}});        
-        responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "delete_property_success"));
+        responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "destroy_property_success"));
     } catch (error) {
         console.log("lang thang"+error);
         if (error.constructor.name === 'ConnectionRefusedError') {

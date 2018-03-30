@@ -48,7 +48,7 @@ async function create(req,res){
         }
         let tag = req.body;
         let data = await Tag.create(tag);
-        responseData(res,data);
+        responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "create_tag_success"));
 
     }catch(error){
         if (error.constructor.name === 'ConnectionRefusedError') {
@@ -73,9 +73,8 @@ async function update(req,res){
         let tag = req.body;
         let tag_id = req.body.id;
         let data = await Tag.update(tag, { where: { id: tag_id } })
-        if(data){
-            responseData(res,data);
-        }
+        responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "update_tag_success"));
+
     }catch(error){
         if (error.constructor.name === 'ConnectionRefusedError') {
 			Handler.cannotConnectDatabase(req, res);
@@ -100,9 +99,7 @@ async function destroy(req,res){
         let data = await Tag.destroy({
             where: { id: tag_id }
         })
-        if(data){
-            responseData(res,data);
-        }
+        responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "destroy_tag_success"));
         
     }catch(error){
         if (error.constructor.name === 'ConnectionRefusedError') {
