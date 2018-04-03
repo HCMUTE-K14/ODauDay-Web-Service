@@ -9,27 +9,45 @@ App.listen(App.get('port'), () => {
 			Logger.info('Connected to database at ' + new Date());
 		})
 		.catch(error => {
+			console.log(error);
 			Logger.info('Can not connect to database');
 		});
 });
+// insertUser();
+//  insertProperty();
+async function insertUser() {
+	try {
+		let listUser = [];
 
-// DB.User.create({
-// 	email: 'daohuuloc9419@gmail.com',
-// 	password: '123456',
-// 	display_name: 'infamouSs'
-// })
-// .then(data => {
-// 	data.addProperty({
-// 		name: 'nameProperty',
-// 		code: '123',
-// 		latitude: 0,
-// 		longitude: 0,
-// 		postcode: 1000,
-// 		status: 'ok',
-// 		price: 700,
-// 		land_size: 10
-// 	});
-// })
-// .catch(error => {
-// 	console.log(error);
-// })
+		for (let i = 0; i < 10; i++) {
+			listUser.push({
+				id: '' + i,
+				email: "#" + i + '@gmail.com',
+				password: '123456',
+				display_name: 'DISPLAYNAME #' + i
+			});
+		}
+		await DB.User.create(listUser[0]);
+		await DB.User.bulkCreate(listUser.splice(1));
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+async function insertProperty() {
+	try {
+		let listProperty = [];
+
+		for (let i = 0; i < 10; i++) {
+			listProperty.push({
+				id: '' + i,
+				name: 'name#' + i,
+				code: 'code#' + i
+			});
+		}
+		await DB.Property.bulkCreate(listProperty);
+	} catch (error) {
+		console.log(error);
+	}
+}
+

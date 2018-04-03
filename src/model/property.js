@@ -12,43 +12,44 @@ module.exports = (sequelize, DataTypes) => {
 		code: {
 			type: DataTypes.STRING,
 			allowNull: false
-		},
-		latitude: {
-			type: DataTypes.FLOAT,
-			allowNull: false
-		},
-		longitude: {
-			type: DataTypes.FLOAT,
-			allowNull: false
-		},
-		postcode: {
-			type: DataTypes.INTEGER,
-			allowNull: false
-		},
-		status: {
-			type: DataTypes.STRING,
-			allowNull: false
-		},
-		price: {
-			type: DataTypes.DOUBLE,
-			allowNull: false
-		},
-		description: {
-			type: DataTypes.STRING
-		},
-		num_of_bedrom: {
-			type: DataTypes.INTEGER
-		},
-		num_of_bathrom: {
-			type: DataTypes.INTEGER
-		},
-		num_of_packing: {
-			type: DataTypes.INTEGER
-		},
-		land_size: {
-			type: DataTypes.DOUBLE,
-			allowNull: false
 		}
+		// },
+		// latitude: {
+		// 	type: DataTypes.FLOAT,
+		// 	allowNull: false
+		// },
+		// longitude: {
+		// 	type: DataTypes.FLOAT,
+		// 	allowNull: false
+		// },
+		// postcode: {
+		// 	type: DataTypes.INTEGER,
+		// 	allowNull: false
+		// },
+		// status: {
+		// 	type: DataTypes.STRING,
+		// 	allowNull: false
+		// },
+		// price: {
+		// 	type: DataTypes.DOUBLE,
+		// 	allowNull: false
+		// },
+		// description: {
+		// 	type: DataTypes.STRING
+		// },
+		// num_of_bedrom: {
+		// 	type: DataTypes.INTEGER
+		// },
+		// num_of_bathrom: {
+		// 	type: DataTypes.INTEGER
+		// },
+		// num_of_packing: {
+		// 	type: DataTypes.INTEGER
+		// },
+		// land_size: {
+		// 	type: DataTypes.DOUBLE,
+		// 	allowNull: false
+		// }
 	}, {
 		timestamps: true,
 		createdAt: 'date_created',
@@ -58,8 +59,15 @@ module.exports = (sequelize, DataTypes) => {
 
 	Property.associate = function(models) {
 		Property.belongsToMany(models.User, {
-		    through: 'Favorite',
-		    as: 'favorites'
+			through: models.Favorite,
+			as: 'favorited_by',
+			foreignKey: 'property_id'
+		});
+
+		Property.belongsToMany(models.User, {
+			through: models.History,
+			as: 'viewed_by',
+			foreignKey: 'property_id'
 		});
 	};
 

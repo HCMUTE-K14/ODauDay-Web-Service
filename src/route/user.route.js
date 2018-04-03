@@ -19,16 +19,16 @@ Router.route('/change-password')
 Router.route('/active')
 	.get(ActiveAccountController.active); //Active account
 
-// Router.route('/resend-activation')
-// 	.post(ActiveAccountController.resendActivation);
+Router.route('/resend-activation')
+	.post(ActiveAccountController.reSendActivation);
 
-// Router.route('/forgot-password')
-// 	.post(UserController.forgotPassword);
+Router.route('/forgot-password')
+	.post(UserController.forgotPassword);
 
-// Router.route('/confirm-password-change')
-// 	.get(ActiveAccountController.confirmPasswordChange);
+Router.route('/confirm-password-change')
+	.get(UserController.confirmPasswordChange);
 
-// Router.route('/receive-new-password')
-// 	.post(ActiveAccountController.receiveNewPassword);
+Router.route('/receive-new-password')
+	.post(UserController.receiveNewPassword);
 
 module.exports = Router;

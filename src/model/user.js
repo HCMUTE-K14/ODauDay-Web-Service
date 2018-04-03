@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			validate: {
 				len: {
+
 					args: [6, 128],
 					msg: JSON.stringify(MessageHelper.VI['email_len'])
 				},
@@ -119,9 +120,22 @@ module.exports = (sequelize, DataTypes) => {
 
 	User.associate = function(models) {
 		User.belongsToMany(models.Property, {
-			through: 'Favorite',
-			as: 'favorites'
+			through: models.Favorite,
+			as: 'favorites',
+			foreignKey: 'user_id'
 		});
+
+		User.hasMany(models.Transaction, {
+			foreignKey: 'user_id',
+			as: 'transactions'
+		});
+
+		User.belongsToMany(models.Property, {
+			through: models.History,
+			as: 'view_history',
+			foreignKey: 'user_id'
+		});
+
 	};
 
 	User.prototype.comparePassword = function(cadidatePassword) {
@@ -139,6 +153,7 @@ module.exports = (sequelize, DataTypes) => {
 
 	User.beforeCreate(encryptPasswordIfChanged);
 	User.beforeUpdate(encryptPasswordIfChanged);
+	User.beforeBulkCreate(encryptPasswordIfChanged);
 
 	return User;
 };

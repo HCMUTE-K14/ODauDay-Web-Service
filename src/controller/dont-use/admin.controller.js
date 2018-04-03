@@ -60,7 +60,7 @@ function getUsers(req, res) {
 
 function handlingCannotGetUsers(req, res) {
 	res.status(503).json(new ResponseModel({
-		code: 503,
+ 		code: 503,
 		status_text: 'SERVICE UNAVAILABLE',
 		success: false,
 		data: null,

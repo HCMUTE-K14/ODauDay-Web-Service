@@ -81,7 +81,7 @@
  }
 
 
- Handler.handlingErrorModel = function(req, error) {
+ Handler.handlingErrorModel = function(res, error) {
  	res.status(503).json(new ResponseModel({
  		code: 503,
  		status_text: 'SERVICE UNAVAILABLE',

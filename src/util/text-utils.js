@@ -18,6 +18,7 @@ TextUtils.generateTokenAccount = generateTokenAccount;
 TextUtils.generateLinkActivateAccount = generateLinkActivateAccount;
 TextUtils.generateLinkResendActivateAccount = generateLinkResendActivateAccount;
 TextUtils.generateLinkForgotPassword = generateLinkForgotPassword;
+TextUtils.generateString = generateString;
 
 module.exports = TextUtils;
 
@@ -61,6 +62,10 @@ function generateLinkForgotPassword(user) {
     let token = generateTokenAccount(user, 'forgot_password');
 
     return Config.base_url + '/users/confirm-password-change?token=' + token;
+}
+
+function generateString() {
+    return Math.random().toString(36).slice(-8);
 }
 
 function generateTokenAccount(user, method) {

@@ -1,7 +1,7 @@
 const MessageHelper = require('../util/message/message-helper');
 
 module.exports = (sequelize, DataTypes) => {
-	let CodePremium = sequelize.define('CodePremium', {
+	let GiftCode = sequelize.define('GiftCode', {
 		id: {
 			type: DataTypes.STRING,
 			primaryKey: true,
@@ -30,18 +30,6 @@ module.exports = (sequelize, DataTypes) => {
 				}
 			}
 		},
-		type: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			validate: {
-				isIn: {
-					args: [
-						['increase_amount', 'discount']
-					],
-					msg: JSON.stringify(MessageHelper.VI['type_code_premium_invalid'])
-				}
-			}
-		},
 		value: {
 			type: DataTypes.STRING,
 			allowNull: false
@@ -57,12 +45,15 @@ module.exports = (sequelize, DataTypes) => {
 		timestamps: true,
 		createdAt: 'date_created',
 		updatedAt: 'date_modified',
-		tableName: 'tbl_code_premium'
+		tableName: 'tbl_gift_code'
 	});
 
-	CodePremium.associate = function(models) {
-
+	GiftCode.associate = function(models) {
+		GiftCode.belongsTo(models.Premium, {
+			foreignKey: 'type_id',
+			as: 'type'
+		});
 	};
 
-	return CodePremium;
+	return GiftCode;
 }
