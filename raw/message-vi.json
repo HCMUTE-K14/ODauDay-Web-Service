@@ -111,6 +111,26 @@
 		"code":28,
 		"message":"Không thể lấy property theo user"
 	},
+	"cannot_get_property_favorite_by_user":{
+		"code":29,
+		"message":"Không thể lấy phòng yêu thích của bạn"
+	},
+	"check_favorite_success":{
+		"code":30,
+		"message":"Đánh dấu yêu thích thành công"
+	},
+	"cannot_check_favorite":{
+		"code":31,
+		"message":"Không thể đánh dấu yêu thích"
+	},
+	"uncheck_favorite_success":{
+		"code":32,
+		"message":"Bỏ đánh dấu yêu thích thành công"
+	},
+	"cannot_uncheck_favorite":{
+		"code":33,
+		"message":"Không thể bỏ đánh dấu yêu thích"
+	},
 	"please_check_email_to_active_account": {
 		"code": 100,
 		"message": "Bạn đã đăng ký thành công. Hãy kiểm tra tài khoản email để tiến hành kích hoạt tài khoản"

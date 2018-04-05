@@ -2,7 +2,6 @@ const Property = require("../model/index").Property;
 const Tag = require("../model/index").Tag;
 const Category = require("../model/index").Category;
 const Feature = require("../model/index").Feature;
-const Type = require("../model/index").Type;
 const Email = require("../model/index").Email;
 const Phone = require("../model/index").Phone;
 const Image = require("../model/index").Image;
@@ -14,6 +13,7 @@ const Message = require('../util/message/en');
 const Handler = require('./handling-helper');
 const VerifyUtils = require('../util/verify-request');
 const MessageHelper = require('../util/message/message-helper');
+const IncludeModeProperty=require('../util/include-model');
 
 const PropertyController = {};
 
@@ -30,7 +30,7 @@ async function getAll(req, res) {
         let verify = await VerifyUtils.verifyPublicRequest(req);
 
         let data = await Property.findAll({
-            include: getModels()
+            include: IncludeModeProperty.getModelProperty()
         });
 
         responseData(res, data);
@@ -53,7 +53,7 @@ async function getPropertyByUser(req, res) {
         let verify = await VerifyUtils.verifyProtectRequest(req);
         let user_id = req.query.user_id;
         let data = await Property.findAll({
-            include: getModels(), where: { user_id_created: user_id }
+            include: IncludeModeProperty.getModelProperty(), where: { user_id_created: user_id }
         });
 
         responseData(res, data);
@@ -199,47 +199,6 @@ async function destroy(req, res) {
             handlingCannotDestroyProperty(req, res);
         }
     }
-}
-function getModels(){
-    let result=[
-        {
-            model: Feature,
-            as: 'features',
-            attributes: ['id', 'name']
-        },
-        {
-            model: Tag,
-            as: 'tags',
-            attributes: {
-                exclude: ['PropertyTag']
-            },
-            through: { attributes: [] }
-        },
-        {
-            model: Category,
-            as: 'categorys',
-            attributes: {
-                exclude: ['PropertyCategory']
-            },
-            through: { attributes: [] }
-        },
-        {
-            model: Email,
-            as:'emails',
-            attributes: ['id', 'name', 'email']
-        },
-        {
-            model: Phone,
-            as:'phones',
-            attributes: ['id', 'name', 'phone_number']
-        },
-        {
-            model: Image,
-            as:'images',
-            attributes: ['id', 'url']
-        }
-    ];
-    return result;
 }
 function getPropertyType(property_types, property_id) {
     let result = [];

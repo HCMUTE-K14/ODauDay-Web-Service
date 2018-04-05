@@ -123,9 +123,12 @@ module.exports = (sequelize, DataTypes) => {
 	User.associate = function(models) {
 		User.belongsToMany(models.Property, {
 			through: 'Favorite',
-			as: 'favorites'
+			as: 'favorites',
+			foreignKey: 'user_id'
 		});
 		User.hasMany(models.Property,{foreignKey: 'user_id_created', as: 'users'});
+
+
 	};
 
 	User.prototype.comparePassword = function(cadidatePassword) {

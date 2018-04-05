@@ -78,6 +78,11 @@ module.exports = (sequelize, DataTypes) => {
             as: 'categorys',
             foreignKey: 'property_id'
 		});
+		Property.belongsToMany(models.User, {
+			through: 'Favorite',
+			foreignKey: 'property_id'
+		});
+		
 		Property.hasMany(models.Feature,{foreignKey: 'property_id', as:'features',onDelete:'cascade'});
 		Property.hasMany(models.Email,{foreignKey: 'property_id' ,as:'emails',onDelete:'cascade'});
 		Property.hasMany(models.Phone,{foreignKey: 'property_id', as:'phones',onDelete:'cascade'});

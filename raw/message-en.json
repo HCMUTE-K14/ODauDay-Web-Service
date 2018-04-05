@@ -111,6 +111,26 @@
 		"code":28,
 		"message":"Cannot get property by user"
 	},
+	"cannot_get_property_favorite_by_user":{
+		"code":29,
+		"message":"Cannot get property favorite by user"
+	},
+	"check_favorite_success":{
+		"code":30,
+		"message":"Check favorite is successfully"
+	},
+	"cannot_check_favorite":{
+		"code":31,
+		"message":"Cannot check favorite"
+	},
+	"uncheck_favorite_success":{
+		"code":32,
+		"message":"Uncheck favorite is successfully"
+	},
+	"cannot_uncheck_favorite":{
+		"code":33,
+		"message":"Cannot uncheck favorite"
+	},
 	"please_check_email_to_active_account": {
 		"code": 100,
 		"message": "You have registered successfully. Please check your email to activate your account"

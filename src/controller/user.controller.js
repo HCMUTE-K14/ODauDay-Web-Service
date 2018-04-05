@@ -1,5 +1,5 @@
 const User = require('../model/index').User;
-
+const Property=require('../model/index').Property;
 
 const ResponseModel = require('../util/response-model');
 const VerifyUtils = require('../util/verify-request');
@@ -7,11 +7,9 @@ const NumberUtils = require('../util/number-utils');
 const MessageHelper = require('../util/message/message-helper');
 const Handler = require('./handling-helper');
 
-
 const UserController = {};
 UserController.changeProfile = changeProfile;
 UserController.changePassword = changePassword;
-
 module.exports = UserController;
 
 

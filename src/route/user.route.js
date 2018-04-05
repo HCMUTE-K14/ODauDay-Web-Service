@@ -31,4 +31,5 @@ Router.route('/active')
 // Router.route('/receive-new-password')
 // 	.post(ActiveAccountController.receiveNewPassword);
 
+
 module.exports = Router;

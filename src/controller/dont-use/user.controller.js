@@ -296,8 +296,6 @@ function disableUser(req, res) {
 			Handler.invalidAccessToken(req, res);
 		})
 }
-
-
 function handlingLoginSuccessful(res, user) {
 	user.hideSecretInformation();
 	let token = JWT.sign({ user: user }, Config.secret_token);
