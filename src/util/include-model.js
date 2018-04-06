@@ -1,16 +1,10 @@
 const Tag = require("../model/index").Tag;
 const Category = require("../model/index").Category;
-const Feature = require("../model/index").Feature;
 const Email = require("../model/index").Email;
 const Phone = require("../model/index").Phone;
 const Image = require("../model/index").Image;
 function getModelProperty(){
     let result=[
-        {
-            model: Feature,
-            as: 'features',
-            attributes: ['id', 'name']
-        },
         {
             model: Tag,
             as: 'tags',

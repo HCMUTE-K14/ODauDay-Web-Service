@@ -1,7 +1,6 @@
 const Property = require("../model/index").Property;
 const Tag = require("../model/index").Tag;
 const Category = require("../model/index").Category;
-const Feature = require("../model/index").Feature;
 const Email = require("../model/index").Email;
 const Phone = require("../model/index").Phone;
 const Image = require("../model/index").Image;
@@ -79,11 +78,6 @@ async function create(req, res) {
 
         let data = await Property.create(property,{include:[
             {
-                model: Feature,
-                as: 'features',
-                attributes: ['id', 'name']
-            },
-            {
                 model: Email,
                 as:'emails',
                 attributes: ['id', 'name', 'email']
@@ -100,15 +94,12 @@ async function create(req, res) {
             }
         ]});
 
-        //tag, category, type {id,name}
-
+        //tag, category
          let property_tags = getPropertyTag(req.body.tags, data.id);
          let result_property_tag = await PropertyTag.bulkCreate(property_tags);
 
          let property_categorys = getPropertyCategory(req.body.categorys, data.id);
          let result_property_category = await PropertyCategory.bulkCreate(property_categorys);
-
-
 
         responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "create_property_success"));
     } catch (error) {
@@ -132,10 +123,7 @@ async function update(req, res) {
 
         let data = await Property.update(property, { where: { id: property_id } });
         
-        //feature, email, phone, image
-        let delete_feature_old = await Feature.destroy({ where: { property_id: property_id } });
-        let features = getFeatureSetPropertyId(req.body.Features, property_id);
-        let result_feature = await Feature.bulkCreate(features);
+        // email, phone, image
 
         let delete_email_old = await Email.destroy({ where: { property_id: property_id } });
         let emails = getEmailSetPropertyId(req.body.Emails, property_id);
@@ -158,11 +146,6 @@ async function update(req, res) {
         let delete_category_old = await PropertyCategory.destroy({ where: { property_id: property_id } });
         let categorys = getPropertyCategory(req.body.categorys, property_id);
         let result_category = await PropertyCategory.bulkCreate(categorys);
-
-        let delete_type_old = await PropertyType.destroy({ where: { property_id: property_id } });
-        let types = getPropertyType(req.body.types, property_id);
-        let result_type = await PropertyType.bulkCreate(types);
-
 
         responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "update_property_success"));
     } catch (error) {
@@ -200,16 +183,7 @@ async function destroy(req, res) {
         }
     }
 }
-function getPropertyType(property_types, property_id) {
-    let result = [];
-    property_types.forEach(function (item) {
-        result.push({
-            property_id: property_id,
-            type_id: item.id
-        });
-    });
-    return result;
-}
+
 function getPropertyCategory(property_categorys, property_id) {
     let result = [];
     property_categorys.forEach(function (item) {
