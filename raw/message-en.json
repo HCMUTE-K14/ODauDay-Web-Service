@@ -131,6 +131,26 @@
 		"code":33,
 		"message":"Cannot uncheck favorite"
 	},
+	"cannot_get_search_by_user":{
+		"code":34,
+		"message":"Cannot get search by user"
+	},
+	"save_search_success":{
+		"code":35,
+		"message":"Save search is successfully"
+	},
+	"cannot_save_search":{
+		"code":36,
+		"message":"Cannot save search"
+	},
+	"cannot_remove_search":{
+		"code":37,
+		"message":"Cannot remove search"
+	},
+	"remove_search_success":{
+		"code":38,
+		"message":"Remove search is successfully"
+	},
 	"please_check_email_to_active_account": {
 		"code": 100,
 		"message": "You have registered successfully. Please check your email to activate your account"

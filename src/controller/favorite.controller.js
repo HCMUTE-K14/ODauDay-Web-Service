@@ -18,7 +18,7 @@ async function getPropertyFavoriteByUser(req,res){
 	try {
         let verify = await VerifyUtils.verifyPublicRequest(req);
         let query={id:req.query.id};
-        let data = await User.findAll({
+        let data = await User.findOne({
 			where: query,
             include: [
 				{
@@ -26,14 +26,17 @@ async function getPropertyFavoriteByUser(req,res){
 					as: 'favorites',
 					include:IncludeModelProperty.getModelProperty(),
 					attributes: {
-						exclude: ['user_id_checked','date_modified','user_id_created']
+                        exclude: ['user_id_checked','date_modified','user_id_created'],
 					},
-					through: { attributes: [] }
+                    through: {attributes:[]}
+                  
                 }
-			],attributes:['id']
+            ],
+            attributes:['id']
         });
-        responseData(res, data[0]);
+        responseData(res, data);
     } catch (error) {
+        console.log("lang thang:"+error);
         if (error.constructor.name === 'ConnectionRefusedError') {
             Handler.cannotConnectDatabase(req, res);
         } else if (error.constructor.name === 'ValidationError' ||
@@ -72,6 +75,26 @@ async function unCheckFavorite(req,res){
         let verify = await VerifyUtils.verifyProtectRequest(req);
         let property_id=req.query.property_id;
         let data = await Favorite.destroy({where:{property_id:property_id}});
+        
+        responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "uncheck_favorite_success"));
+    } catch (error) {
+        if (error.constructor.name === 'ConnectionRefusedError') {
+            Handler.cannotConnectDatabase(req, res);
+        } else if (error.constructor.name === 'ValidationError' ||
+            error.constructor.name === 'UniqueConstraintError') {
+            Handler.validateError(req, res, error);
+        } else if (error.constructor.name == 'ErrorModel') {
+            Handler.handlingErrorModel(res, error);
+        } else {
+           handlingCannotUnCheckFavorite(req, res);
+        }
+    }
+}
+async function unCheckFavorites(req,res){
+    try {
+        let verify = await VerifyUtils.verifyProtectRequest(req);
+        let array_property_id=req.body.array_id;
+        let data = await Favorite.destroy({where:{property_id:array_property_id}});
         
         responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "uncheck_favorite_success"));
     } catch (error) {

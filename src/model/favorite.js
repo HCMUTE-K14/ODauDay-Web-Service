@@ -15,7 +15,7 @@ module.exports=(sequelize,DataTypes)=>{
 		tableName: 'tbl_favorite'
     });
     Favorite.associate=function(models){
-        
+
     }
     return Favorite;
 }

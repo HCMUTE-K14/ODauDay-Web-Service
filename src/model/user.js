@@ -127,7 +127,7 @@ module.exports = (sequelize, DataTypes) => {
 			foreignKey: 'user_id'
 		});
 		User.hasMany(models.Property,{foreignKey: 'user_id_created', as: 'users'});
-
+		User.hasMany(models.Search,{foreignKey: 'user_id', as: 'searches'});
 
 	};
 

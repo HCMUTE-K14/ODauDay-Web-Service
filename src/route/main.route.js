@@ -7,6 +7,7 @@ const CategoryRoutes=require("./category.route");
 const PropertyRoutes=require("./property.route");
 const AdminRoutes = require('./admin.route');
 const FavoriteRoutes=require('./favorite.route');
+const SearchRoutes=require("./search.route");
 Router.get('/health-check', (req, res) => {
 	res.send('OK');
 });
@@ -18,7 +19,7 @@ Router.use("/category",CategoryRoutes);
 Router.use("/property",PropertyRoutes);
 Router.use('/admin', AdminRoutes);
 Router.use('/favorite',FavoriteRoutes);
-
+Router.use('/search',SearchRoutes);
 // Router.use('/admin', AdminRoutes);
 
 module.exports = Router;

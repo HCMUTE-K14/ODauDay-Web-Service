@@ -131,6 +131,26 @@
 		"code":33,
 		"message":"Không thể bỏ đánh dấu yêu thích"
 	},
+	"cannot_get_search_by_user":{
+		"code":34,
+		"message":"Không thể lấy lịch sử search"
+	},
+	"save_search_success":{
+		"code":35,
+		"message":"Lưu tìm kiếm thành công"
+	},
+	"cannot_save_search":{
+		"code":36,
+		"message":"Không thể lưu tìm kiếm"
+	},
+	"cannot_remove_search":{
+		"code":37,
+		"message":"Không thể xóa tìm kiếm"
+	},
+	"remove_search_success":{
+		"code":38,
+		"message":"Xóa tìm kiếm thành công"
+	},
 	"please_check_email_to_active_account": {
 		"code": 100,
 		"message": "Bạn đã đăng ký thành công. Hãy kiểm tra tài khoản email để tiến hành kích hoạt tài khoản"
