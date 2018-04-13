@@ -5,4 +5,8 @@ Router.route('/')
     .get(FavoriteController.getPropertyFavoriteByUser)
     .post(FavoriteController.checkFavorite)
     .delete(FavoriteController.unCheckFavorite)
-module.exports=Router;
+Router.route('/all')
+    .delete(FavoriteController.unCheckFavorites)
+Router.route('/share')
+    .post(FavoriteController.sharePropertyFavoriteToMail)
+module.exports = Router;

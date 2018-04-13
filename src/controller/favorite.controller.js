@@ -7,11 +7,14 @@ const NumberUtils = require('../util/number-utils');
 const MessageHelper = require('../util/message/message-helper');
 const Handler = require('./handling-helper');
 const IncludeModelProperty=require('../util/include-model');
+const ShareFavorite=require("../util/share-favorite/share-favorite-to-email");
 
 const FavoriteController={};
 FavoriteController.getPropertyFavoriteByUser=getPropertyFavoriteByUser;
 FavoriteController.checkFavorite=checkFavorite;
 FavoriteController.unCheckFavorite=unCheckFavorite;
+FavoriteController.unCheckFavorites=unCheckFavorites;
+FavoriteController.sharePropertyFavoriteToMail=sharePropertyFavoriteToMail;
 module.exports=FavoriteController;
 
 async function getPropertyFavoriteByUser(req,res){
@@ -29,7 +32,6 @@ async function getPropertyFavoriteByUser(req,res){
                         exclude: ['user_id_checked','date_modified','user_id_created'],
 					},
                     through: {attributes:[]}
-                  
                 }
             ],
             attributes:['id']
@@ -55,7 +57,6 @@ async function checkFavorite(req,res){
         let verify = await VerifyUtils.verifyProtectRequest(req);
         let favorite=req.body;
         let data = await Favorite.create(favorite);
-        
         responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "check_favorite_success"));
     } catch (error) {
         if (error.constructor.name === 'ConnectionRefusedError') {
@@ -93,9 +94,8 @@ async function unCheckFavorite(req,res){
 async function unCheckFavorites(req,res){
     try {
         let verify = await VerifyUtils.verifyProtectRequest(req);
-        let array_property_id=req.body.array_id;
-        let data = await Favorite.destroy({where:{property_id:array_property_id}});
-        
+        let properties_id=getPropertiesId(req);
+        let data = await Favorite.destroy({where:{property_id:properties_id}});
         responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "uncheck_favorite_success"));
     } catch (error) {
         if (error.constructor.name === 'ConnectionRefusedError') {
@@ -110,6 +110,26 @@ async function unCheckFavorites(req,res){
         }
     }
 }
+async function sharePropertyFavoriteToMail(req, res){
+    try {
+        let verify = await VerifyUtils.verifyProtectRequest(req);
+        let data=req.body;
+        let result = await ShareFavorite.sendMailShareProprety(data);
+        responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "share_favorite_success"));
+    } catch (error) {
+        console.log("lang thang:"+ error)
+        if (error.constructor.name === 'ConnectionRefusedError') {
+            Handler.cannotConnectDatabase(req, res);
+        } else if (error.constructor.name === 'ValidationError' ||
+            error.constructor.name === 'UniqueConstraintError') {
+            Handler.validateError(req, res, error);
+        } else if (error.constructor.name == 'ErrorModel') {
+            Handler.handlingErrorModel(res, error);
+        } else {
+           handlingCannotShareProperties(req, res);
+        }
+    }
+}
 function responseData(res, data) {
     res.status(200).json(new ResponseModel({
         code: 200,
@@ -118,6 +138,23 @@ function responseData(res, data) {
         data: data,
         errors: null
     }));
+}
+function getPropertiesId(req) {
+    let result = [];
+    let properties=req.body;
+    properties.forEach(function (item) {
+        result.push(item.id);
+    });
+    return result;
+}
+function handlingCannotShareProperties(req,res){
+    res.status(503).json(new ResponseModel({
+		code: 503,
+		status_text: 'SERVICE UNAVAILABLE',
+		success: false,
+		data: null,
+		errors: [getMessage(req, 'cannot_share_property_favorite')]
+	}));
 }
 function handlingCanotGetPropertyFavoriteByUser(req,res){
 	res.status(503).json(new ResponseModel({

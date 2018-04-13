@@ -151,6 +151,14 @@
 		"code":38,
 		"message":"Remove search is successfully"
 	},
+	"cannot_share_property_favorite":{
+		"code":39,
+		"message":"Cannot share favorite"
+	},
+	"share_favorite_success":{
+		"code":40,
+		"message":"Share favorite is successfully"
+	},
 	"please_check_email_to_active_account": {
 		"code": 100,
 		"message": "You have registered successfully. Please check your email to activate your account"

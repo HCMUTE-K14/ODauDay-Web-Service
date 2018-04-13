@@ -13,6 +13,7 @@ Template.forgotPasswordMailTemplate = createForgotPasswordMailTemplate;
 
 Template.activeAccountMailTemplate = createActiveAccountMailTemplate;
 Template.activedAccountMailTemplate = createActivedAccountMailTemplate;
+Template.createFavoriteShareToEmail=createFavoriteShareToEmail;
 
 module.exports = Template;
 
@@ -176,4 +177,77 @@ password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
 </script>
 </html>`
+}
+
+function createFavoriteShareToEmail(data){
+
+  let header=`<html>
+  <head>
+    <title>Property Shortlist</title>
+  </head>
+  <style type="text/css">
+    b {
+      font-weight: bold;
+    }
+  </style>
+  
+  <body>
+    <div style="width: 60%">
+      <div style="height: 70px; width: 60%; background: #4BA000; margin-top: 10px">
+        <h1 style="color: white; padding-top: 15px; padding-left: 10px; font-family: 'Aclonica'">ODauDay</h1>
+      </div>
+      <div style="margin-top: 20px; width: 100%;">
+        <p>Hi there,</p>
+        <p>There are
+          <b>${data.properties.length} properties</b> listed in
+          <b>${data.name}'s</b> property shortlist.</p>
+      </div>
+      <div style="height: 40px; width: 60%; background: #4BA000; margin-top: 20px;">
+        <h4 style="color: white; padding-top: 10px; padding-left: 10px;">Property ShortList</h4>
+      </div>`
+    let body=createItemFavorite(data.properties);
+    let footer= `</div>
+    </body>
+    </html>`
+
+  let result=header+body+footer;
+
+  return result;
+}
+function createItemFavorite(properties){
+    let data="";
+    properties.forEach(function(property) {
+       data+= `<div >
+       <div >
+         <div >
+           <p>
+             <b>${property.name}</b>
+           </p>
+         </div>
+       </div>
+       <div >
+               <img src="${property.images[0].url}" width="350" height="300" >
+
+               <div>
+                     <div style="width: 45%">
+                         <b>Description: </b>${property.description}
+                     </div>
+                      <div>
+                       <b>Price: </b>${property.price} đ
+                       <br>
+                       <b>Land size: </b>${property.land_size}
+                       <br>
+                       <b>Type: </b>${property.type_id}</p> 
+                       <a href="https://www.google.com/maps/?q=${property.latitude},${property.longitude}">View map</a>
+                     </div>
+                     <div>
+                       <button style="background: #5CB82E; color: white; margin-top: 20px">View Details</button>
+                     </div>
+               </div>
+       </div>
+   </div>`
+      
+    });
+
+    return data;
 }
