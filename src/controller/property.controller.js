@@ -167,7 +167,7 @@ async function destroy(req, res) {
     try {
         let verify = await VerifyUtils.verifyProtectRequest(req);
         let property_id = req.query.id;
-        let data=await Property.destroy({include:getModels(), where:{id:property_id}});        
+        let data=await Property.destroy({include:IncludeModeProperty.getModelProperty(), where:{id:property_id}});        
         responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "destroy_property_success"));
     } catch (error) {
         console.log("lang thang"+error);

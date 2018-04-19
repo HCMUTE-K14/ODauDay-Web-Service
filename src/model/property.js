@@ -36,13 +36,13 @@ module.exports = (sequelize, DataTypes) => {
 		description: {
 			type: DataTypes.STRING
 		},
-		num_of_bedrom: {
+		num_of_bedroom: {
 			type: DataTypes.INTEGER
 		},
-		num_of_bathrom: {
+		num_of_bathroom: {
 			type: DataTypes.INTEGER
 		},
-		num_of_packing: {
+		num_of_parking: {
 			type: DataTypes.INTEGER
 		},
 		land_size: {
@@ -50,6 +50,9 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false
 		},
 		type_id:{
+			type:DataTypes.STRING
+		},
+		time_contact:{
 			type:DataTypes.STRING
 		},
 		user_id_created:{
@@ -71,21 +74,24 @@ module.exports = (sequelize, DataTypes) => {
     	Property.belongsToMany(models.Tag, {
             through: models.PropertyTag,
             as: 'tags',
-    	    foreignKey: 'property_id'
+			foreignKey: 'property_id',
+			onDelete:'cascade'
 		});
 		Property.belongsToMany(models.Category, {
             through: models.PropertyCategory,
             as: 'categorys',
-            foreignKey: 'property_id'
+			foreignKey: 'property_id',
+			onDelete:'cascade'
 		});
 		Property.belongsToMany(models.User, {
 			through: 'Favorite',
-			foreignKey: 'property_id'
+			foreignKey: 'property_id',
+			onDelete:'cascade'
 		});
 		Property.hasMany(models.Email,{foreignKey: 'property_id' ,as:'emails',onDelete:'cascade'});
 		Property.hasMany(models.Phone,{foreignKey: 'property_id', as:'phones',onDelete:'cascade'});
 		Property.hasMany(models.Image,{foreignKey: 'property_id', as:'images',onDelete:'cascade'});
-		Property.belongsTo(models.User, {foreignKey: 'user_id_created', as:'users'});
+		Property.belongsTo(models.User, {foreignKey: 'user_id_created', as:'properties',onDelete:'cascade'});
     };
     return Property;
 }

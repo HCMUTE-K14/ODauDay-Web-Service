@@ -31,7 +31,7 @@ async function getPropertyFavoriteByUser(req,res){
 					attributes: {
                         exclude: ['user_id_checked','date_modified','user_id_created'],
 					},
-                    through: {attributes:[]}
+                    through: {attributes:["date_created"]}
                 }
             ],
             attributes:['id']
@@ -114,6 +114,7 @@ async function sharePropertyFavoriteToMail(req, res){
     try {
         let verify = await VerifyUtils.verifyProtectRequest(req);
         let data=req.body;
+        console.log("data: "+data);
         let result = await ShareFavorite.sendMailShareProprety(data);
         responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "share_favorite_success"));
     } catch (error) {

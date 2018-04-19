@@ -11,6 +11,7 @@ App.listen(App.get('port'), () => {
 			Logger.info('Connected to database at ' + new Date());
 		})
 		.catch(error => {
+			Logger.info(error);
 			Logger.info('Can not connect to database');
 		});
 });

@@ -111,7 +111,57 @@ async function changePassword(req, res) {
 		}
 	}
 }
-
+// async function getPropertyOfUser(req,res){
+// 	try {
+//         let verify = await VerifyUtils.verifyPublicRequest(req);
+//         let query={id:req.query.id};
+//         let data = await User.findOne({
+// 			where: query,
+//             include: [
+// 				{
+// 					model: Property,
+// 					as: 'properties',
+// 					include:IncludeModelProperty.getModelProperty(),
+// 					attributes: {
+//                         exclude: ['user_id_checked','date_modified','user_id_created'],
+// 					}
+//                 }
+//             ],
+//             attributes:['id']
+//         });
+//         responseData(res, data);
+//     } catch (error) {
+//         console.log("lang thang:"+error);
+//         if (error.constructor.name === 'ConnectionRefusedError') {
+//             Handler.cannotConnectDatabase(req, res);
+//         } else if (error.constructor.name === 'ValidationError' ||
+//             error.constructor.name === 'UniqueConstraintError') {
+//             Handler.validateError(req, res, error);
+//         } else if (error.constructor.name == 'ErrorModel') {
+//             Handler.handlingErrorModel(res, error);
+//         } else {
+//            handlingCannotGetPropertyOfUser(req, res);
+//         }
+//     }
+// }
+// function responseData(res, data) {
+//     res.status(200).json(new ResponseModel({
+//         code: 200,
+//         status_text: 'OK',
+//         success: true,
+//         data: data,
+//         errors: null
+//     }));
+// }
+// function handlingCannotGetPropertyOfUser(req,res){
+// 	res.status(503).json(new ResponseModel({
+// 		code: 503,
+// 		status_text: 'SERVICE UNAVAILABLE',
+// 		success: false,
+// 		data: null,
+// 		errors: [getMessage(req, 'cannot_get_property_of_user')]
+// 	}));
+// }
 function handlingCannotUpdateUser(req, res) {
 	res.status(503).json(new ResponseModel({
 		code: 503,

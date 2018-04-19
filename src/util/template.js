@@ -192,8 +192,8 @@ function createFavoriteShareToEmail(data){
   </style>
   
   <body>
-    <div style="width: 60%">
-      <div style="height: 70px; width: 60%; background: #4BA000; margin-top: 10px">
+    <div style="width: 350px">
+      <div style="height: 70px; width: 350px; background: #4BA000; margin-top: 10px">
         <h1 style="color: white; padding-top: 15px; padding-left: 10px; font-family: 'Aclonica'">ODauDay</h1>
       </div>
       <div style="margin-top: 20px; width: 100%;">
@@ -202,7 +202,7 @@ function createFavoriteShareToEmail(data){
           <b>${data.properties.length} properties</b> listed in
           <b>${data.name}'s</b> property shortlist.</p>
       </div>
-      <div style="height: 40px; width: 60%; background: #4BA000; margin-top: 20px;">
+      <div style="height: 40px; width: 350px; background: #4BA000; margin-top: 20px;">
         <h4 style="color: white; padding-top: 10px; padding-left: 10px;">Property ShortList</h4>
       </div>`
     let body=createItemFavorite(data.properties);
@@ -220,9 +220,7 @@ function createItemFavorite(properties){
        data+= `<div >
        <div >
          <div >
-           <p>
-             <b>${property.name}</b>
-           </p>
+             <h4>${property.name}</h4>
          </div>
        </div>
        <div >
@@ -235,9 +233,9 @@ function createItemFavorite(properties){
                       <div>
                        <b>Price: </b>${property.price} đ
                        <br>
-                       <b>Land size: </b>${property.land_size}
+                       <b>Land size: </b>${property.land_size} m2
                        <br>
-                       <b>Type: </b>${property.type_id}</p> 
+                       <b>Type: </b>${property.type_id}</p> </br>
                        <a href="https://www.google.com/maps/?q=${property.latitude},${property.longitude}">View map</a>
                      </div>
                      <div>

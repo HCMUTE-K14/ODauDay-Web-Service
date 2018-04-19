@@ -20,6 +20,22 @@ module.exports=(sequelize, DataTypes) =>{
         longitude:{
             type: DataTypes.FLOAT,
             allowNull: false
+        },
+        latitude_ns:{
+            type: DataTypes.FLOAT,
+            allowNull: false
+        },
+        longitude_ns:{
+            type: DataTypes.FLOAT,
+            allowNull: false
+        },
+        latitude_sw:{
+            type: DataTypes.FLOAT,
+            allowNull: false
+        },
+        longitude_sw:{
+            type: DataTypes.FLOAT,
+            allowNull: false
         }
     },{
 		timestamps: true,
