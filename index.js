@@ -14,7 +14,7 @@ App.listen(App.get('port'), () => {
 		});
 });
 // insertUser();
-//  insertProperty();
+//insertProperty();
 async function insertUser() {
 	try {
 		let listUser = [];
@@ -34,15 +34,33 @@ async function insertUser() {
 	}
 }
 
+function generateRandomNumber() {
+	var min = 0.005;
+	var max = 0.05;
+	return Math.random() * (max - min) + min;
+};
+
 async function insertProperty() {
 	try {
 		let listProperty = [];
-
-		for (let i = 0; i < 10; i++) {
+		let currentDate = new Date();
+		for (let i = 0; i < 200; i++) {
 			listProperty.push({
 				id: '' + i,
-				name: 'name#' + i,
-				code: 'code#' + i
+				address: 'name#' + i,
+				code: 'code#' + i,
+				latitude: 10.785461992387418 + generateRandomNumber(),
+				longitude: 106.669320166111 +
+					generateRandomNumber(),
+				status: 'active',
+				postcode: 8000,
+				price: 5000,
+				num_of_bedroom: 1,
+				num_of_bathroom: 1,
+				num_of_parking: 1,
+				land_size: 5000,
+				date_end: new Date(currentDate.getTime() + 24 * 60 * 60 * 1000),
+				type_id: 'BUY'
 			});
 		}
 		await DB.Property.bulkCreate(listProperty);
@@ -50,4 +68,3 @@ async function insertProperty() {
 		console.log(error);
 	}
 }
-

@@ -7,11 +7,77 @@ const UserRoutes = require('./user.route');
 const AuthRoutes = require('./auth.route');
 const AdminRoutes = require('./admin.route');
 const FavoriteRoutes = require('./favorite.route');
+const SearchRoutes = require('./search.route');
+const AutoCompleteRoutes = require('./auto-complete-place.route');
 
 const DB = require('../model/index');
 
-Router.post('/health-check', (req, res) => {
+Router.get('/health-check', (req, res) => {
 	console.log(req.body);
+
+	DB.Property.findById('1', {
+			include: [{
+				model: DB.Category,
+				as: 'categories',
+				attributes: ['id'],
+				through: { attributes: [] }
+			}]
+		})
+		.then(data => {
+			let __ = data.get({ plain: true });
+			let categories = [{id: '1'}, {id: '2'}];
+			let sizePropertyCategory = categories.length;
+			let sizeData = __.categories.length;
+			if(sizeData <= 0){
+				return false;
+			}
+			for (let i = 0; i < sizePropertyCategory; i++) {
+				let a = categories[i].id;
+				for (let j = 0; j < sizeData; j++) {
+					let b = __.categories[j].id;
+
+					if (a == b) {
+						res.json({message: 'OK'});
+						return true;
+					}
+				}
+			}
+			return false;
+		})
+
+	// DB.Property.findById('1', {
+	// 		include: [{
+	// 			model: DB.Tag,
+	// 			as: 'tags',
+	// 			attributes: ['id'],
+	// 			through: { attributes: [] }
+	// 		}]
+	// 	})
+	// 	.then(data => {
+	// 		let __ = data.get({ plain: true });
+	// 		let propertyTags = [{
+	// 			id: "1"
+	// 		}, {
+	// 			id: "2"
+	// 		}];
+	// 		let sizePropertyTags = propertyTags.length;
+	// 		let sizeData = __.tags.length;
+
+	// 		console.log(propertyTags);
+	// 		console.log(__.tags)
+	// 		for (let i = 0; i < sizePropertyTags; i++) {
+	// 			let a = propertyTags[i].id;
+	// 			for (let j = 0; j < sizeData; j++) {
+	// 				let b = __.tags[j].id;
+
+	// 				if (a == b) {
+	// 					res.json({message: 'OK'});
+	// 					return;
+	// 				}
+	// 			}
+	// 		}
+
+	// 	})
 	// // DB.User.findById('0', {
 	// // 		include: [{
 	// // 			model: DB.Property,
@@ -46,6 +112,8 @@ Router.post('/health-check', (req, res) => {
 Router.use('/users', UserRoutes);
 Router.use('/auth', AuthRoutes);
 Router.use('/favorite', FavoriteRoutes);
+Router.use('/search', SearchRoutes);
+Router.use('/auto-complete-place', AutoCompleteRoutes);
 // Router.use('/admin', AdminRoutes);
 
 module.exports = Router;

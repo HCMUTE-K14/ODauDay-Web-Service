@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			validate: {
 				len: {
-
 					args: [6, 128],
 					msg: JSON.stringify(MessageHelper.VI['email_len'])
 				},

@@ -40,7 +40,9 @@ const evnObject = Joi.object({
         EMAIL_USERNAME: Joi.string(),
         EMAIL_PASSWORD: Joi.string(),
         BASE_URL: Joi.string()
-            .default('http://localhost:8000')
+            .default('http://localhost:8000'),
+        GOOGLE_PLACE_AUTOCOMPLETE_API: Joi.string(),
+        GOOGLE_GEOCODE_API: Joi.string()
     }).unknown()
     .required();
 
@@ -74,7 +76,11 @@ const config = {
         password: envVars.EMAIL_PASSWORD
     },
     base_url: envVars.BASE_URL,
-    root_folder: process.env.PWD
+    root_folder: process.env.PWD,
+    google: {
+        place_autocomplete_api: envVars.GOOGLE_PLACE_AUTOCOMPLETE_API,
+        geocode_api: envVars.GOOGLE_GEOCODE_API
+    }
 };
 
 module.exports = config;

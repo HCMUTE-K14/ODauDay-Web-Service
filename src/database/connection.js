@@ -8,6 +8,7 @@ const MySQLConfig = Config.mysql;
 
 const connection = new Sequelize(MySQLConfig.database_name, MySQLConfig.username, MySQLConfig.password, {
 	host: MySQLConfig.host,
+	port: MySQLConfig.port,
 	dialect: Config.database_client,
 	operatorsAliases: false,
 	define: {
