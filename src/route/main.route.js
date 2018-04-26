@@ -9,6 +9,7 @@ const AdminRoutes = require('./admin.route');
 const FavoriteRoutes = require('./favorite.route');
 const SearchRoutes = require('./search.route');
 const AutoCompleteRoutes = require('./auto-complete-place.route');
+const GeoInfoRoutes = require('./geo-info.route');
 
 const DB = require('../model/index');
 
@@ -114,6 +115,8 @@ Router.use('/auth', AuthRoutes);
 Router.use('/favorite', FavoriteRoutes);
 Router.use('/search', SearchRoutes);
 Router.use('/auto-complete-place', AutoCompleteRoutes);
+Router.use('/geo-info', GeoInfoRoutes);
+
 // Router.use('/admin', AdminRoutes);
 
 module.exports = Router;
