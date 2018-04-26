@@ -14,27 +14,27 @@ module.exports=(sequelize, DataTypes) =>{
             allowNull: false
         },
         latitude:{
-            type: DataTypes.FLOAT,
+            type: DataTypes.DOUBLE,
             allowNull: false
         },
         longitude:{
-            type: DataTypes.FLOAT,
+            type: DataTypes.DOUBLE,
             allowNull: false
         },
         latitude_ns:{
-            type: DataTypes.FLOAT,
+            type: DataTypes.DOUBLE,
             allowNull: false
         },
         longitude_ns:{
-            type: DataTypes.FLOAT,
+            type: DataTypes.DOUBLE,
             allowNull: false
         },
         latitude_sw:{
-            type: DataTypes.FLOAT,
+            type: DataTypes.DOUBLE,
             allowNull: false
         },
         longitude_sw:{
-            type: DataTypes.FLOAT,
+            type: DataTypes.DOUBLE,
             allowNull: false
         }
     },{

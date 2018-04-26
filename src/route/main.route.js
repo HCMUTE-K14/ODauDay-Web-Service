@@ -8,6 +8,7 @@ const PropertyRoutes=require("./property.route");
 const AdminRoutes = require('./admin.route');
 const FavoriteRoutes=require('./favorite.route');
 const SearchRoutes=require("./search.route");
+const UploadImageRoutes=require("./uploadimages.route");
 Router.get('/health-check', (req, res) => {
 	res.send('OK');
 });
@@ -20,6 +21,7 @@ Router.use("/property",PropertyRoutes);
 Router.use('/admin', AdminRoutes);
 Router.use('/favorite',FavoriteRoutes);
 Router.use('/search',SearchRoutes);
+Router.use('/image',UploadImageRoutes);
 // Router.use('/admin', AdminRoutes);
 
 module.exports = Router;

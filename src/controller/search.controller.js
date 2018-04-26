@@ -24,7 +24,7 @@ async function getSearchByUser(req,res){
 				{
                     model: Search,
                     as:'searches',
-                    attributes: ['id','name', 'latitude', 'longitude','date_created']
+                    attributes: ['id','name', 'latitude', 'longitude','latitude_ns','longitude_ns','latitude_sw','longitude_sw','date_created']
                 }
             ],
             order:[

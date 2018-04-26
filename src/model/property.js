@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
 			primaryKey: true,
 			defaultValue: DataTypes.UUIDV4
 		},
-		name: {
+		address: {
 			type: DataTypes.STRING,
 			allowNull: false
 		},
@@ -14,11 +14,11 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false
 		},
 		latitude: {
-			type: DataTypes.FLOAT,
+			type: DataTypes.DOUBLE,
 			allowNull: false
 		},
 		longitude: {
-			type: DataTypes.FLOAT,
+			type: DataTypes.DOUBLE,
 			allowNull: false
 		},
 		postcode: {
