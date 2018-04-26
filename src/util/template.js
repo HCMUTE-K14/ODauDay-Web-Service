@@ -77,7 +77,7 @@ function createHtmlWithForm(link, title, message) {
   <div class="jumbotron text-xs-center">
     <h1 class="display-3">${message}</h1>
   <form action = "${link}" method = "post">
-    <button class="btn btn-warning"  type="submit" id="resend_link"></button>
+    <button class="btn btn-warning"  type="submit" id="resend_link">OK</button>
   </form>
   </div>
 </body>

@@ -22,6 +22,7 @@ App.use(BodyParse.json());
 App.use(BodyParse.urlencoded({ extended: false }));
 App.use(CookieParser());
 App.use('/', Routes);
+
 if (Config.env === 'development') {
 	App.use(Logger("dev"));
 }

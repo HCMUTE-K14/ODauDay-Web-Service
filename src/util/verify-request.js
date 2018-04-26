@@ -4,19 +4,13 @@ const Config = require('../config');
 const Logger = require('../logger');
 const TextUtils = require('./text-utils');
 const User = require('../model/index').User;
-<<<<<<< HEAD
-=======
 const ErrorModel = require('../util/error-model');
->>>>>>> 225a7758de6c7f2ea535f8096e2838df9f6cc875
 
 const VerifyUtils = {};
 VerifyUtils.verifyPublicRequest = verifyPublicRequest;
 VerifyUtils.verifyProtectRequest = verifyProtectRequest;
-<<<<<<< HEAD
-=======
 VerifyUtils.verifyWithSecretToken = verifyWithSecretToken;
 VerifyUtils.verifyApiKey = verifyApiKey;
->>>>>>> 225a7758de6c7f2ea535f8096e2838df9f6cc875
 
 module.exports = VerifyUtils;
 

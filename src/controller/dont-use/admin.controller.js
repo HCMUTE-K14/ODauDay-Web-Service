@@ -1,10 +1,10 @@
-const User = require('../model/index').User;
+const User = require('../../model/index').User;
 
-const ResponseModel = require('../util/response-model');
-const VerifyUtils = require('../util/verify-request');
-const MessageHelper = require('../util/message/message-helper');
+const ResponseModel = require('../../util/response-model');
+const VerifyUtils = require('../../util/verify-request');
+const MessageHelper = require('../../util/message/message-helper');
 
-const Handler = require('./handling-helper');
+const Handler = require('../handling-helper');
 
 const AdminController = {};
 AdminController.getUsers = getUsers;
@@ -60,7 +60,7 @@ function getUsers(req, res) {
 
 function handlingCannotGetUsers(req, res) {
 	res.status(503).json(new ResponseModel({
-		code: 503,
+ 		code: 503,
 		status_text: 'SERVICE UNAVAILABLE',
 		success: false,
 		data: null,

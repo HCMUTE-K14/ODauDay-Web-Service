@@ -80,7 +80,9 @@ module.exports = (sequelize, DataTypes) => {
 			defaultValue: 'user',
 			validate: {
 				isIn: {
-					args: [['user', 'admin']],
+					args: [
+						['user', 'admin']
+					],
 					msg: JSON.stringify(MessageHelper.VI['role_is_invalid'])
 				}
 			}
@@ -91,7 +93,9 @@ module.exports = (sequelize, DataTypes) => {
 			defaultValue: 'pending',
 			validate: {
 				isIn: {
-					args: [['active', 'pending', 'disabled']],
+					args: [
+						['active', 'pending', 'disabled']
+					],
 					msg: JSON.stringify(MessageHelper.VI['status_is_invalid'])
 				}
 			}
@@ -105,6 +109,9 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		facebook_id: {
 			type: DataTypes.STRING
+		},
+		amount: {
+			type: DataTypes.DOUBLE
 		}
 	}, {
 		timestamps: true,
@@ -114,6 +121,22 @@ module.exports = (sequelize, DataTypes) => {
 	});
 
 	User.associate = function(models) {
+		User.belongsToMany(models.Property, {
+			through: models.Favorite,
+			as: 'favorites',
+			foreignKey: 'user_id'
+		});
+
+		User.hasMany(models.Transaction, {
+			foreignKey: 'user_id',
+			as: 'transactions'
+		});
+
+		User.belongsToMany(models.Property, {
+			through: models.History,
+			as: 'view_history',
+			foreignKey: 'user_id'
+		});
 
 	};
 
@@ -132,6 +155,7 @@ module.exports = (sequelize, DataTypes) => {
 
 	User.beforeCreate(encryptPasswordIfChanged);
 	User.beforeUpdate(encryptPasswordIfChanged);
+	User.beforeBulkCreate(encryptPasswordIfChanged);
 
 	return User;
 };

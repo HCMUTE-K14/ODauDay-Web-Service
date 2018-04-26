@@ -1,125 +1,211 @@
 {
-    "invalid_api_key": {
+    "invalid_api_key":
+    {
         "code": 1,
         "message": "API Key không hợp lệ"
     },
-    "invalid_access_token": {
+    "invalid_access_token":
+    {
         "code": 2,
         "message": "Access token không hợp lệ"
     },
-    "user_not_exist": {
+    "user_not_exist":
+    {
         "code": 3,
         "message": "Người dùng không tồn tại"
     },
-    "login_failure": {
+    "login_failure":
+    {
         "code": 4,
         "message": "Email hoặc mật khẩu không chính xác"
     },
-    "need_admin_role": {
+    "need_admin_role":
+    {
         "code": 5,
         "message": "Tài nguyên cần quyền của Admin"
     },
-    "can_not_get_users": {
+    "can_not_get_users":
+    {
         "code": 6,
         "message": "Đã có lỗi xảy ra, không thể lấy được danh sách người dùng"
     },
-    "can_not_create_feature":{
-		"code": 7,
-		"message": "Không tạo feature"
-    },
-    "can_not_update_feature":{
-		"code":8,
-		"message":"Không thể cập nhấp feature"
-    },
-    "can_not_delete_feature":{
-		"code":9,
-		"message":"Không thể xóa feature"
-	},
-    "please_check_email_to_active_account": {
+    "please_check_email_to_active_account":
+    {
         "code": 100,
         "message": "Bạn đã đăng ký thành công. Hãy kiểm tra tài khoản email để tiến hành kích hoạt tài khoản"
     },
-    "email_already_exist": {
+    "email_already_exist":
+    {
         "code": 101,
         "message": "Email đã tồn tại. Vui lòng chọn email khác"
     },
-    "email_len": {
+    "email_len":
+    {
         "code": 102,
         "message": "Địa chỉ email phải có độ dài từ 6 đến 128 kí tự"
     },
-    "email_is_invalid": {
+    "email_is_invalid":
+    {
         "code": 103,
         "message": "Email không hợp lệ"
     },
-    "email_is_required": {
+    "email_is_required":
+    {
         "code": 104,
         "message": "Trường email là bắt buộc (không thể bỏ trống)"
     },
-    "password_can_not_be_empty": {
+    "password_can_not_be_empty":
+    {
         "code": 105,
         "message": "Mật khẩu không thể bỏ trống"
     },
-    "password_len": {
+    "password_len":
+    {
         "code": 106,
         "message": "Mật khẩu có độ dài từ 6 đến 128 ký tự"
     },
-    "password_is_required": {
+    "password_is_required":
+    {
         "code": 107,
         "message": "Trường mật khẩu là bắt buộc (không thể bỏ trống)"
     },
-    "display_name_can_not_be_empty": {
+    "display_name_can_not_be_empty":
+    {
         "code": 108,
         "message": "Tên hiển thị (Display name) không thể bỏ trống"
     },
-    "display_name_maxinum_len": {
+    "display_name_maxinum_len":
+    {
         "code": 109,
         "message": "Tên hiển thị (Display name) có độ dài tối đa 30 kí tự"
     },
-    "display_name_is_required": {
+    "display_name_is_required":
+    {
         "code": 110,
         "message": "Trường tên hiển thị (Display name) là bắt buộc (không thể bỏ trống)"
     },
-    "role_is_invalid": {
+    "role_is_invalid":
+    {
         "code": 111,
         "message": "Vai trò (role) không hợp lệ"
     },
-    "status_is_invalid": {
+    "status_is_invalid":
+    {
         "code": 112,
         "message": "Trạng thái (status) không hợp lệ"
     },
-     "update_user_fail": {
+    "update_user_fail":
+    {
         "code": 113,
         "message": "Không thể cập nhật thông tin người dùng (user)"
     },
-     "update_user_successful": {
+    "update_user_successful":
+    {
         "code": 114,
         "message": "Thông tin cá nhân đã được cập nhật"
     },
-    "update_user_request_invalid": {
+    "update_user_request_invalid":
+    {
         "code": 115,
         "message": "Yêu cầu cập nhật thông tin cá nhân không hợp lệ"
     },
-     "cannot_register": {
+    "cannot_register":
+    {
         "code": 116,
         "message": "Tạo tài khoản thất bại. Vui lòng thử lại sau."
     },
-     "please_check_email_cofirm_password":{
+    "please_check_email_cofirm_password":
+    {
         "code": 117,
         "message": "Hãy kiểm tra email để xác nhận việc thay đổi mật khẩu"
     },
-    "sent_mail_fail":{
+    "sent_mail_fail":
+    {
         "code": 118,
         "message": "Gửi mail thất bại"
     },
-    "message_not_found": {
+    "user_is_disabled":
+    {
+        "code": 119,
+        "message": "Tài khoản của bạn đã bị khóa"
+    },
+    "code_premium_len":
+    {
+        "code": 120,
+        "message": "Code must be between 6 and 10 characters in length"
+    },
+    "type_code_premium_invalid":
+    {
+        "code": 121,
+        "message": "Type is invalid"
+    },
+    "status_code_premium_invalid":
+    {
+        "code": 121,
+        "message": "Status is invalid"
+    },
+    "create_favorite_fail":
+    {
+        "code": 122,
+        "message": "Thêm vào yêu thích thất bại"
+    },
+    "delete_favorite_fail":
+    {
+        "code": 123,
+        "message": "Xóa yêu thích thất bại"
+    },
+    "get_favorite_fail":
+    {
+        "code": 124,
+        "message": "Lấy danh sách yêu thích thất bại"
+    },
+    "get_favorite_fail":
+    {
+        "code": 125,
+        "message": "Failure to get favorite"
+    },
+    "subscription_success":
+    {
+        "code": 126,
+        "message": "Thanks for your subscription"
+    },
+    "subscription_failure":
+    {
+        "code": 127,
+        "message": "Your subscription is failure. Please try later"
+    },
+    "create_subscription_success":
+    {
+        "code": 128,
+        "message": "Subscription is created successfully"
+    },
+    "create_subscription_failure":
+    {
+        "code": 129,
+        "message": "Cannot create subcription"
+    },
+    "update_subscription_success":
+    {
+        "code": 130,
+        "message": "Subscription is updated"
+    },
+    "update_subscription_failure":
+    {
+        "code": 131,
+        "message": "Can not update subscription"
+    },
+    "message_not_found":
+    {
         "code": 1000,
         "message": "Thông điệp không tìm thấy"
     },
-    "database_is_down": {
+    "database_is_down":
+    {
         "code": 1001,
         "message": "Không thể kết nối đến cơ sở dữ liệu"
     },
-    "unknown_message": {
+    "unknown_message":
+    {
         "code": 1002,
         "message": "Lỗi không xác định"
     }
