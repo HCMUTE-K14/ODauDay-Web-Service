@@ -1,173 +1,189 @@
-const Favorite = require('../model/index').Favorite;
 const User = require('../model/index').User;
-
+const Property=require('../model/index').Property;
+const Favorite=require('../model/index').Favorite;
 const ResponseModel = require('../util/response-model');
 const VerifyUtils = require('../util/verify-request');
+const NumberUtils = require('../util/number-utils');
 const MessageHelper = require('../util/message/message-helper');
+const Handler = require('./handling-helper');
+const IncludeModelProperty=require('../util/include-model');
+const ShareFavorite=require("../util/share-favorite/share-favorite-to-email");
 
-const FavoriteController = {};
-FavoriteController.create = create;
-FavoriteController.remove = remove;
-FavoriteController.getByUserId = findFavoriteByUserId;
+const FavoriteController={};
+FavoriteController.getPropertyFavoriteByUser=getPropertyFavoriteByUser;
+FavoriteController.checkFavorite=checkFavorite;
+FavoriteController.unCheckFavorite=unCheckFavorite;
+FavoriteController.unCheckFavorites=unCheckFavorites;
+FavoriteController.sharePropertyFavoriteToMail=sharePropertyFavoriteToMail;
+module.exports=FavoriteController;
 
-module.exports = FavoriteController;
-
-async function create(req, res) {
+async function getPropertyFavoriteByUser(req,res){
 	try {
-		let isAccess = await VerifyUtils.verifyProtectRequest(req);
-		let userIdFromHeader = isAccess.user.id;
-		let body = req.body;
-
-		if (userIdFromHeader !== body.user_id) {
-			handlingCannotCreateFavorite(req, res);
-			return;
-		}
-
-		let created = await Favorite.create(body);
-
-		if (created) {
-			res.status(200).json(new ResponseModel({
-				code: 200,
-				status_text: 'OK',
-				success: true,
-				data: 'success'
-			}));
-		} else {
-			handlingCannotCreateFavorite(req, res);
-		}
-	} catch (error) {
-		if (error.constructor.name === 'ConnectionRefusedError') {
-			Handler.cannotConnectDatabase(req, res);
-		} else if (error.constructor.name === 'ValidationError' ||
-			error.constructor.name === 'UniqueConstraintError') {
-			Handler.validateError(req, res, error);
-		} else if (error.constructor.name === 'ErrorModel') {
-			Handler.invalidAccessToken(req, res);
-		} else {
-			handlingCannotCreateFavorite(req, res);
-		}
-	}
+        let verify = await VerifyUtils.verifyPublicRequest(req);
+        let query={id:req.query.id};
+        let data = await User.findOne({
+			where: query,
+            include: [
+				{
+					model: Property,
+					as: 'favorites',
+					include:IncludeModelProperty.getModelProperty(),
+					attributes: {
+                        exclude: ['user_id_checked','date_modified','user_id_created'],
+					},
+                    through: {attributes:["date_created"]}
+                }
+            ],
+            attributes:['id']
+        });
+        responseData(res, data);
+    } catch (error) {
+        console.log("lang thang:"+error);
+        if (error.constructor.name === 'ConnectionRefusedError') {
+            Handler.cannotConnectDatabase(req, res);
+        } else if (error.constructor.name === 'ValidationError' ||
+            error.constructor.name === 'UniqueConstraintError') {
+            Handler.validateError(req, res, error);
+        } else if (error.constructor.name == 'ErrorModel') {
+            Handler.handlingErrorModel(res, error);
+        } else {
+           handlingCanotGetPropertyFavoriteByUser(req, res);
+        }
+    }
 }
 
-async function remove(req, res) {
-	try {
-		let isAccess = await VerifyUtils.verifyProtectRequest(req);
-		let userIdFromHeader = isAccess.user.id;
-		let body = req.body;
-
-		if (userIdFromHeader !== body.user_id) {
-			handlingCannotDeleteFavorite(req, res);
-			return;
-		}
-		Favorite.destroy({
-				where: {
-					user_id: body.user_id,
-					property_id: body.property_id
-				}
-			})
-			.then(success => {
-				if (success > 0) {
-					res.status(200).json(new ResponseModel({
-						code: 200,
-						status_text: 'OK',
-						success: true,
-						data: 'success'
-					}));
-				} else {
-					handlingCannotDeleteFavorite(req, res);
-				}
-			})
-			.catch(error => {
-				handlingCannotDeleteFavorite(req, res);
-			})
-	} catch (error) {
-		if (error.constructor.name === 'ConnectionRefusedError') {
-			Handler.cannotConnectDatabase(req, res);
-		} else if (error.constructor.name === 'ValidationError' ||
-			error.constructor.name === 'UniqueConstraintError') {
-			Handler.validateError(req, res, error);
-		} else if (error.constructor.name === 'ErrorModel') {
-			Handler.invalidAccessToken(req, res);
-		} else {
-			handlingCannotDeleteFavorite(req, res);
-		}
-	}
+async function checkFavorite(req,res){
+    try {
+        let verify = await VerifyUtils.verifyProtectRequest(req);
+        let favorite=req.body;
+        let data = await Favorite.create(favorite);
+        responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "check_favorite_success"));
+    } catch (error) {
+        if (error.constructor.name === 'ConnectionRefusedError') {
+            Handler.cannotConnectDatabase(req, res);
+        } else if (error.constructor.name === 'ValidationError' ||
+            error.constructor.name === 'UniqueConstraintError') {
+            Handler.validateError(req, res, error);
+        } else if (error.constructor.name == 'ErrorModel') {
+            Handler.handlingErrorModel(res, error);
+        } else {
+           handlingCannotCheckFavorite(req, res);
+        }
+    }
 }
-
-async function findFavoriteByUserId(req, res) {
-	try {
-
-		let isAccess = await VerifyUtils.verifyProtectRequest(req);
-		let userIdFromHeader = isAccess.user.id;
-		let userId = req.params.id;
-
-		if (userIdFromHeader !== userId) {
-			handlingCannotGetFavorite(req, res);
-			return;
-		}
-
-		let data = await DB.User.findById(req.params.id, {
-			include: [{
-				model: DB.Property,
-				as: 'favorites',
-				attributes: ['id', 'name', 'code', 'latitude', 'longidude', 'postcode', 'status', 'price', 'description', 'num_of_bedroom', 'num_of_bathroom', 'num_of_parking', 'land_size'],
-				through: { attributes: [] }
-			}]
-		})
-		if (data) {
-			res.status(200).json(new ResponseModel({
-				code: 200,
-				status_text: 'OK',
-				success: true,
-				data: data
-			}));
-		} else {
-			handlingCannotGetFavorite(req, res);
-		}
-	} catch (error) {
-		if (error.constructor.name === 'ConnectionRefusedError') {
-			Handler.cannotConnectDatabase(req, res);
-		} else if (error.constructor.name === 'ValidationError' ||
-			error.constructor.name === 'UniqueConstraintError') {
-			Handler.validateError(req, res, error);
-		} else if (error.constructor.name === 'ErrorModel') {
-			Handler.invalidAccessToken(req, res);
-		} else {
-			handlingCannotGetFavorite(req, res);
-		}
-	}
+async function unCheckFavorite(req,res){
+    try {
+        let verify = await VerifyUtils.verifyProtectRequest(req);
+        let property_id=req.query.property_id;
+        let data = await Favorite.destroy({where:{property_id:property_id}});
+        
+        responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "uncheck_favorite_success"));
+    } catch (error) {
+        if (error.constructor.name === 'ConnectionRefusedError') {
+            Handler.cannotConnectDatabase(req, res);
+        } else if (error.constructor.name === 'ValidationError' ||
+            error.constructor.name === 'UniqueConstraintError') {
+            Handler.validateError(req, res, error);
+        } else if (error.constructor.name == 'ErrorModel') {
+            Handler.handlingErrorModel(res, error);
+        } else {
+           handlingCannotUnCheckFavorite(req, res);
+        }
+    }
 }
-
-function handlingCannotCreateFavorite(req, res) {
-	res.status(503).json(new ResponseModel({
- 		code: 503,
+async function unCheckFavorites(req,res){
+    try {
+        let verify = await VerifyUtils.verifyProtectRequest(req);
+        let properties_id=getPropertiesId(req);
+        let data = await Favorite.destroy({where:{property_id:properties_id}});
+        responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "uncheck_favorite_success"));
+    } catch (error) {
+        if (error.constructor.name === 'ConnectionRefusedError') {
+            Handler.cannotConnectDatabase(req, res);
+        } else if (error.constructor.name === 'ValidationError' ||
+            error.constructor.name === 'UniqueConstraintError') {
+            Handler.validateError(req, res, error);
+        } else if (error.constructor.name == 'ErrorModel') {
+            Handler.handlingErrorModel(res, error);
+        } else {
+           handlingCannotUnCheckFavorite(req, res);
+        }
+    }
+}
+async function sharePropertyFavoriteToMail(req, res){
+    try {
+        let verify = await VerifyUtils.verifyProtectRequest(req);
+        let data=req.body;
+        console.log("data: "+data);
+        let result = await ShareFavorite.sendMailShareProprety(data);
+        responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "share_favorite_success"));
+    } catch (error) {
+        console.log("lang thang:"+ error)
+        if (error.constructor.name === 'ConnectionRefusedError') {
+            Handler.cannotConnectDatabase(req, res);
+        } else if (error.constructor.name === 'ValidationError' ||
+            error.constructor.name === 'UniqueConstraintError') {
+            Handler.validateError(req, res, error);
+        } else if (error.constructor.name == 'ErrorModel') {
+            Handler.handlingErrorModel(res, error);
+        } else {
+           handlingCannotShareProperties(req, res);
+        }
+    }
+}
+function responseData(res, data) {
+    res.status(200).json(new ResponseModel({
+        code: 200,
+        status_text: 'OK',
+        success: true,
+        data: data,
+        errors: null
+    }));
+}
+function getPropertiesId(req) {
+    let result = [];
+    let properties=req.body;
+    properties.forEach(function (item) {
+        result.push(item.id);
+    });
+    return result;
+}
+function handlingCannotShareProperties(req,res){
+    res.status(503).json(new ResponseModel({
+		code: 503,
 		status_text: 'SERVICE UNAVAILABLE',
 		success: false,
 		data: null,
-		errors: [getMessage(req, 'create_favorite_fail')]
+		errors: [getMessage(req, 'cannot_share_property_favorite')]
 	}));
 }
-
-function handlingCannotGetFavorite(req, res) {
+function handlingCanotGetPropertyFavoriteByUser(req,res){
 	res.status(503).json(new ResponseModel({
- 		code: 503,
+		code: 503,
 		status_text: 'SERVICE UNAVAILABLE',
 		success: false,
 		data: null,
-		errors: [getMessage(req, 'get_favorite_fail')]
+		errors: [getMessage(req, 'cannot_get_property_favorite_by_user')]
 	}));
 }
-
-function handlingCannotDeleteFavorite(req, res) {
-	res.status(503).json(new ResponseModel({
- 		code: 503,
+function handlingCannotCheckFavorite(req,res){
+    res.status(503).json(new ResponseModel({
+		code: 503,
 		status_text: 'SERVICE UNAVAILABLE',
 		success: false,
 		data: null,
-		errors: [getMessage(req, 'delete_favorite_fail')]
+		errors: [getMessage(req, 'cannot_check_favorite')]
 	}));
 }
-
+function handlingCannotUnCheckFavorite(req,res){
+    res.status(503).json(new ResponseModel({
+		code: 503,
+		status_text: 'SERVICE UNAVAILABLE',
+		success: false,
+		data: null,
+		errors: [getMessage(req, 'cannot_uncheck_favorite')]
+	}));
+}
 function getMessage(req, errorText) {
 	let lang = req.query.lang || 'vi';
 	return MessageHelper.getMessage(lang, errorText);

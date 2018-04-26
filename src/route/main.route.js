@@ -1,13 +1,15 @@
 const Express = require('express');
-
 const ResponseModel = require('../util/response-model');
-
 const Router = Express.Router();
 const UserRoutes = require('./user.route');
 const AuthRoutes = require('./auth.route');
-const FeatureRoutes=require("./feature.route");
+const TagRoutes=require("./tag.route");
+const CategoryRoutes=require("./category.route");
+const PropertyRoutes=require("./property.route");
 const AdminRoutes = require('./admin.route');
-const FavoriteRoutes = require('./favorite.route');
+const FavoriteRoutes=require('./favorite.route');
+const SaveSearchRoutes=require("./save-search.route");
+const UploadImageRoutes=require("./uploadimages.route");
 const SearchRoutes = require('./search.route');
 const AutoCompleteRoutes = require('./auto-complete-place.route');
 const GeoInfoRoutes = require('./geo-info.route');
@@ -113,11 +115,16 @@ Router.get('/health-check', (req, res) => {
 
 Router.use('/users', UserRoutes);
 Router.use('/auth', AuthRoutes);
-Router.use('/favorite', FavoriteRoutes);
-Router.use('/search', SearchRoutes);
+
+Router.use('/tag',TagRoutes);
+Router.use("/category",CategoryRoutes);
+Router.use("/property",PropertyRoutes);
+Router.use('/admin', AdminRoutes);
+Router.use('/favorite',FavoriteRoutes);
+Router.use('/search',SearchRoutes);
+Router.use('/image',UploadImageRoutes);
+Router.use('/save-search', SaveSearchRoutes);
 Router.use('/auto-complete-place', AutoCompleteRoutes);
 Router.use('/geo-info', GeoInfoRoutes);
-
-// Router.use('/admin', AdminRoutes);
 
 module.exports = Router;

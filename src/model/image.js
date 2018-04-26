@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
         createdAt: 'date_created',
         tableName: 'tbl_image'
     });
-
     Image.associate = function(models) {
         Image.belongsTo(models.Property, {
             foreignKey: 'property_id',
@@ -26,6 +25,5 @@ module.exports = (sequelize, DataTypes) => {
             onDelete: 'cascade'
         });
     };
-
     return Image;
 }

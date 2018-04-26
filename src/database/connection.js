@@ -24,9 +24,9 @@ const connection = new Sequelize(MySQLConfig.database_name, MySQLConfig.username
 		idle: 10000
 	},
 
-	logging: function(sql) {
-		Logger.info(TAG + sql);
-	}
+	// logging: function(sql) {
+	// 	Logger.info(TAG + sql);
+	// }
 });
 
 module.exports = connection;

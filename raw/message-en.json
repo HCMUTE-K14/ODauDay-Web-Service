@@ -1,41 +1,169 @@
 {
-    "invalid_api_key":
-    {
-        "code": 1,
-        "message": "API Key is invalid"
-    },
-    "invalid_access_token":
-    {
-        "code": 2,
-        "message": "Access token is invalid"
-    },
-    "user_not_exist":
-    {
-        "code": 3,
-        "message": "User does not exist"
-    },
-    "login_failure":
-    {
-        "code": 4,
-        "message": "The username or password is incorrect"
-    },
-    "need_admin_role":
-    {
-        "code": 5,
-        "message": "Admin role is unauthorized"
-    },
-    "can_not_get_users":
-    {
-        "code": 6,
-        "message": "Cannot get list users"
-    },
-    "please_check_email_to_active_account":
-    {
-        "code": 100,
-        "message": "You have registered successfully. Please check your email to activate your account"
-    },
-    "email_already_exist":
-    {
+	"invalid_api_key": {
+		"code": 1,
+		"message": "API Key is invalid"
+	},
+	"invalid_access_token": {
+		"code": 2,
+		"message": "Access token is invalid"
+	},
+	"user_not_exist": {
+		"code": 3,
+		"message": "User does not exist"
+	},
+	"login_failure": {
+		"code": 4,
+		"message": "The username or password is incorrect"
+	},
+	"need_admin_role": {
+		"code": 5,
+		"message": "Admin role is unauthorized"
+	},
+	"can_not_get_users": {
+		"code": 6,
+		"message": "Cannot get list users"
+	},
+	"can_not_get_tag": {
+		"code": 7,
+		"message": "Cannot get Tag"
+	},
+	"can_not_create_tag": {
+		"code": 8,
+		"message": "Cannot create tag"
+	},
+	"create_tag_success":{
+		"code": 9,
+		"message": "Create tag is successfully"
+	},
+	"can_not_update_tag": {
+		"code": 10,
+		"message": "Cannot update tag"
+	},
+	"update_tag_success": {
+		"code": 11,
+		"message": "Update tag is successfully"
+	},
+	"can_not_destroy_tag": {
+		"code": 12,
+		"message": "Cannot destroy tag"
+	},
+	"destroy_tag_success": {
+		"code": 13,
+		"message": "Destroy tag is successfully"
+	},
+	"can_not_create_category": {
+		"code": 14,
+		"message": "Cannot create category"
+	},
+	"create_category_success": {
+		"code": 15,
+		"message": "Create category is successfully"
+	},
+	"can_not_update_category": {
+		"code": 16,
+		"message": "Cannot update category"
+	},
+	"update_category_success": {
+		"code": 17,
+		"message": "Update category is successfully"
+	},
+	"can_not_destroy_category": {
+		"code": 18,
+		"message": "Cannot destroy category"
+	},
+	"destroy_category_success": {
+		"code": 19,
+		"message": "Destroy category is successfully"
+	},
+	"can_not_get_category": {
+		"code": 20,
+		"message": "Cannot get category"
+	},
+	"can_not_get_property": {
+		"code": 21,
+		"message": "Cannot get property"
+	},
+	"can_not_create_property": {
+		"code": 22,
+		"message": "Cannot create property"
+	},
+	"create_property_success":{
+		"code":23,
+		"message":"Create property is successfully"
+	},
+	"can_not_update_property": {
+		"code": 24,
+		"message": "Cannot update property"
+	},
+	"update_property_success":{
+		"code":25,
+		"message":"Update property is successfully"
+	},
+	"can_not_destroy_property": {
+		"code": 26,
+		"message": "Cannot destroy property"
+	},
+	"destroy_property_success":{
+		"code":27,
+		"message":"Delete property is successfully"
+	},
+	"can_not_get_property_by_user":{
+		"code":28,
+		"message":"Cannot get property by user"
+	},
+	"cannot_get_property_favorite_by_user":{
+		"code":29,
+		"message":"Cannot get property favorite by user"
+	},
+	"check_favorite_success":{
+		"code":30,
+		"message":"Check favorite is successfully"
+	},
+	"cannot_check_favorite":{
+		"code":31,
+		"message":"Cannot check favorite"
+	},
+	"uncheck_favorite_success":{
+		"code":32,
+		"message":"Uncheck favorite is successfully"
+	},
+	"cannot_uncheck_favorite":{
+		"code":33,
+		"message":"Cannot uncheck favorite"
+	},
+	"cannot_get_search_by_user":{
+		"code":34,
+		"message":"Cannot get search by user"
+	},
+	"save_search_success":{
+		"code":35,
+		"message":"Save search is successfully"
+	},
+	"cannot_save_search":{
+		"code":36,
+		"message":"Cannot save search"
+	},
+	"cannot_remove_search":{
+		"code":37,
+		"message":"Cannot remove search"
+	},
+	"remove_search_success":{
+		"code":38,
+		"message":"Remove search is successfully"
+	},
+	"cannot_share_property_favorite":{
+		"code":39,
+		"message":"Cannot share favorite"
+	},
+	"share_favorite_success":{
+		"code":40,
+		"message":"Share favorite is successfully"
+	},
+	"please_check_email_to_active_account": {
+		"code": 100,
+		"message": "You have registered successfully. Please check your email to activate your account"
+	},
+    "email_already_exist":{
         "code": 101,
         "message": "Email already exist"
     },
@@ -205,4 +333,3 @@
         "message": "Unknown"
     }
 }
-

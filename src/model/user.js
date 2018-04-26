@@ -122,10 +122,13 @@ module.exports = (sequelize, DataTypes) => {
 
 	User.associate = function(models) {
 		User.belongsToMany(models.Property, {
-			through: models.Favorite,
+			through:  models.Favorite,
 			as: 'favorites',
-			foreignKey: 'user_id'
+			foreignKey: 'user_id',
+			onDelete:'cascade'
 		});
+		User.hasMany(models.Property,{foreignKey: 'user_id_created', as: 'properties',onDelete:'cascade'});
+		User.hasMany(models.Search,{foreignKey: 'user_id', as: 'searches'});
 
 		User.hasMany(models.Transaction, {
 			foreignKey: 'user_id',

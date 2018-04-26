@@ -1,8 +1,6 @@
 const JWT = require('jsonwebtoken');
 const Request = require('request-promise');
-
 const User = require('../model/index').User;
-
 const ResponseModel = require('../util/response-model');
 const VerifyUtils = require('../util/verify-request');
 const NumberUtils = require('../util/number-utils');

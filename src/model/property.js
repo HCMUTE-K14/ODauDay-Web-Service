@@ -54,6 +54,7 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.DOUBLE,
 			allowNull: false
 		},
+
 		type_id: {
 			type: DataTypes.STRING,
 			validate: {
@@ -125,7 +126,6 @@ module.exports = (sequelize, DataTypes) => {
 			as: 'viewed_by',
 			foreignKey: 'property_id'
 		});
-	};
-
-	return Property;
+    };
+    return Property;
 }
