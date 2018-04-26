@@ -1,10 +1,11 @@
-
 const Express = require('express');
 
-const SearchController = require('../controller/search.controller');
+const AutoComplete = require('../controller/auto-complete-place.controller');
 const Router = Express.Router();
 
 Router.route('/')
-    .post(SearchController.search);
+    .get(AutoComplete.search);
+
+
 
 module.exports = Router;

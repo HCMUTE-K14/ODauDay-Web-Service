@@ -15,7 +15,7 @@ function getModelProperty(){
         },
         {
             model: Category,
-            as: 'categorys',
+            as: 'categories',
             attributes: {
                 exclude: ['PropertyCategory']
             },

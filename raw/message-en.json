@@ -167,99 +167,168 @@
         "code": 101,
         "message": "Email already exist"
     },
-    "email_len": {
+    "email_len":
+    {
         "code": 102,
         "message": "Email address must be between 6 and 128 characters in length"
     },
-    "email_is_invalid": {
+    "email_is_invalid":
+    {
         "code": 103,
         "message": "Email is invalid"
     },
-    "email_is_required": {
+    "email_is_required":
+    {
         "code": 104,
         "message": "Email is required"
     },
-    "password_can_not_be_empty":{
+    "password_can_not_be_empty":
+    {
         "code": 105,
         "message": "Password can not be empty"
     },
-    "password_len":{
+    "password_len":
+    {
         "code": 106,
         "message": "Password must be between 6 and 128 characters in length"
     },
-    "password_is_required":{
-        "code":107,
+    "password_is_required":
+    {
+        "code": 107,
         "message": "Password is required"
     },
-    "display_name_can_not_be_empty": {
+    "display_name_can_not_be_empty":
+    {
         "code": 108,
         "message": "Display name can not be empty"
     },
-    "display_name_maxinum_len":{
+    "display_name_maxinum_len":
+    {
         "code": 109,
         "message": "Display name has maxinum 30 characters"
     },
-    "display_name_is_required": {
-        "code":110,
+    "display_name_is_required":
+    {
+        "code": 110,
         "message": "Display name is required"
     },
-    "role_is_invalid": {
+    "role_is_invalid":
+    {
         "code": 111,
         "message": "Role is invalid"
     },
-    "status_is_invalid": {
+    "status_is_invalid":
+    {
         "code": 112,
         "message": "Status is invalid"
     },
-    "update_user_fail": {
+    "update_user_fail":
+    {
         "code": 113,
         "message": "Can not update user"
     },
-    "update_user_successful": {
+    "update_user_successful":
+    {
         "code": 114,
         "message": "Your profile updated successfully"
     },
-    "update_user_request_invalid": {
+    "update_user_request_invalid":
+    {
         "code": 115,
         "message": "Invalid update profile request"
     },
-    "cannot_register": {
+    "cannot_register":
+    {
         "code": 116,
         "message": "Register failed. Please try later"
     },
-    "please_check_email_cofirm_password":{
+    "please_check_email_cofirm_password":
+    {
         "code": 117,
         "message": "Please check your email to confirm change password"
     },
-    "sent_mail_fail":{
+    "sent_mail_fail":
+    {
         "code": 118,
-        "message": "Sent mail failure"
+        "message": "Failure sending forgot password mail"
     },
-    "user_is_disabled": {
+    "user_is_disabled":
+    {
         "code": 119,
         "message": "Your account is disabled"
     },
-    "code_premium_len":{
+    "code_premium_len":
+    {
         "code": 120,
         "message": "Code must be between 6 and 10 characters in length"
     },
-    "type_code_premium_invalid":{
+    "type_code_premium_invalid":
+    {
         "code": 121,
         "message": "Type is invalid"
     },
-    "status_code_premium_invalid":{
-        "code": 121,
+    "status_code_premium_invalid":
+    {
+        "code": 122,
         "message": "Status is invalid"
     },
-    "message_not_found": {
+    "create_favorite_fail":
+    {
+        "code": 123,
+        "message": "Failure to add favorite"
+    },
+    "delete_favorite_fail":
+    {
+        "code": 124,
+        "message": "Failure to delete favorite"
+    },
+    "get_favorite_fail":
+    {
+        "code": 125,
+        "message": "Failure to get favorite"
+    },
+    "subscription_success":
+    {
+        "code": 126,
+        "message": "Thanks for your subscription"
+    },
+    "subscription_failure":
+    {
+        "code": 127,
+        "message": "Your subscription is failure. Please try later"
+    },
+    "create_subscription_success":
+    {
+        "code": 128,
+        "message": "Subscription is created successfully"
+    },
+    "create_subscription_failure":
+    {
+        "code": 129,
+        "message": "Cannot create subcription"
+    },
+    "update_subscription_success":
+    {
+        "code": 130,
+        "message": "Subscription is updated"
+    },
+    "update_subscription_failure":
+    {
+        "code": 131,
+        "message": "Can not update subscription"
+    },
+    "message_not_found":
+    {
         "code": 1000,
         "message": "Messgae not found"
     },
-    "database_is_down": {
+    "database_is_down":
+    {
         "code": 1001,
         "message": "Database is down"
     },
-    "unknown_message": {
+    "unknown_message":
+    {
         "code": 1002,
         "message": "Unknown"
     }

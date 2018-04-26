@@ -78,7 +78,6 @@ const Handler = {};
  		errors: listError
  	}));
  }
-
  Handler.handlingErrorModel = function(res, error) {
  	res.status(503).json(new ResponseModel({
  		code: 503,

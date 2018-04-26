@@ -27,7 +27,12 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		status: {
 			type: DataTypes.STRING,
-			allowNull: false
+			allowNull: false,
+			validate: {
+				isIn: [
+					['pending', 'active', 'expired']
+				]
+			}
 		},
 		price: {
 			type: DataTypes.DOUBLE,
@@ -49,49 +54,78 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.DOUBLE,
 			allowNull: false
 		},
-		type_id:{
-			type:DataTypes.STRING
+
+		type_id: {
+			type: DataTypes.STRING,
+			validate: {
+				isIn: [
+					['BUY', 'RENT']
+				]
+			}
 		},
-		time_contact:{
-			type:DataTypes.STRING
+		time_contact: {
+			type: DataTypes.STRING
 		},
-		user_id_created:{
-			type:DataTypes.STRING
+		user_id_created: {
+			type: DataTypes.STRING
 		},
-		user_id_checked:{
-			type:DataTypes.STRING
+		user_id_checked: {
+			type: DataTypes.STRING
 		},
-		date_end:{
-			type:DataTypes.DATE
+		date_end: {
+			type: DataTypes.DATE
 		}
 	}, {
 		timestamps: true,
 		createdAt: 'date_created',
 		updatedAt: 'date_modified',
 		tableName: 'tbl_property'
-    });  
-    Property.associate=function(models){
-    	Property.belongsToMany(models.Tag, {
-            through: models.PropertyTag,
-            as: 'tags',
+	});
+
+	Property.associate = function(models) {
+		Property.belongsToMany(models.Tag, {
+			through: models.PropertyTag,
+			as: 'tags',
 			foreignKey: 'property_id',
-			onDelete:'cascade'
+			onDelete: 'cascade'
 		});
 		Property.belongsToMany(models.Category, {
-            through: models.PropertyCategory,
-            as: 'categorys',
+			through: models.PropertyCategory,
+			as: 'categories',
 			foreignKey: 'property_id',
-			onDelete:'cascade'
+			onDelete: 'cascade'
 		});
 		Property.belongsToMany(models.User, {
-			through: 'Favorite',
+			through:  models.Favorite,
+			as: 'favorites',
 			foreignKey: 'property_id',
-			onDelete:'cascade'
+			onDelete: 'cascade'
 		});
-		Property.hasMany(models.Email,{foreignKey: 'property_id' ,as:'emails',onDelete:'cascade'});
-		Property.hasMany(models.Phone,{foreignKey: 'property_id', as:'phones',onDelete:'cascade'});
-		Property.hasMany(models.Image,{foreignKey: 'property_id', as:'images',onDelete:'cascade'});
-		Property.belongsTo(models.User, {foreignKey: 'user_id_created', as:'properties',onDelete:'cascade'});
+		Property.hasMany(models.Email, {
+			foreignKey: 'property_id',
+			as: 'emails',
+			onDelete: 'cascade'
+		});
+		Property.hasMany(models.Phone, {
+			foreignKey: 'property_id',
+			as: 'phones',
+			onDelete: 'cascade'
+		});
+		Property.hasMany(models.Image, {
+			foreignKey: 'property_id',
+			as: 'images',
+			onDelete: 'cascade'
+		});
+		Property.belongsTo(models.User, {
+			foreignKey: 'user_id_created',
+			as: 'properties',
+			onDelete: 'cascade'
+		});
+		Property.belongsToMany(models.User, {
+			through: models.History,
+			as: 'viewed_by',
+			foreignKey: 'property_id'
+		});
     };
     return Property;
 }

@@ -338,7 +338,7 @@ function handlingCannotRegister(req, res) {
 
 function build503Response(req, res, errorText) {
 	res.status(503).json(new ResponseModel({
-		code: 503,
+ 		code: 503,
 		status_text: 'SERVICE UNAVAILABLE',
 		success: false,
 		data: null,

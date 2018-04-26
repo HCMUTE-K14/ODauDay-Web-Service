@@ -12,6 +12,5 @@ module.exports=(sequelize, DataTypes) =>{
 		timestamps: false,
 		tableName: 'tbl_property_tag'
     });
-    
     return PropertyTag;
 }

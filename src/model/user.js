@@ -122,13 +122,24 @@ module.exports = (sequelize, DataTypes) => {
 
 	User.associate = function(models) {
 		User.belongsToMany(models.Property, {
-			through: 'Favorite',
+			through:  models.Favorite,
 			as: 'favorites',
 			foreignKey: 'user_id',
 			onDelete:'cascade'
 		});
 		User.hasMany(models.Property,{foreignKey: 'user_id_created', as: 'properties',onDelete:'cascade'});
 		User.hasMany(models.Search,{foreignKey: 'user_id', as: 'searches'});
+
+		User.hasMany(models.Transaction, {
+			foreignKey: 'user_id',
+			as: 'transactions'
+		});
+
+		User.belongsToMany(models.Property, {
+			through: models.History,
+			as: 'view_history',
+			foreignKey: 'user_id'
+		});
 
 	};
 
@@ -147,6 +158,7 @@ module.exports = (sequelize, DataTypes) => {
 
 	User.beforeCreate(encryptPasswordIfChanged);
 	User.beforeUpdate(encryptPasswordIfChanged);
+	User.beforeBulkCreate(encryptPasswordIfChanged);
 
 	return User;
 };

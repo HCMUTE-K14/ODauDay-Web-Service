@@ -17,6 +17,7 @@ const ACTIVED_FAILURE = 'actived_failure';
 const ActiveAccountController = {};
 
 ActiveAccountController.active = active;
+ActiveAccountController.reSendActivation = reSendActivation;
 
 module.exports = ActiveAccountController;
 
@@ -56,23 +57,45 @@ async function active(req, res) {
 			render(req, res, user.email, ACTIVED_SUCCESSFUL);
 			return;
 		}
-		let updated = await User.update({ status: 'active' }, { where: query });
-
-		if (updated) {
-			render(req, res, user.emaail, ACTIVED_SUCCESSFUL);
-
-		} else {
-			render(req, res, user.emaail, ACTIVED_SUCCESSFUL);
-		}
+		User.update({ status: 'active' }, { where: query })
+			.then(success => {
+				render(req, res, user.emaail, ACTIVED_SUCCESSFUL);
+			})
+			.catch(error => {
+				render(req, res, user.emaail, ACTIVED_FAILURE);
+			})
 	} catch (error) {
-		render(req, res, user.emaail, ACTIVED_SUCCESSFUL);
+		render(req, res, user.emaail, ACTIVED_FAILURE);
 	}
 }
 
-
-
 function reSendActivation(req, res) {
-
+	let email = req.query.email;
+	let query = { email: email };
+	User.findOne({ where: query })
+		.then(userExists => {
+			let status = userExists.status;
+			if (status === 'active') {
+				let template = Template.activedAccountMailTemplate();
+				let mailOption = EmailHelper.createMailOptions({
+					to: email,
+					subject: 'Activate account at ODauDay',
+					html: template
+				});
+				EmailHelper.send(mailOption)
+					.then(info => {
+						Logger.info('Sent to ' + email);
+					})
+					.catch(err => {
+						Logger.info('Can not send to ' + email);
+					})
+				return;
+			}
+			EmailHelper.sendMailActivateAccount(userExists);
+		})
+		.catch(error => {
+			Logger.info(error.message || error);
+		});
 }
 
 function isExpiredToken(timeToExpired) {

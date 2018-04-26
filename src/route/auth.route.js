@@ -8,8 +8,8 @@ Router.route('/')
     .post(AuthController.login);
 
 
-// Router.route('/facebook')
-//     .post(UserController.login);
+Router.route('/facebook')
+    .post(AuthController.facebook);
 
 
 
