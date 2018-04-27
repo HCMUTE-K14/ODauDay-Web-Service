@@ -158,7 +158,15 @@
 	"share_favorite_success":{
 		"code":40,
 		"message":"Chia sẻ phòng thành công"
-	},
+    },
+    "cannot_clear_history":{
+        "code":41,
+		"message":"Không thể xóa lịch sử"
+    },
+    "clear_history_success":{
+        "code":42,
+		"message":"Xóa lịch sử thành công"
+    },
 	"please_check_email_to_active_account": {
 		"code": 100,
 		"message": "Bạn đã đăng ký thành công. Hãy kiểm tra tài khoản email để tiến hành kích hoạt tài khoản"

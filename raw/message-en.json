@@ -158,7 +158,15 @@
 	"share_favorite_success":{
 		"code":40,
 		"message":"Share favorite is successfully"
-	},
+    },
+    "cannot_clear_history":{
+        "code":41,
+		"message":"Cannot clear history"
+    },
+    "clear_history_success":{
+        "code":42,
+		"message":"Clear history is successfully"
+    },
 	"please_check_email_to_active_account": {
 		"code": 100,
 		"message": "You have registered successfully. Please check your email to activate your account"

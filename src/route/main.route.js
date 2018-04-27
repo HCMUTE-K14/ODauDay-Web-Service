@@ -13,6 +13,7 @@ const UploadImageRoutes=require("./uploadimages.route");
 const SearchRoutes = require('./search.route');
 const AutoCompleteRoutes = require('./auto-complete-place.route');
 const GeoInfoRoutes = require('./geo-info.route');
+const HistoryRoutes=require("./history.route");
 
 const DB = require('../model/index');
 
@@ -126,5 +127,5 @@ Router.use('/image',UploadImageRoutes);
 Router.use('/save-search', SaveSearchRoutes);
 Router.use('/auto-complete-place', AutoCompleteRoutes);
 Router.use('/geo-info', GeoInfoRoutes);
-
+Router.use("/history",HistoryRoutes);
 module.exports = Router;
