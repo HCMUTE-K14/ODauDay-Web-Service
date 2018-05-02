@@ -10,6 +10,8 @@ const FavoriteRoutes = require('./favorite.route');
 const SearchRoutes = require('./search.route');
 const AutoCompleteRoutes = require('./auto-complete-place.route');
 const GeoInfoRoutes = require('./geo-info.route');
+const PropertyRoute = require('./property.route');
+const ImageRoute = require('./image.route');
 
 const DB = require('../model/index');
 
@@ -26,10 +28,10 @@ Router.get('/health-check', (req, res) => {
 		})
 		.then(data => {
 			let __ = data.get({ plain: true });
-			let categories = [{id: '1'}, {id: '2'}];
+			let categories = [{ id: '1' }, { id: '2' }];
 			let sizePropertyCategory = categories.length;
 			let sizeData = __.categories.length;
-			if(sizeData <= 0){
+			if (sizeData <= 0) {
 				return false;
 			}
 			for (let i = 0; i < sizePropertyCategory; i++) {
@@ -38,7 +40,7 @@ Router.get('/health-check', (req, res) => {
 					let b = __.categories[j].id;
 
 					if (a == b) {
-						res.json({message: 'OK'});
+						res.json({ message: 'OK' });
 						return true;
 					}
 				}
@@ -116,6 +118,8 @@ Router.use('/favorite', FavoriteRoutes);
 Router.use('/search', SearchRoutes);
 Router.use('/auto-complete-place', AutoCompleteRoutes);
 Router.use('/geo-info', GeoInfoRoutes);
+Router.use('/property', PropertyRoute);
+Router.use('/image', ImageRoute);
 
 // Router.use('/admin', AdminRoutes);
 
