@@ -72,8 +72,8 @@ function getRandomTypeId(){
 	var number = Math.floor(Math.random() * type.length);
 	return type[number];
 }
-// let json =require('./raw/tt.json');
-// insertProperty();
+ //let json =require('./raw/tt.json');
+ //insertProperty();
 
 async function insertProperty() {
 	try {
