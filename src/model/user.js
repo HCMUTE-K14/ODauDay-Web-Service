@@ -1,5 +1,6 @@
 const Bcrypt = require('bcryptjs');
 const TextUtils = require('../util/text-utils');
+
 const MessageHelper = require('../util/message/message-helper');
 
 module.exports = (sequelize, DataTypes) => {
@@ -13,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING,
 			allowNull: false,
 			unique: {
+
 				msg: JSON.stringify(MessageHelper.VI['email_already_exist'])
 			},
 			validate: {
@@ -33,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false,
 			validate: {
 				notEmpty: {
+
 					msg: JSON.stringify(MessageHelper.VI['password_can_not_be_empty'])
 				},
 				len: {
@@ -119,10 +122,13 @@ module.exports = (sequelize, DataTypes) => {
 
 	User.associate = function(models) {
 		User.belongsToMany(models.Property, {
-			through: models.Favorite,
+			through:  models.Favorite,
 			as: 'favorites',
-			foreignKey: 'user_id'
+			foreignKey: 'user_id',
+			onDelete:'cascade'
 		});
+		User.hasMany(models.Property,{foreignKey: 'user_id_created', as: 'properties',onDelete:'cascade'});
+		User.hasMany(models.Search,{foreignKey: 'user_id', as: 'searches'});
 
 		User.hasMany(models.Transaction, {
 			foreignKey: 'user_id',

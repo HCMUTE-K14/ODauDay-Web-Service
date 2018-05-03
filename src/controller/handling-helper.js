@@ -1,7 +1,7 @@
- const MessageHelper = require('../util/message/message-helper');
- const ResponseModel = require('../util/response-model');
+const MessageHelper = require('../util/message/message-helper');
+const ResponseModel = require('../util/response-model');
 
- const Handler = {};
+const Handler = {};
 
  Handler.unAuthorizedAdminRole = function(req, res) {
  	let lang = req.query.lang || 'vi';
@@ -35,7 +35,6 @@
  		errors: [MessageHelper.getMessage(lang, 'invalid_access_token')]
  	}));
  }
-
  Handler.cannotConnectDatabase = function(req, res) {
  	let lang = req.query.lang || 'vi';
  	res.status(503).json(new ResponseModel({
@@ -48,7 +47,6 @@
  }
  Handler.validateError = function(req, res, error) {
  	let lang = req.query.lang || 'vi';
-
  	let listError = [];
  	try {
  		error.errors.forEach(e => {
@@ -79,8 +77,7 @@
  		errors: listError
  	}));
  }
-
-
+ 
  Handler.handlingErrorModel = function(res, error) {
  	res.status(503).json(new ResponseModel({
  		code: 503,
@@ -90,6 +87,4 @@
  		errors: [error]
  	}));
  }
-
-
  module.exports = Handler;

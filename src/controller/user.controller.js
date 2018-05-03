@@ -1,4 +1,5 @@
 const User = require('../model/index').User;
+const Property=require('../model/index').Property;
 
 const ResponseModel = require('../util/response-model');
 const VerifyUtils = require('../util/verify-request');
@@ -10,7 +11,6 @@ const EmailHelper = require('../util/email-helper');
 const Config = require('../config');
 
 const Handler = require('./handling-helper');
-
 
 const CONFIRM_PASSWORD_SUCCESSFUL = 'confirm_pass_successful';
 const CONFIRM_PASSWORD_FAILURE = 'confirm_pass_failure';
@@ -168,8 +168,6 @@ async function forgotPassword(req, res) {
 		}
 	}
 }
-
-
 function confirmPasswordChange(req, res) {
 	let token = req.query.token;
 	VerifyUtils.verifyWithSecretToken(token)
@@ -289,7 +287,6 @@ function handlingSentFailForgotPsaswordEmail(req, res) {
 		errors: [getMessage(req, 'sent_mail_fail')]
 	}));
 }
-
 function handlingCannotUpdateUser(req, res) {
 	res.status(503).json(new ResponseModel({
 		code: 503,

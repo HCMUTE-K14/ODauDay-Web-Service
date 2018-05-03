@@ -11,6 +11,4 @@ Router.route('/')
 Router.route('/facebook')
     .post(AuthController.facebook);
 
-
-
 module.exports = Router;

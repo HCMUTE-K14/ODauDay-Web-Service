@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true,
+            defaultValue: 'email'
         },
         email: {
             type: DataTypes.STRING,
@@ -31,10 +32,8 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false,
         tableName: 'tbl_email'
     });
-
     Email.associate = function(models) {
         Email.belongsTo(models.Property, { foreignKey: 'property_id', as: 'emails', onDelete: 'cascade' });
     };
-
     return Email;
 }

@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 
 const Config = require('../config');
+
 const Logger = require('../logger');
 
 const TAG = 'DATABASE ';
@@ -22,9 +23,10 @@ const connection = new Sequelize(MySQLConfig.database_name, MySQLConfig.username
 		acquire: 30000,
 		idle: 10000
 	},
-	logging: function(sql) {
-		Logger.info(TAG + sql);
-	}
+
+	// logging: function(sql) {
+	// 	Logger.info(TAG + sql);
+	// }
 });
 
 module.exports = connection;

@@ -13,7 +13,6 @@ module.exports = MessageHelper;
 
 function getMessage(language, errorText) {
 	let lang = language || 'vi';
-
 	if (lang === 'vi') {
 		return VI[errorText];
 	} else if (lang === 'en') {

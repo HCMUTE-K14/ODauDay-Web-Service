@@ -1,11 +1,13 @@
 const Express = require('express');
-const Middleware = require('multer')({ dest: 'uploads/' });
 const PropertyController = require('../controller/property.controller');
 
 const Router = Express.Router();
 
 Router.route('/')
-	.post(Middleware.fields([{ name: 'property' }, { name: 'file' }]), PropertyController.create);
+	.post(PropertyController.create)
+	.delete(PropertyController.destroy);
 
+Router.route('/user')
+	.get(PropertyController.getPropertyByUser);
 
 module.exports = Router;

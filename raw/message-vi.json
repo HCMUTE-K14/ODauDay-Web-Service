@@ -1,41 +1,177 @@
 {
-    "invalid_api_key":
-    {
-        "code": 1,
-        "message": "API Key không hợp lệ"
+	"invalid_api_key": {
+		"code": 1,
+		"message": "API Key không hợp lệ"
+	},
+	"invalid_access_token": {
+		"code": 2,
+		"message": "Access token không hợp lệ"
+	},
+	"user_not_exist": {
+		"code": 3,
+		"message": "Người dùng không tồn tại"
+	},
+	"login_failure": {
+		"code": 4,
+		"message": "Email hoặc mật khẩu không chính xác"
+	},
+	"need_admin_role": {
+		"code": 5,
+		"message": "Tài nguyên cần quyền của Admin"
+	},
+	"can_not_get_users": {
+		"code": 6,
+		"message": "Đã có lỗi xảy ra, không thể lấy được danh sách người dùng"
+	},
+	"can_not_get_tag": {
+		"code": 7,
+		"message": "Không thể lấy Tag"
+	},
+	"can_not_create_tag": {
+		"code": 8,
+		"message": "Không thể tạo tag"
+	},
+	"create_tag_success":{
+		"code": 9,
+		"message": "Tạo tag thành công"
+	},
+	"can_not_update_tag": {
+		"code": 10,
+		"message": "Không thể cập nhật tag"
+	},
+	"update_tag_success": {
+		"code": 11,
+		"message": "Cập nhật tag không thành công"
+	},
+	"can_not_destroy_tag": {
+		"code": 12,
+		"message": "Không thể xóa tag"
+	},
+	"destroy_tag_success": {
+		"code": 13,
+		"message": "Xóa tag thành công"
+	},
+	"can_not_create_category": {
+		"code": 14,
+		"message": "Không thể tạo category"
+	},
+	"create_category_success": {
+		"code": 15,
+		"message": "Tạo category thành công"
+	},
+	"can_not_update_category": {
+		"code": 16,
+		"message": "Không thể cập nhật category"
+	},
+	"update_category_success": {
+		"code": 17,
+		"message": "Cập nhật category thành công"
+	},
+	"can_not_destroy_category": {
+		"code": 18,
+		"message": "Không thể xóa category"
+	},
+	"destroy_category_success": {
+		"code": 19,
+		"message": "Xóa category thành công"
+	},
+	"can_not_get_category": {
+		"code": 20,
+		"message": "Không thể lấy Category"
+	},
+	"can_not_get_property": {
+		"code": 21,
+		"message": "Không thể lấy property"
+	},
+	"can_not_create_property": {
+		"code": 22,
+		"message": "Không thể tạo property"
+	},
+	"create_property_success":{
+		"code":23,
+		"message":"Thêm phòng thành công"
+	},
+	"can_not_update_property": {
+		"code": 24,
+		"message": "Không thể cập nhật property"
+	},
+	"update_property_success":{
+		"code":25,
+		"message":"Cập nhật phòng thành công"
+	},
+	"can_not_destroy_property": {
+		"code": 26,
+		"message": "Không thể xóa property"
+	},
+	"destroy_property_success":{
+		"code":27,
+		"message":"Xóa Property thành công"
+	},
+	"can_not_get_property_by_user":{
+		"code":28,
+		"message":"Không thể lấy property theo user"
+	},
+	"cannot_get_property_favorite_by_user":{
+		"code":29,
+		"message":"Không thể lấy phòng yêu thích của bạn"
+	},
+	"check_favorite_success":{
+		"code":30,
+		"message":"Đánh dấu yêu thích thành công"
+	},
+	"cannot_check_favorite":{
+		"code":31,
+		"message":"Không thể đánh dấu yêu thích"
+	},
+	"uncheck_favorite_success":{
+		"code":32,
+		"message":"Bỏ đánh dấu yêu thích thành công"
+	},
+	"cannot_uncheck_favorite":{
+		"code":33,
+		"message":"Không thể bỏ đánh dấu yêu thích"
+	},
+	"cannot_get_search_by_user":{
+		"code":34,
+		"message":"Không thể lấy lịch sử search"
+	},
+	"save_search_success":{
+		"code":35,
+		"message":"Lưu tìm kiếm thành công"
+	},
+	"cannot_save_search":{
+		"code":36,
+		"message":"Không thể lưu tìm kiếm"
+	},
+	"cannot_remove_search":{
+		"code":37,
+		"message":"Không thể xóa tìm kiếm"
+	},
+	"remove_search_success":{
+		"code":38,
+		"message":"Xóa tìm kiếm thành công"
+	},
+	"cannot_share_property_favorite":{
+		"code":39,
+		"message":"Không chia sẻ được"
+	},
+	"share_favorite_success":{
+		"code":40,
+		"message":"Chia sẻ phòng thành công"
     },
-    "invalid_access_token":
-    {
-        "code": 2,
-        "message": "Access token không hợp lệ"
+    "cannot_clear_history":{
+        "code":41,
+		"message":"Không thể xóa lịch sử"
     },
-    "user_not_exist":
-    {
-        "code": 3,
-        "message": "Người dùng không tồn tại"
+    "clear_history_success":{
+        "code":42,
+		"message":"Xóa lịch sử thành công"
     },
-    "login_failure":
-    {
-        "code": 4,
-        "message": "Email hoặc mật khẩu không chính xác"
-    },
-    "need_admin_role":
-    {
-        "code": 5,
-        "message": "Tài nguyên cần quyền của Admin"
-    },
-    "can_not_get_users":
-    {
-        "code": 6,
-        "message": "Đã có lỗi xảy ra, không thể lấy được danh sách người dùng"
-    },
-    "please_check_email_to_active_account":
-    {
-        "code": 100,
-        "message": "Bạn đã đăng ký thành công. Hãy kiểm tra tài khoản email để tiến hành kích hoạt tài khoản"
-    },
-    "email_already_exist":
-    {
+	"please_check_email_to_active_account": {
+		"code": 100,
+		"message": "Bạn đã đăng ký thành công. Hãy kiểm tra tài khoản email để tiến hành kích hoạt tài khoản"
+	},
+    "email_already_exist": {
         "code": 101,
         "message": "Email đã tồn tại. Vui lòng chọn email khác"
     },
@@ -159,11 +295,7 @@
         "code": 124,
         "message": "Lấy danh sách yêu thích thất bại"
     },
-    "get_favorite_fail":
-    {
-        "code": 125,
-        "message": "Failure to get favorite"
-    },
+
     "subscription_success":
     {
         "code": 126,

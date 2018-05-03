@@ -1,4 +1,5 @@
 const Bcrypt = require('bcryptjs');
+
 const JWT = require('jsonwebtoken');
 const Crypto = require('crypto');
 
@@ -13,6 +14,7 @@ const TextUtils = {};
 
 TextUtils.isEmpty = isEmpty;
 TextUtils.hash = hash;
+
 TextUtils.hashMD5 = hashMD5;
 TextUtils.generateTokenAccount = generateTokenAccount;
 TextUtils.generateLinkActivateAccount = generateLinkActivateAccount;

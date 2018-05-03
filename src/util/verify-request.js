@@ -29,6 +29,7 @@ function verifyProtectRequest(req) {
         if (TextUtils.isEmpty(apiKey) || TextUtils.isEmpty(accessToken) || TextUtils.isEmpty(userId)) {
             reject(new ErrorModel('Access token is invalid'));
         } else {
+           
             verifyApiKey(apiKey)
                 .then(success => {
                     User.findById(userId)
@@ -75,5 +76,4 @@ function verifyWithSecretToken(token) {
             resolve(data);
         });
     });
-
 }

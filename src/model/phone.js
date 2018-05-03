@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true,
+            defaultValue: 'sdt'
         },
         phone_number: {
             type: DataTypes.STRING,
@@ -20,7 +21,6 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         }
-
     }, {
         timestamps: false,
         tableName: 'tbl_phone'
