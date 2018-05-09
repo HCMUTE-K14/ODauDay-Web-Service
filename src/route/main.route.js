@@ -14,6 +14,7 @@ const AutoCompleteRoutes = require('./auto-complete-place.route');
 const GeoInfoRoutes = require('./geo-info.route');
 const PropertyRoutes = require('./property.route');
 const ImageRoutes = require('./image.route');
+const StaticMapRoutes = require('./static-map.route');
 
 const HistoryRoutes=require("./history.route");
 
@@ -129,6 +130,7 @@ Router.use('/auto-complete-place', AutoCompleteRoutes);
 Router.use('/geo-info', GeoInfoRoutes);
 Router.use('/property', PropertyRoutes);
 Router.use('/image', ImageRoutes);
+Router.use('/static-map', StaticMapRoutes);
 
 // Router.use('/admin', AdminRoutes);
 
