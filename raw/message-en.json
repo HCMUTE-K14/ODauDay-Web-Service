@@ -167,6 +167,14 @@
         "code":42,
 		"message":"Clear history is successfully"
     },
+    "can_not_change_status_property":{
+        "code":43,
+		"message":"Cannot change status property"
+    },
+    "change_status_success":{
+        "code":44,
+		"message":"Change status is successfully"
+    },
 	"please_check_email_to_active_account": {
 		"code": 100,
 		"message": "You have registered successfully. Please check your email to activate your account"

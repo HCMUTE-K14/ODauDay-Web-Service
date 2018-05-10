@@ -5,14 +5,16 @@ const UserRoutes = require('./user.route');
 const AuthRoutes = require('./auth.route');
 const TagRoutes=require("./tag.route");
 const CategoryRoutes=require("./category.route");
-const PropertyRoutes=require("./property.route");
 const AdminRoutes = require('./admin.route');
 const FavoriteRoutes=require('./favorite.route');
 const SaveSearchRoutes=require("./save-search.route");
-const UploadImageRoutes=require("./uploadimages.route");
+
 const SearchRoutes = require('./search.route');
 const AutoCompleteRoutes = require('./auto-complete-place.route');
 const GeoInfoRoutes = require('./geo-info.route');
+const PropertyRoutes = require('./property.route');
+const ImageRoutes = require('./image.route');
+
 const HistoryRoutes=require("./history.route");
 
 const DB = require('../model/index');
@@ -30,10 +32,10 @@ Router.get('/health-check', (req, res) => {
 		})
 		.then(data => {
 			let __ = data.get({ plain: true });
-			let categories = [{id: '1'}, {id: '2'}];
+			let categories = [{ id: '1' }, { id: '2' }];
 			let sizePropertyCategory = categories.length;
 			let sizeData = __.categories.length;
-			if(sizeData <= 0){
+			if (sizeData <= 0) {
 				return false;
 			}
 			for (let i = 0; i < sizePropertyCategory; i++) {
@@ -42,7 +44,7 @@ Router.get('/health-check', (req, res) => {
 					let b = __.categories[j].id;
 
 					if (a == b) {
-						res.json({message: 'OK'});
+						res.json({ message: 'OK' });
 						return true;
 					}
 				}
@@ -119,13 +121,16 @@ Router.use('/auth', AuthRoutes);
 
 Router.use('/tag',TagRoutes);
 Router.use("/category",CategoryRoutes);
-Router.use("/property",PropertyRoutes);
 Router.use('/admin', AdminRoutes);
 Router.use('/favorite',FavoriteRoutes);
 Router.use('/search',SearchRoutes);
-Router.use('/image',UploadImageRoutes);
 Router.use('/save-search', SaveSearchRoutes);
 Router.use('/auto-complete-place', AutoCompleteRoutes);
 Router.use('/geo-info', GeoInfoRoutes);
+Router.use('/property', PropertyRoutes);
+Router.use('/image', ImageRoutes);
+
+// Router.use('/admin', AdminRoutes);
+
 Router.use("/history",HistoryRoutes);
 module.exports = Router;

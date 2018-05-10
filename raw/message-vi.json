@@ -167,6 +167,14 @@
         "code":42,
 		"message":"Xóa lịch sử thành công"
     },
+    "can_not_change_status_property":{
+        "code":43,
+		"message":"Không thể thay đổi trạng thái"
+    },
+    "change_status_success":{
+        "code":44,
+		"message":"Thay đổi trạng thái thành công"
+    },
 	"please_check_email_to_active_account": {
 		"code": 100,
 		"message": "Bạn đã đăng ký thành công. Hãy kiểm tra tài khoản email để tiến hành kích hoạt tài khoản"

@@ -167,9 +167,9 @@ function formatProperty(property) {
 		newItem.isViewed = item.isViewed > 0;
 		newItem.isFavorited = item.isFavorited > 0;
 
-		Image.findAll({ where: { property_id: item.id } })
+		Image.findOne({ where: { property_id: item.id } })
 			.then(images => {
-				newItem.images = images;
+				newItem.images = [images];
 				resolve(newItem);
 			}).catch(err => {
 				resolve(newItem);
