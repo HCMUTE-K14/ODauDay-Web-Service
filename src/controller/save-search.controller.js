@@ -51,6 +51,7 @@ async function saveSearch(req,res){
     try {
         let verify = await VerifyUtils.verifyProtectRequest(req);
         let search=req.body;
+        search.user_id = verify.user.id;
         let data = await Search.create(search);
         responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "save_search_success"));
     } catch (error) {

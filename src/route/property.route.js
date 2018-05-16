@@ -10,4 +10,7 @@ Router.route('/')
 Router.route('/user')
 	.get(PropertyController.getPropertyByUser);
 
+Router.route('/detail/:id')
+	.get(PropertyController.getDetail);
+
 module.exports = Router;

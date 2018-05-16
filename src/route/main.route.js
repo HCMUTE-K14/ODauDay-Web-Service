@@ -3,55 +3,56 @@ const ResponseModel = require('../util/response-model');
 const Router = Express.Router();
 const UserRoutes = require('./user.route');
 const AuthRoutes = require('./auth.route');
-const TagRoutes=require("./tag.route");
-const CategoryRoutes=require("./category.route");
+const TagRoutes = require("./tag.route");
+const CategoryRoutes = require("./category.route");
 const AdminRoutes = require('./admin.route');
-const FavoriteRoutes=require('./favorite.route');
-const SaveSearchRoutes=require("./save-search.route");
-
+const FavoriteRoutes = require('./favorite.route');
+const SaveSearchRoutes = require("./save-search.route");
+const NoteRoutes = require('./note.route');
 const SearchRoutes = require('./search.route');
 const AutoCompleteRoutes = require('./auto-complete-place.route');
 const GeoInfoRoutes = require('./geo-info.route');
 const PropertyRoutes = require('./property.route');
 const ImageRoutes = require('./image.route');
 const StaticMapRoutes = require('./static-map.route');
+const DirectionRoutes = require('./direction.route');
 
-const HistoryRoutes=require("./history.route");
+const HistoryRoutes = require("./history.route");
 
 const DB = require('../model/index');
 
 Router.get('/health-check', (req, res) => {
 	console.log(req.body);
 
-	DB.Property.findById('1', {
-			include: [{
-				model: DB.Category,
-				as: 'categories',
-				attributes: ['id'],
-				through: { attributes: [] }
-			}]
-		})
-		.then(data => {
-			let __ = data.get({ plain: true });
-			let categories = [{ id: '1' }, { id: '2' }];
-			let sizePropertyCategory = categories.length;
-			let sizeData = __.categories.length;
-			if (sizeData <= 0) {
-				return false;
-			}
-			for (let i = 0; i < sizePropertyCategory; i++) {
-				let a = categories[i].id;
-				for (let j = 0; j < sizeData; j++) {
-					let b = __.categories[j].id;
+	// DB.Property.findById('1', {
+	// 		include: [{
+	// 			model: DB.Category,
+	// 			as: 'categories',
+	// 			attributes: ['id'],
+	// 			through: { attributes: [] }
+	// 		}]
+	// 	})
+	// 	.then(data => {
+	// 		let __ = data.get({ plain: true });
+	// 		let categories = [{ id: '1' }, { id: '2' }];
+	// 		let sizePropertyCategory = categories.length;
+	// 		let sizeData = __.categories.length;
+	// 		if (sizeData <= 0) {
+	// 			return false;
+	// 		}
+	// 		for (let i = 0; i < sizePropertyCategory; i++) {
+	// 			let a = categories[i].id;
+	// 			for (let j = 0; j < sizeData; j++) {
+	// 				let b = __.categories[j].id;
 
-					if (a == b) {
-						res.json({ message: 'OK' });
-						return true;
-					}
-				}
-			}
-			return false;
-		})
+	// 				if (a == b) {
+	// 					res.json({ message: 'OK' });
+	// 					return true;
+	// 				}
+	// 			}
+	// 		}
+	// 		return false;
+	// 	})
 
 	// DB.Property.findById('1', {
 	// 		include: [{
@@ -86,20 +87,19 @@ Router.get('/health-check', (req, res) => {
 	// 		}
 
 	// 	})
-	// // DB.User.findById('0', {
-	// // 		include: [{
-	// // 			model: DB.Property,
-	// // 			as: 'favorites'
-	// // 		}]
-	// // 	})
-	// // 	.then(user => {
-	// // 		delete user.favorites[0];
-
-	// // 		DB.User.update({ user }, { where: { id: '0' } })
-	// // 			.then(success => {
-	// // 				res.json(success);
-	// // 			})
-	// // 	})
+	DB.Property.findById('77', {
+			include: [{
+				model: DB.User,
+				as: 'notes',
+				attributes: {
+					exclude: ['User']
+				},
+				through: { attributes: ['content'] }
+			}]
+		})
+		.then(user => {
+			res.json(user);
+		})
 	// DB.User.create({
 	// 	email: 'daohuuloc941911@gmail.com',
 	// 	password: '123456',
@@ -120,19 +120,20 @@ Router.get('/health-check', (req, res) => {
 Router.use('/users', UserRoutes);
 Router.use('/auth', AuthRoutes);
 
-Router.use('/tag',TagRoutes);
-Router.use("/category",CategoryRoutes);
+Router.use('/tag', TagRoutes);
+Router.use("/category", CategoryRoutes);
 Router.use('/admin', AdminRoutes);
-Router.use('/favorite',FavoriteRoutes);
-Router.use('/search',SearchRoutes);
+Router.use('/favorite', FavoriteRoutes);
+Router.use('/search', SearchRoutes);
 Router.use('/save-search', SaveSearchRoutes);
 Router.use('/auto-complete-place', AutoCompleteRoutes);
 Router.use('/geo-info', GeoInfoRoutes);
 Router.use('/property', PropertyRoutes);
 Router.use('/image', ImageRoutes);
 Router.use('/static-map', StaticMapRoutes);
-
+Router.use('/direction', DirectionRoutes);
+Router.use('/note', NoteRoutes);
 // Router.use('/admin', AdminRoutes);
 
-Router.use("/history",HistoryRoutes);
+Router.use("/history", HistoryRoutes);
 module.exports = Router;

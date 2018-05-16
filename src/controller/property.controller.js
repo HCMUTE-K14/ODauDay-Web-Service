@@ -4,6 +4,7 @@ const Category = require("../model/index").Category;
 const Email = require("../model/index").Email;
 const Phone = require("../model/index").Phone;
 const Image = require("../model/index").Image;
+const Note = require('../model/index').Note;
 const PropertyTag = require("../model/index").PropertyTag;
 const PropertyCategory = require("../model/index").PropertyCategory;
 
@@ -13,7 +14,7 @@ const Handler = require('./handling-helper');
 const VerifyUtils = require('../util/verify-request');
 const MessageHelper = require('../util/message/message-helper');
 
-const IncludeModeProperty=require('../util/include-model');
+const IncludeModeProperty = require('../util/include-model');
 
 const PropertyController = {};
 
@@ -21,6 +22,7 @@ PropertyController.getAll = getAll;
 PropertyController.getPropertyByUser = getPropertyByUser;
 PropertyController.create = create;
 PropertyController.destroy = destroy;
+PropertyController.getDetail = getDetail;
 
 module.exports = PropertyController;
 
@@ -34,8 +36,8 @@ async function create(req, res) {
 
 		property.latitude = body.location.latitude;
 		property.longitude = body.location.longitude;
-		property.date_end = new Date((new Date()).getTime() 
-			+ 24 * 60 * 60 * 1000 * 30);
+		property.date_end = new Date((new Date()).getTime() +
+			24 * 60 * 60 * 1000 * 30);
 
 		let data = await Property.create(property, {
 			include: [{
@@ -102,66 +104,158 @@ function getPropertyTagFromBody(property_tags, property_id) {
 }
 
 function getPropertyCategoryFromBody(property_categories, property_id) {
-    let result = [];
-    property_categories.forEach(function (item) {
-        result.push({
-            property_id: property_id,
-            category_id: item
-        });
-    });
-    return result;
+	let result = [];
+	property_categories.forEach(function(item) {
+		result.push({
+			property_id: property_id,
+			category_id: item
+		});
+	});
+	return result;
 }
 
 
+async function getDetail(req, res) {
+	try {
+		let verify = await VerifyUtils.verifyProtectRequest(req);
+		let userId = verify.user.id;
+		let propertyId = req.params.id;
 
+		let detail = await Property.findById(propertyId, {
+			include: [{
+					model: Tag,
+					as: 'tags',
+					attributes: {
+						exclude: ['PropertyTag']
+					},
+					through: { attributes: [] }
+				},
+				{
+					model: Category,
+					as: 'categories',
+					attributes: {
+						exclude: ['PropertyCategory']
+					},
+					through: { attributes: [] }
+				},
+				{
+					model: Email,
+					as: 'emails',
+					attributes: ['id', 'name', 'email']
+				},
+				{
+					model: Phone,
+					as: 'phones',
+					attributes: ['id', 'name', 'phone_number']
+				},
+				{
+					model: Image,
+					as: 'images',
+					attributes: ['id', 'url']
+				}]
+		});
 
+		let note = await Note.findOne({where:{
+			user_id: userId,
+			property_id: detail.id
+		}});
 
+		detail.note = note;
+		res.status(200).json(new ResponseModel({
+			code: 200,
+			status_text: 'OK',
+			success: true,
+			data: formatToPropertyDetail(detail),
+			errors: null
+		}));
+	} catch (error) {
+		console.log(error);
+		if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCanotGetAllProperty(req, res);
+		}
+	}
+}
+
+function formatToPropertyDetail(property) {
+	return {
+		id: property.id,
+		address: property.address,
+		code: property.code,
+		location: {
+			latitude: property.latitude,
+			longitude: property.longitude
+		},
+		postcode: property.postcode,
+		price: property.price,
+		description: property.description,
+		num_of_bedroom: property.num_of_bedroom,
+		num_of_bathroom: property.num_of_bathroom,
+		num_of_parking: property.num_of_parking,
+		land_size: property.num_of_parking,
+		type_id: property.type_id === 'BUY' ? 1 : 2,
+		time_contact: property.time_contact,
+		tags: property.tags,
+		categories: property.categories,
+		emails: property.emails,
+		phones: property.phones,
+		images: property.images,
+		note: property.note
+	};
+}
 
 async function getAll(req, res) {
-    try {
-        let verify = await VerifyUtils.verifyPublicRequest(req);
+	try {
+		let verify = await VerifyUtils.verifyPublicRequest(req);
 
-        let data = await Property.findAll({
-            include: IncludeModeProperty.getModelProperty()
-        });
+		let data = await Property.findAll({
+			include: IncludeModeProperty.getModelProperty()
+		});
 
-        responseData(res, data);
-    } catch (error) {
-        if (error.constructor.name === 'ConnectionRefusedError') {
-            Handler.cannotConnectDatabase(req, res);
-        } else if (error.constructor.name === 'ValidationError' ||
-            error.constructor.name === 'UniqueConstraintError') {
-            Handler.validateError(req, res, error);
-        } else if (error.constructor.name == 'ErrorModel') {
-            Handler.handlingErrorModel(res, error);
-        } else {
-            handlingCanotGetAllProperty(req, res);
-        }
-    }
+		responseData(res, data);
+	} catch (error) {
+		if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCanotGetAllProperty(req, res);
+		}
+	}
 }
 
 async function getPropertyByUser(req, res) {
-    try {
-        //let verify = await VerifyUtils.verifyProtectRequest(req);
-        let user_id = req.query.user_id;
-        let data = await Property.findAll({
-            include: IncludeModeProperty.getModelProperty(), where: { user_id_created: user_id }
-        });
+	try {
+		//let verify = await VerifyUtils.verifyProtectRequest(req);
+		let user_id = req.query.user_id;
+		let data = await Property.findAll({
+			include: IncludeModeProperty.getModelProperty(),
+			where: { user_id_created: user_id }
+		});
 
-        responseData(res, data);
+		responseData(res, data);
 
-    } catch (error) {
-        if (error.constructor.name === 'ConnectionRefusedError') {
-            Handler.cannotConnectDatabase(req, res);
-        } else if (error.constructor.name === 'ValidationError' ||
-            error.constructor.name === 'UniqueConstraintError') {
-            Handler.validateError(req, res, error);
-        } else if (error.constructor.name == 'ErrorModel') {
-            Handler.handlingErrorModel(res, error);
-        } else {
-            handlingCanotGetPropertyByUser(req, res);
-        }
-    }
+	} catch (error) {
+		if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCanotGetPropertyByUser(req, res);
+		}
+	}
 }
 
 // async function update(req, res) {
@@ -213,23 +307,23 @@ async function getPropertyByUser(req, res) {
 
 // }
 async function destroy(req, res) {
-    try {
-        //let verify = await VerifyUtils.verifyProtectRequest(req);
-        let property_id = req.query.id;
-        let data=await Property.destroy({include:IncludeModeProperty.getModelProperty(), where:{id:property_id}});        
-        responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "destroy_property_success"));
-    } catch (error) {
-        if (error.constructor.name === 'ConnectionRefusedError') {
-            Handler.cannotConnectDatabase(req, res);
-        } else if (error.constructor.name === 'ValidationError' ||
-            error.constructor.name === 'UniqueConstraintError') {
-            Handler.validateError(req, res, error);
-        } else if (error.constructor.name == 'ErrorModel') {
-            Handler.handlingErrorModel(res, error);
-        } else {
-            handlingCannotDestroyProperty(req, res);
-        }
-    }
+	try {
+		//let verify = await VerifyUtils.verifyProtectRequest(req);
+		let property_id = req.query.id;
+		let data = await Property.destroy({ include: IncludeModeProperty.getModelProperty(), where: { id: property_id } });
+		responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "destroy_property_success"));
+	} catch (error) {
+		if (error.constructor.name === 'ConnectionRefusedError') {
+			Handler.cannotConnectDatabase(req, res);
+		} else if (error.constructor.name === 'ValidationError' ||
+			error.constructor.name === 'UniqueConstraintError') {
+			Handler.validateError(req, res, error);
+		} else if (error.constructor.name == 'ErrorModel') {
+			Handler.handlingErrorModel(res, error);
+		} else {
+			handlingCannotDestroyProperty(req, res);
+		}
+	}
 }
 
 // function getPropertyTag(property_tags, property_id) {
