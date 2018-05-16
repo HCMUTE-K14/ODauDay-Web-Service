@@ -167,13 +167,17 @@
         "code":42,
 		"message":"Clear history is successfully"
     },
-    "can_not_change_status_property":{
+    "can_not_change_status":{
         "code":43,
 		"message":"Cannot change status property"
     },
     "change_status_success":{
         "code":44,
 		"message":"Change status is successfully"
+    },
+    "can_not_get_user_by_admin":{
+        "code":45,
+		"message":"Cannot get user by admin"
     },
 	"please_check_email_to_active_account": {
 		"code": 100,

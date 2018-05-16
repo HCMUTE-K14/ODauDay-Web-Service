@@ -167,13 +167,17 @@
         "code":42,
 		"message":"Xóa lịch sử thành công"
     },
-    "can_not_change_status_property":{
+    "can_not_change_status":{
         "code":43,
 		"message":"Không thể thay đổi trạng thái"
     },
     "change_status_success":{
         "code":44,
 		"message":"Thay đổi trạng thái thành công"
+    },
+    "can_not_get_user_by_admin":{
+        "code":45,
+		"message":"Không thể lấy user"
     },
 	"please_check_email_to_active_account": {
 		"code": 100,

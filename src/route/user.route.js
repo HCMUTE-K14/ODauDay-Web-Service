@@ -31,5 +31,4 @@ Router.route('/confirm-password-change')
 Router.route('/receive-new-password')
 	.post(UserController.receiveNewPassword);
 
-
 module.exports = Router;

@@ -1,6 +1,5 @@
 const User = require('../model/index').User;
-const Property=require('../model/index').Property;
-
+const Property = require('../model/index').Property;
 const ResponseModel = require('../util/response-model');
 const VerifyUtils = require('../util/verify-request');
 const NumberUtils = require('../util/number-utils');
@@ -9,7 +8,6 @@ const TextUtils = require('../util/text-utils');
 const Template = require('../util/template');
 const EmailHelper = require('../util/email-helper');
 const Config = require('../config');
-
 const Handler = require('./handling-helper');
 
 const CONFIRM_PASSWORD_SUCCESSFUL = 'confirm_pass_successful';
@@ -22,7 +20,6 @@ UserController.changePassword = changePassword;
 UserController.confirmPasswordChange = confirmPasswordChange;
 UserController.receiveNewPassword = receiveNewPassword;
 UserController.forgotPassword = forgotPassword;
-
 module.exports = UserController;
 
 async function changeProfile(req, res) {
@@ -277,7 +274,6 @@ async function disableUser(req, res) {
 		}
 	}
 }
-
 function handlingSentFailForgotPsaswordEmail(req, res) {
 	res.status(503).json(new ResponseModel({
 		code: 503,

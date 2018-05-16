@@ -81,16 +81,6 @@ async function create(req, res) {
 
 }
 
-function responseData(res, data) {
-	res.status(200).json(new ResponseModel({
-		code: 200,
-		status_text: 'OK',
-		success: true,
-		data: data,
-		errors: null
-	}));
-}
-
 function getPropertyTagFromBody(property_tags, property_id) {
 	let result = [];
 	property_tags.forEach(function(item) {
@@ -266,7 +256,7 @@ function handlingCannotChangeStatusProperty(req,res){
 		status_text: 'SERVICE UNAVAILABLE',
 		success: false,
 		data: null,
-		errors: [getMessage(req, 'can_not_change_status_property')]
+		errors: [getMessage(req, 'can_not_change_status')]
 	}))
 }
 function errorVerifyApiKey(req, res) {
