@@ -152,13 +152,19 @@ async function getDetail(req, res) {
 					model: Image,
 					as: 'images',
 					attributes: ['id', 'url']
-				}]
+				}
+			]
 		});
 
-		let note = await Note.findOne({where:{
-			user_id: userId,
-			property_id: detail.id
-		}});
+		let note = await Note.findOne({
+			where: {
+				user_id: userId,
+				property_id: detail.id
+			},
+			attributes: {
+				exclude: ['date_created', 'date_modified']
+			}
+		});
 
 		detail.note = note;
 		res.status(200).json(new ResponseModel({
@@ -198,7 +204,7 @@ function formatToPropertyDetail(property) {
 		num_of_bedroom: property.num_of_bedroom,
 		num_of_bathroom: property.num_of_bathroom,
 		num_of_parking: property.num_of_parking,
-		land_size: property.num_of_parking,
+		land_size: property.land_size,
 		type_id: property.type_id === 'BUY' ? 1 : 2,
 		time_contact: property.time_contact,
 		tags: property.tags,
