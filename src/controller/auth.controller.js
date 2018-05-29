@@ -132,7 +132,6 @@ async function facebook(req, res) {
 									loginSuccessReponse(req, res, newUser);
 								})
 								.catch(error => {
-									console.log(error);
 									loginFailureReponse(req, res);
 								})
 						})
