@@ -20,7 +20,6 @@ module.exports = AuthController;
 
 async function login(req, res) {
 	try {
-		console.log('login normal');
 		let email = req.body.email;
 		if (!email) {
 			throw new ErrorModel('Email is required');
@@ -29,7 +28,6 @@ async function login(req, res) {
 		if (!password) {
 			throw new ErrorModel('Password is required');
 		}
-		console.log(req.body);
 
 		let isAccessApiKey = await VerifyUtils.verifyPublicRequest(req);
 

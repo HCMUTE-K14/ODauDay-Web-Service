@@ -18,6 +18,8 @@ const StaticMapRoutes = require('./static-map.route');
 const DirectionRoutes = require('./direction.route');
 
 const HistoryRoutes = require("./history.route");
+const PremiumRoutes = require('./premium.route');
+
 
 const DB = require('../model/index');
 
@@ -136,4 +138,5 @@ Router.use('/note', NoteRoutes);
 // Router.use('/admin', AdminRoutes);
 
 Router.use("/history", HistoryRoutes);
+Router.use('/premium', PremiumRoutes);
 module.exports = Router;

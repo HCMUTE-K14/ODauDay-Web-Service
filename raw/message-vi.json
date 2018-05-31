@@ -399,6 +399,16 @@
         "code": 137,
         "message": "Something went wrong"
     },
+    "activation_link_has_been_sent_to_your_email":
+    {
+        "code": 138,
+        "message": "Mã kích hoạt tài khoản đã được gửi đến email của bạn."
+    },
+    "failure_to_sent_email":
+    {
+        "code": 139,
+        "message": "Gửi email thất bại. Vui lòng thử lại sau !"
+    },
     "message_not_found":
     {
         "code": 1000,

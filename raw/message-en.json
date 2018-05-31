@@ -394,9 +394,20 @@
         "code": 136,
         "message": "Something went wrong"
     },
-    "cannot_get_history_detail":{
+    "cannot_get_history_detail":
+    {
         "code": 137,
         "message": "Something went wrong"
+    },
+    "activation_link_has_been_sent_to_your_email":
+    {
+        "code": 138,
+        "message": "Activation link has been sent to your email. Please check your inbox !"
+    },
+    "failure_to_sent_email":
+    {
+        "code": 139,
+        "message": "Something went wrong when sending to your email"
     },
     "message_not_found":
     {
