@@ -216,6 +216,8 @@ function formatToPropertyDetail(property) {
 	};
 }
 
+
+
 async function getAll(req, res) {
 	try {
 		let verify = await VerifyUtils.verifyPublicRequest(req);

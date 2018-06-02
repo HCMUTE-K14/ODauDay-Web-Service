@@ -168,14 +168,14 @@ function formatProperty(property) {
         newItem.isViewed = item.isViewed > 0;
         newItem.isFavorited = item.isFavorited > 0;
 
-        Image.findOne({
+        Image.findAll({
                 where: { property_id: item.id },
                 attributes: {
                     exclude: ['id', 'property_id', 'date_created', 'updatedAt']
                 }
             })
             .then(images => {
-                newItem.images = [images];
+                newItem.images = images;
                 resolve(newItem);
             }).catch(err => {
                 resolve(newItem);
