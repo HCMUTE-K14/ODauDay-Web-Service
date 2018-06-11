@@ -16,6 +16,7 @@ const PropertyRoutes = require('./property.route');
 const ImageRoutes = require('./image.route');
 
 const HistoryRoutes=require("./history.route");
+const NotifiRoutes=require("./notifi.route");
 
 const DB = require('../model/index');
 
@@ -129,7 +130,7 @@ Router.use('/auto-complete-place', AutoCompleteRoutes);
 Router.use('/geo-info', GeoInfoRoutes);
 Router.use('/property', PropertyRoutes);
 Router.use('/image', ImageRoutes);
-
+Router.use('/notifi',NotifiRoutes);
 // Router.use('/admin', AdminRoutes);
 
 Router.use("/history",HistoryRoutes);

@@ -179,6 +179,22 @@
         "code":45,
 		"message":"Không thể lấy user"
     },
+    "cannot_send_notification":{
+        "code":46,
+		"message":"Không thể gửi thông báo"
+    },
+    "send_notification_success":{
+        "code":47,
+		"message":"Gửi thông báo thành công"
+    },
+    "save_registration_token_success":{
+        "code":48,
+		"message":"Lưu token notification thành công"
+    },
+    "cannot_save_registration_token":{
+        "code":49,
+		"message":"Không thể lưu registration token"
+    },
 	"please_check_email_to_active_account": {
 		"code": 100,
 		"message": "Bạn đã đăng ký thành công. Hãy kiểm tra tài khoản email để tiến hành kích hoạt tài khoản"

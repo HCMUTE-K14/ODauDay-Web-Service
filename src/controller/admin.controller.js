@@ -36,7 +36,7 @@ async function getPropertyByAdmin(req, res) {
             offset = limit * (page - 1);
     
            data = await Property.findAll({
-                attributes: ['id','address', 'status', 'price', 'num_of_bedroom', 'num_of_bathroom', 'num_of_parking', 'type_id','date_created'],
+                attributes: ['id','address', 'status', 'price', 'num_of_bedroom', 'num_of_bathroom', 'num_of_parking', 'user_id_created', 'type_id','date_created'],
                 where:{
                     address: {
                         [Op.like]: '%'+likeName+'%'
@@ -60,7 +60,7 @@ async function getPropertyByAdmin(req, res) {
                         [Op.like]: '%'+likeName+'%'
                     }
                 },
-                attributes: ['id','address', 'status', 'price', 'num_of_bedroom', 'num_of_bathroom', 'num_of_parking', 'type_id','date_created'],
+                attributes: ['id','address', 'status', 'price', 'num_of_bedroom', 'num_of_bathroom', 'num_of_parking', 'user_id_created', 'type_id','date_created'],
                 limit: limit,
                 offset: offset,
                 order: [

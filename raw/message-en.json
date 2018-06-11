@@ -179,6 +179,22 @@
         "code":45,
 		"message":"Cannot get user by admin"
     },
+    "cannot_send_notification":{
+        "code":46,
+		"message":"Cannot send notification"
+    },
+    "send_notification_success":{
+        "code":47,
+		"message":"Send notification is successfully"
+    },
+    "save_registration_token_success":{
+        "code":48,
+		"message":"Save registration notification is successfully"
+    },
+    "cannot_save_registration_token":{
+        "code":49,
+		"message":"Cannot save registration token"
+    },
 	"please_check_email_to_active_account": {
 		"code": 100,
 		"message": "You have registered successfully. Please check your email to activate your account"

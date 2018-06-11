@@ -95,9 +95,11 @@ async function unCheckFavorites(req,res){
     try {
         let verify = await VerifyUtils.verifyProtectRequest(req);
         let properties_id=getPropertiesId(req);
-        let data = await Favorite.destroy({where:{property_id:properties_id}});
+        let users_id=getUserId(req);
+        let data = await Favorite.destroy({where:{property_id:properties_id,user_id:users_id}});
         responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "uncheck_favorite_success"));
     } catch (error) {
+        console.log("lang thang: "+error);
         if (error.constructor.name === 'ConnectionRefusedError') {
             Handler.cannotConnectDatabase(req, res);
         } else if (error.constructor.name === 'ValidationError' ||
@@ -144,7 +146,15 @@ function getPropertiesId(req) {
     let result = [];
     let properties=req.body;
     properties.forEach(function (item) {
-        result.push(item.id);
+        result.push(item.property_id);
+    });
+    return result;
+}
+function getUserId(req){
+    let result = [];
+    let properties=req.body;
+    properties.forEach(function (item) {
+        result.push(item.user_id);
     });
     return result;
 }
