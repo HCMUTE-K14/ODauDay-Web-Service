@@ -30,5 +30,7 @@ Router.route('/confirm-password-change')
 
 Router.route('/receive-new-password')
 	.post(UserController.receiveNewPassword);
+Router.route('/get-amount/:id')
+	.get(UserController.getAmount)
 
 module.exports = Router;

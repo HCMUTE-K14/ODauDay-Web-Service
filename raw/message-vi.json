@@ -323,7 +323,6 @@
         "code": 124,
         "message": "Lấy danh sách yêu thích thất bại"
     },
-
     "subscription_success":
     {
         "code": 126,
@@ -354,6 +353,46 @@
         "code": 131,
         "message": "Can not update subscription"
     },
+    "create_history_failure":
+    {
+        "code": 132,
+        "message": "Có lỗi xảy ra khi thêm mới một lịch sử"
+    },
+    "create_history_successful":
+    {
+        "code": 133,
+        "message": "Lịch sử đã thêm thành công"
+    },
+    "delete_history_failure":
+    {
+        "code": 134,
+        "message": "Có lỗi xảy ra khi xóa một lịch sử"
+    },
+    "delete_history_successful":
+    {
+        "code": 135,
+        "message": "Lịch sử đã được xóa"
+    },
+    "history_user_id_not_match":
+    {
+        "code": 136,
+        "message": "Có lỗi xảy ra"
+    },
+    "cannot_get_history_detail":
+    {
+        "code": 137,
+        "message": "Something went wrong"
+    },
+    "activation_link_has_been_sent_to_your_email":
+    {
+        "code": 138,
+        "message": "Mã kích hoạt tài khoản đã được gửi đến email của bạn."
+    },
+    "failure_to_sent_email":
+    {
+        "code": 139,
+        "message": "Gửi email thất bại. Vui lòng thử lại sau !"
+    },
     "message_not_found":
     {
         "code": 1000,
@@ -369,7 +408,7 @@
         "code": 1002,
         "message": "Không có kết quả"
     },
-   "create_note_successful":
+    "create_note_successful":
     {
         "code": 1003,
         "message": "Ghi chú được thêm thành công"

@@ -19,6 +19,8 @@ const DirectionRoutes = require('./direction.route');
 
 const HistoryRoutes=require("./history.route");
 const NotifiRoutes=require("./notifi.route");
+const PremiumRoutes = require('./premium.route');
+const SimilarPropertyRoutes = require('./similar-property.route');
 
 const DB = require('../model/index');
 
@@ -138,4 +140,6 @@ Router.use('/note', NoteRoutes);
 // Router.use('/admin', AdminRoutes);
 
 Router.use("/history", HistoryRoutes);
+Router.use('/premium', PremiumRoutes);
+Router.use('/similar-property', SimilarPropertyRoutes);
 module.exports = Router;

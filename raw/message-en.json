@@ -353,6 +353,46 @@
         "code": 131,
         "message": "Can not update subscription"
     },
+    "create_history_failure":
+    {
+        "code": 132,
+        "message": "Something went wrong when creating history"
+    },
+    "create_history_successful":
+    {
+        "code": 133,
+        "message": "History is created"
+    },
+    "delete_history_failure":
+    {
+        "code": 134,
+        "message": "Something went wrong when deleting history"
+    },
+    "delete_history_successful":
+    {
+        "code": 135,
+        "message": "History is deleted"
+    },
+    "history_user_id_not_match":
+    {
+        "code": 136,
+        "message": "Something went wrong"
+    },
+    "cannot_get_history_detail":
+    {
+        "code": 137,
+        "message": "Something went wrong"
+    },
+    "activation_link_has_been_sent_to_your_email":
+    {
+        "code": 138,
+        "message": "Activation link has been sent to your email. Please check your inbox !"
+    },
+    "failure_to_sent_email":
+    {
+        "code": 139,
+        "message": "Something went wrong when sending to your email"
+    },
     "message_not_found":
     {
         "code": 1000,
@@ -398,7 +438,6 @@
         "code": 1008,
         "message": "Cannot delete note"
     },
-
     "unknown_message":
     {
         "code": 1002,

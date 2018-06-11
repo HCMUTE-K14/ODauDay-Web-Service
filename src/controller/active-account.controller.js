@@ -4,6 +4,8 @@ const VerifyUtils = require('../util/verify-request');
 const TextUtils = require('../util/text-utils');
 const Template = require('../util/template');
 const EmailHelper = require('../util/email-helper');
+const ResponseModel = require('../util/response-model');
+const MessageHelper = require('../util/message/message-helper');
 
 const Logger = require('../logger');
 const Config = require('../config');
@@ -23,102 +25,130 @@ module.exports = ActiveAccountController;
 
 async function active(req, res) {
 
-	try {
-		let token = req.query.token;
-		let isAccess = await VerifyUtils.verifyWithSecretToken(token);
+    try {
+        let token = req.query.token;
+        let isAccess = await VerifyUtils.verifyWithSecretToken(token);
 
-		if (isAccess.data['method'] !== 'active_account') {
-			render(req, res, '', ACTIVED_FAILURE);
-			return;
-		}
+        if (isAccess.data['method'] !== 'active_account') {
+            render(req, res, '', ACTIVED_FAILURE);
+            return;
+        }
 
-		let user = isAccess.data['user'];
+        let user = isAccess.data['user'];
 
-		let timeToExpired = isAccess.data['time_to_expried'].timestamp;
+        let timeToExpired = isAccess.data['time_to_expried'].timestamp;
 
-		if (!isExpiredToken(timeToExpired)) {
-			render(req, res, user.email, LINK_EXPIRED);
-			return;
-		}
+        if (isExpiredToken(timeToExpired)) {
+            render(req, res, user.email, LINK_EXPIRED);
+            return;
+        }
 
-		let query = { id: user.id };
-		let hashPingNumber = user.ping_number;
+        let query = { id: user.id };
+        let hashPingNumber = user.ping_number;
 
-		let userExists = await User.findOne({ where: query });
+        let userExists = await User.findOne({ where: query });
 
-		let rawPingNumber = Config.secret_token + userExists.ping_number;
-		let cadidatePingNumber = TextUtils.hashMD5(rawPingNumber);
+        let rawPingNumber = Config.secret_token + userExists.ping_number;
+        let cadidatePingNumber = TextUtils.hashMD5(rawPingNumber);
 
-		if (hashPingNumber !== cadidatePingNumber) {
-			render(req, res, user.email, ACTIVED_FAILURE);
-			return;
-		}
-		if (userExists.status === 'active') {
-			render(req, res, user.email, ACTIVED_SUCCESSFUL);
-			return;
-		}
-		User.update({ status: 'active' }, { where: query })
-			.then(success => {
-				render(req, res, user.emaail, ACTIVED_SUCCESSFUL);
-			})
-			.catch(error => {
-				render(req, res, user.emaail, ACTIVED_FAILURE);
-			})
-	} catch (error) {
-		render(req, res, user.emaail, ACTIVED_FAILURE);
-	}
+        if (hashPingNumber !== cadidatePingNumber) {
+            render(req, res, user.email, ACTIVED_FAILURE);
+            return;
+        }
+        if (userExists.status === 'active') {
+            render(req, res, user.email, ACTIVED_SUCCESSFUL);
+            return;
+        }
+        User.update({ status: 'active' }, { where: query })
+            .then(success => {
+                render(req, res, user.emaail, ACTIVED_SUCCESSFUL);
+            })
+            .catch(error => {
+                render(req, res, user.emaail, ACTIVED_FAILURE);
+            })
+    } catch (error) {
+        render(req, res, user.emaail, ACTIVED_FAILURE);
+    }
 }
 
 function reSendActivation(req, res) {
-	let email = req.query.email;
-	let query = { email: email };
-	User.findOne({ where: query })
-		.then(userExists => {
-			let status = userExists.status;
-			if (status === 'active') {
-				let template = Template.activedAccountMailTemplate();
-				let mailOption = EmailHelper.createMailOptions({
-					to: email,
-					subject: 'Activate account at ODauDay',
-					html: template
-				});
-				EmailHelper.send(mailOption)
-					.then(info => {
-						Logger.info('Sent to ' + email);
-					})
-					.catch(err => {
-						Logger.info('Can not send to ' + email);
-					})
-				return;
-			}
-			EmailHelper.sendMailActivateAccount(userExists);
-		})
-		.catch(error => {
-			Logger.info(error.message || error);
-		});
+    let email = req.query.email;
+    let query = { email: email };
+    User.findOne({ where: query })
+        .then(userExists => {
+            let status = userExists.status;
+            if (status === 'active') {
+                let template = Template.activedAccountMailTemplate();
+                let mailOption = EmailHelper.createMailOptions({
+                    to: email,
+                    subject: 'Activate account at ODauDay',
+                    html: template
+                });
+                EmailHelper.send(mailOption)
+                    .then(info => {
+                        Logger.info('Sent to ' + email);
+                    })
+                    .catch(err => {
+                        Logger.info('Can not send to ' + email);
+                    });
+
+                handlingReSendActivationSuccessfully(req, res);
+                return;
+            }
+            EmailHelper.sendMailActivateAccount(userExists);
+            handlingReSendActivationSuccessfully(req, res);
+        })
+        .catch(error => {
+            Logger.info(error.message || error);
+            handlingReSendActivationFalure(req, res);
+        });
+}
+
+function handlingReSendActivationSuccessfully(req, res) {
+    res.status(200).json(new ResponseModel({
+        code: 200,
+        status_text: 'OK',
+        success: true,
+        data: getMessage(req, 'activation_link_has_been_sent_to_your_email'),
+        errors: null
+    }));
+}
+
+function handlingReSendActivationFalure(req, res) {
+    res.status(503).json(new ResponseModel({
+        code: 503,
+        status_text: 'SERVICE UNAVAILABLE',
+        success: false,
+        data: null,
+        errors: [getMessage(req, 'failure_to_sent_email')]
+    }));
 }
 
 function isExpiredToken(timeToExpired) {
-	let currentTime = new Date().getTime();
-	return currentTime <= timeToExpired;
+    let currentTime = new Date().getTime();
+    return currentTime <= timeToExpired;
 }
 
 function render(req, res, email, type) {
-	let template;
-	switch (type) {
-		case LINK_EXPIRED:
-			urlResend = TextUtils.generateLinkResendActivateAccount(email);
-			template = Template.linkExpiredTemplate(urlResend);
-			break;
-		case ACTIVED_SUCCESSFUL:
-			template = Template.activeAccountSuccessTemplate();
-			break;
-		case ACTIVED_FAILURE:
-			urlResend = TextUtils.generateLinkResendActivateAccount(email);
-			template = Template.activeAccountFailTemplate(urlResend);
-			break;
-		default:
-			break;
-	}
-	res.send(template);
+    let template;
+    switch (type) {
+        case LINK_EXPIRED:
+            urlResend = TextUtils.generateLinkResendActivateAccount(email);
+            template = Template.linkExpiredTemplate(urlResend);
+            break;
+        case ACTIVED_SUCCESSFUL:
+            template = Template.activeAccountSuccessTemplate();
+            break;
+        case ACTIVED_FAILURE:
+            urlResend = TextUtils.generateLinkResendActivateAccount(email);
+            template = Template.activeAccountFailTemplate(urlResend);
+            break;
+        default:
+            break;
+    }
+    res.send(template);
+}
+
+function getMessage(req, errorText) {
+    return MessageHelper.getMessage(req.query.lang || 'vi', errorText);
 }

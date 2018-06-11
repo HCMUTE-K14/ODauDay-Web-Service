@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 				}
 			}
 		},
-		value: {
+		real_money: {
 			type: DataTypes.STRING
 		},
 		payment_gateway_session_id: {
