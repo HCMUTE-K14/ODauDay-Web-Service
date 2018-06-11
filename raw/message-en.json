@@ -363,6 +363,42 @@
         "code": 1001,
         "message": "Database is down"
     },
+    "no_direction":
+    {
+        "code": 1002,
+        "message": "No result"
+    },
+    "create_note_successful":
+    {
+        "code": 1003,
+        "message": "Note is created"
+    },
+    "create_note_failure":
+    {
+        "code": 1004,
+        "message": "Cannot create note"
+    },
+    "update_note_successful":
+    {
+        "code": 1005,
+        "message": "Note is updated"
+    },
+    "update_note_failure":
+    {
+        "code": 1006,
+        "message": "Cannot update note"
+    },
+    "delete_note_successful":
+    {
+        "code": 1007,
+        "message": "Note is deleted"
+    },
+    "delete_note_failure":
+    {
+        "code": 1008,
+        "message": "Cannot delete note"
+    },
+
     "unknown_message":
     {
         "code": 1002,

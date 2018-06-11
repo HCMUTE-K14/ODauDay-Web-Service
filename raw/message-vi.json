@@ -364,6 +364,41 @@
         "code": 1001,
         "message": "Không thể kết nối đến cơ sở dữ liệu"
     },
+    "no_direction":
+    {
+        "code": 1002,
+        "message": "Không có kết quả"
+    },
+   "create_note_successful":
+    {
+        "code": 1003,
+        "message": "Ghi chú được thêm thành công"
+    },
+    "create_note_failure":
+    {
+        "code": 1004,
+        "message": "Không thể tạo ghi chú"
+    },
+    "update_note_successful":
+    {
+        "code": 1005,
+        "message": "Ghi chú đã được cập nhật"
+    },
+    "update_note_failure":
+    {
+        "code": 1006,
+        "message": "Không thể cập nhật ghi chú"
+    },
+    "delete_note_successful":
+    {
+        "code": 1007,
+        "message": "Ghí chú đã được xóa"
+    },
+    "delete_note_failure":
+    {
+        "code": 1008,
+        "message": "Không thể xóa ghi chú"
+    },
     "unknown_message":
     {
         "code": 1002,

@@ -96,10 +96,15 @@ module.exports = (sequelize, DataTypes) => {
 			onDelete: 'cascade'
 		});
 		Property.belongsToMany(models.User, {
-			through:  models.Favorite,
+			through: models.Favorite,
 			as: 'favorites',
 			foreignKey: 'property_id',
 			onDelete: 'cascade'
+		});
+		Property.belongsToMany(models.User, {
+			through: models.Note,
+			as: 'notes',
+			foreignKey: 'property_id',
 		});
 		Property.hasMany(models.Email, {
 			foreignKey: 'property_id',
@@ -126,6 +131,6 @@ module.exports = (sequelize, DataTypes) => {
 			as: 'viewed_by',
 			foreignKey: 'property_id'
 		});
-    };
-    return Property;
+	};
+	return Property;
 }

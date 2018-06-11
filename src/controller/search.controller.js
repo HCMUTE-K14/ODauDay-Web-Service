@@ -71,6 +71,7 @@ async function search(req, res) {
 				}
 				formatPropertiesFromDatabase(properties)
 					.then(data => {
+
 						let filterResult = [];
 						let size = data.length;
 						if (size > 200) {
@@ -90,7 +91,6 @@ async function search(req, res) {
 											pages: Math.ceil(properties.length / 200),
 											properties: filterResult
 										};
-										//console.log(searchResult);
 										res.status(200).json(new ResponseModel({
 											code: 200,
 											status_text: 'OK',
@@ -167,7 +167,7 @@ function formatProperty(property) {
 		newItem.isViewed = item.isViewed > 0;
 		newItem.isFavorited = item.isFavorited > 0;
 
-		Image.findOne({ where: { property_id: item.id } })
+		Image.findOne({ where: { property_id: item.id }})
 			.then(images => {
 				newItem.images = [images];
 				resolve(newItem);
@@ -180,8 +180,7 @@ function formatProperty(property) {
 function formatTypeId(property) {
 	if (property.type_id === 'BUY') {
 		return 1;
-	} else
-	if (property.type_id === 'RENT') {
+	} else if (property.type_id === 'RENT') {
 		return 2;
 	} else {
 		return 0;
