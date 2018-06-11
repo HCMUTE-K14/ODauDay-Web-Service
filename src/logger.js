@@ -14,6 +14,7 @@ if (Config.env === 'production') {
 
 const Logger = Log4js.getLogger('Server');
 
+
 if (Config.env === 'development') {
     Logger.level = 'debug';
 }
