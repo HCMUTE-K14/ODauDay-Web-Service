@@ -2,17 +2,23 @@
 const Sequelize = require('sequelize');
 const Property = require("../model/index").Property;
 const User = require("../model/index").User;
+const History = require("../model/index").History;
+const Image = require("../model/index").Image;
+const Database = require('../model/index');
 const ResponseModel = require('../util/response-model');
 const Message = require('../util/message/en');
 const Handler = require('./handling-helper');
 const VerifyUtils = require('../util/verify-request');
 const MessageHelper = require('../util/message/message-helper');
+const NotificationController=require("./notification.controller");
+const IncludeModeProperty = require('../util/include-model');
 const Op = Sequelize.Op;
 const AdminController = {};
 AdminController.getPropertyByAdmin = getPropertyByAdmin;
 AdminController.getUserByAdmin=getUserByAdmin;
 AdminController.changeStatusUser=changeStatusUser;
 AdminController.changeStatusProperty=changeStatusProperty;
+AdminController.getHistoryByUser=getHistoryByUser;
 module.exports = AdminController;
 
 async function getPropertyByAdmin(req, res) {
@@ -36,7 +42,7 @@ async function getPropertyByAdmin(req, res) {
             offset = limit * (page - 1);
     
            data = await Property.findAll({
-                attributes: ['id','address', 'status', 'price', 'num_of_bedroom', 'num_of_bathroom', 'num_of_parking', 'user_id_created', 'type_id','date_created'],
+                include: IncludeModeProperty.getModelProperty(),
                 where:{
                     address: {
                         [Op.like]: '%'+likeName+'%'
@@ -60,7 +66,7 @@ async function getPropertyByAdmin(req, res) {
                         [Op.like]: '%'+likeName+'%'
                     }
                 },
-                attributes: ['id','address', 'status', 'price', 'num_of_bedroom', 'num_of_bathroom', 'num_of_parking', 'user_id_created', 'type_id','date_created'],
+                include: IncludeModeProperty.getModelProperty(),
                 limit: limit,
                 offset: offset,
                 order: [
@@ -206,8 +212,23 @@ async function changeStatusProperty(req,res){
 		}
 		let property_id = req.query.id;
 		let status=req.query.status;
-		let data = await Property.update({status:status}, { where: { id: property_id } })
-		
+        let data = await Property.update({status:status}, { where: { id: property_id } })
+		if(status=='active'||status=='expired'){
+            let property= await Property.findOne({ where: { id: property_id },
+                include: [{
+					model: Image,
+					as: 'images',
+					attributes: ['id', 'url']
+				}]
+             });
+             let image="";
+             if(property.images.length>0){
+                image=property.images[0].url;
+             }
+            let payload=getPayload(property.user_id_created,property.id,property.address,image,status,req);
+            console.log("Bomkaka:",payload);
+            NotificationController.sendNotificatinoToUser(payload,property.user_id_created)
+        }
         responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "change_status_success"));
     } catch (error) {
         if (error.constructor.name === 'ConnectionRefusedError') {
@@ -222,7 +243,156 @@ async function changeStatusProperty(req,res){
         }
     }
 }
+async function getHistoryByUser(req, res){
+	try {
+		let isAccess = await VerifyUtils.verifyProtectRequest(req);
+		console.log("lang thang dkslfjdsk 1");
+		if (isAccess.user.role != 'admin') {
+			Handler.unAuthorizedAdminRole(req, res);
+			return;
+		}
+        let user_id = req.query.user_id;
 
+        let count = await History.count({ where: { user_id: user_id} });
+        let page = parseInt(req.query.page) || 1;
+        let limit = parseInt(req.query.limit) || 10;
+        if (page <= 0) {
+            page = 1;
+        }
+
+        if (limit <= 0) {
+            limit = 10;
+		}
+		
+        let totalPage = Math.ceil(count / limit);
+        let offset = limit * (page - 1);
+
+        Database.sequelize
+            .query('SELECT tbl_property.id, tbl_history.date_created, tbl_property.num_of_bedroom, tbl_property.num_of_bathroom, tbl_property.num_of_parking, tbl_property.address FROM tbl_history, tbl_property WHERE tbl_history.user_id = $userId AND tbl_history.property_id = tbl_property.id LIMIT $offset, $limit', {
+                bind: {
+                    userId: user_id,
+                    offset: offset,
+                    limit: limit
+                }
+            })
+            .then(histories => {
+                if (histories[0].length <= 0) {
+                    res.status(200).json(new ResponseModel({
+                        code: 200,
+                        status_text: 'OK',
+                        success: true,
+                        data: { pages: 0, count: 0, histories: [] },
+                        errors: null
+                    }));
+                }
+                formatHistoryDetails(histories[0])
+                    .then(result => {
+                        res.status(200).json(new ResponseModel({
+                            code: 200,
+                            status_text: 'OK',
+                            success: true,
+                            data: { pages: totalPage, count: count, histories: result },
+                            errors: null
+                        }));
+                    })
+            })
+            .catch(error => {
+                res.json(error);
+            })
+    } catch (error) {
+		console.log(error);
+        if (error.constructor.name === 'ConnectionRefusedError') {
+            Handler.cannotConnectDatabase(req, res);
+        } else if (error.constructor.name === 'ValidationError' ||
+            error.constructor.name === 'UniqueConstraintError') {
+            Handler.validateError(req, res, error);
+        } else if (error.constructor.name == 'ErrorModel') {
+            Handler.handlingErrorModel(res, error);
+        } else {
+            res.status(503).json(new ResponseModel({
+                code: 503,
+                status_text: 'SERVICE UNAVAILABLE',
+                success: false,
+                data: null,
+                errors: [getMessage(req, 'cannot_get_history_detail')]
+            }));
+        }
+    }
+}
+function formatHistoryDetails(list) {
+    return new Promise((resolve, reject) => {
+        let size = list.length;
+        let result = [];
+        for (let i = 0; i < size; i++) {
+            loadImageForHistoryDetail(list[i])
+                .then(data => {
+                    result.push(data);
+                    if (i == size - 1) {
+                        resolve(result);
+                    }
+                })
+        }
+    })
+}
+function getPayload(user_id,property_id,address,image,status,req){
+    var payload={};
+    if(status=='active'){
+        payload = {
+            data: {
+                user_id: user_id,
+                property_id: property_id,
+                image: image,
+                type: "1"
+            },
+            notification: {
+                title: getMessage(req,"notification_confirmed_property").title,
+                body: getMessage(req,"notification_confirmed_property").body+address
+            }
+        };
+    }else{
+        payload = {
+            data: {
+                user_id: user_id,
+                property_id: property_id,
+                image: image,
+                type: "1"
+            },
+            notification: {
+                title: getMessage(req,"notification_room_expired").title,
+                body: getMessage(req,"notification_room_expired").body+address
+            }
+        };
+    }
+	return payload;
+}
+function loadImageForHistoryDetail(detail) {
+    return new Promise((resolve, reject) => {
+        Database.Image.findOne({
+                where: { property_id: detail.id },
+                attributes: {
+                    exclude: ['id', 'property_id', 'date_created', 'updatedAt']
+                }
+            })
+            .then(images => {
+                if (images) {
+                    detail.images = [images];
+                }
+                resolve(detail);
+            }).catch(err => {
+                detail.images = [];
+                resolve(detail);
+            })
+    })
+}
+function handlingCanotGetHistoryForUser(req,res){
+	res.status(503).json(new ResponseModel({
+		code: 503,
+		status_text: 'SERVICE UNAVAILABLE',
+		success: false,
+		data: null,
+		errors: [getMessage(req, 'cannot_get_history_detail')]
+	}));
+}
 function responseData(res, data) {
     res.status(200).json(new ResponseModel({
         code: 200,

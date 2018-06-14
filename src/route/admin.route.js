@@ -11,5 +11,6 @@ Router.route('/change-status-user')
     .put(AdminController.changeStatusUser);
 Router.route('/change-status-property')
     .put(AdminController.changeStatusProperty);
-
+Router.route('/user-history')
+    .get(AdminController.getHistoryByUser);
 module.exports = Router;

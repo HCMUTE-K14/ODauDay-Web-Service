@@ -442,5 +442,18 @@
     {
         "code": 1002,
         "message": "Unknown"
+    },
+    "notification_create_property":{
+        "title":"Confirm property",
+        "body":""
+    },
+    "notification_confirmed_property":{
+        "title":"Confirmed property",
+        "body":"Your property has been confirmed: "
+    },
+    "notification_room_expired":{
+        "title":"Room expired",
+        "body":"Your room expired, please extend it: "
     }
+
 }
