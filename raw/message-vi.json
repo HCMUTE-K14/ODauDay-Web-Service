@@ -442,5 +442,17 @@
     {
         "code": 1002,
         "message": "Lỗi không xác định"
+    },
+    "notification_create_property":{
+        "title":"Xác nhận phòng",
+        "body":""
+    },
+    "notification_confirmed_property":{
+        "title":"Đã xác nhận phòng",
+        "body":"Phòng của bạn đã được xác nhận: "
+    },
+    "notification_room_expired":{
+        "title":"Phòng hết hạn",
+        "body":"Phòng của bạn hết thời hạn đăng, vui lòng gia hạn thêm: "
     }
 }

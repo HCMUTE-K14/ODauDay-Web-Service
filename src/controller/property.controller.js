@@ -15,6 +15,7 @@ const VerifyUtils = require('../util/verify-request');
 const MessageHelper = require('../util/message/message-helper');
 
 const IncludeModeProperty = require('../util/include-model');
+const NotificationController=require('./notification.controller');
 
 const PropertyController = {};
 
@@ -30,7 +31,7 @@ module.exports = PropertyController;
 
 async function create(req, res) {
 	try {
-		//let verify = await VerifyUtils.verifyProtectRequest(req);
+		let verify = await VerifyUtils.verifyProtectRequest(req);
 		let body = req.body;
 		let property;
 		property = body;
@@ -65,8 +66,10 @@ async function create(req, res) {
 
 		let property_categories = getPropertyCategoryFromBody(req.body.categories, data.id);
 		let result_property_categories = await PropertyCategory.bulkCreate(property_categories);
-
+		let payload=createPayload(property.id,property.address,property.images[0].url,req);
+		NotificationController.sendNotificationToAdminAffterCreateProperty(payload);
 		responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "create_property_success"));
+	
 	} catch (error) {
 		console.log(error);
 		if (error.constructor.name === 'ConnectionRefusedError') {
@@ -82,7 +85,21 @@ async function create(req, res) {
 	}
 
 }
-
+function createPayload(property_id,property_address,imgage,req){
+	var payload = {
+		data: {
+			user_id: "",
+			property_id: property_id,
+			image: imgage,
+			type: "2"
+		},
+		notification: {
+			title: getMessage(req,"notification_create_property").title,
+			body: property_address
+		}
+	};
+	return payload;
+}
 function getPropertyTagFromBody(property_tags, property_id) {
 	let result = [];
 	property_tags.forEach(function(item) {
@@ -229,7 +246,7 @@ async function getAll(req, res) {
 
 async function getPropertyByUser(req, res) {
 	try {
-		//let verify = await VerifyUtils.verifyProtectRequest(req);
+		let verify = await VerifyUtils.verifyProtectRequest(req);
 		let user_id = req.query.user_id;
 		let data = await Property.findAll({
 			include: IncludeModeProperty.getModelProperty(),

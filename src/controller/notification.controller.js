@@ -1,5 +1,6 @@
 const ResponseModel = require('../util/response-model');
 const Notification = require("../model/index").Notification;
+const User = require("../model/index").User;
 const VerifyUtils = require('../util/verify-request');
 const NumberUtils = require('../util/number-utils');
 const MessageHelper = require('../util/message/message-helper');
@@ -8,6 +9,9 @@ const NotificationUtils = require("./notification/notificationUtils");
 const NotificationController = {};
 NotificationController.sendNotification = sendNotification;
 NotificationController.saveRegistrationTokenForUser=saveRegistrationTokenForUser;
+NotificationController.sendNotificationToAdmin=sendNotificationToAdmin;
+NotificationController.sendNotificationToAdminAffterCreateProperty=sendNotificationToAdminAffterCreateProperty;
+NotificationController.sendNotificatinoToUser=sendNotificatinoToUser;
 module.exports = NotificationController;
 
 async function sendNotification(req, res) {
@@ -48,6 +52,65 @@ async function sendNotification(req, res) {
         }
     }
 }
+async function sendNotificationToAdmin(req,res){
+    try {
+        let verify = await VerifyUtils.verifyProtectRequest(req);
+        let data=req.body;
+        var payload = {
+            data: {
+                user_id: data.user_id,
+                property_id: data.property_id,
+                image: data.image,
+                type: data.type
+            },
+            notification: {
+                title: data.title,
+                body: data.body
+            }
+        };
+        var arrayToken = [];
+        let accounts_admin=await User.findAll({where: {role:'admin'},attributes: ['id']});
+        for (let ac of accounts_admin) {
+            let notifications=await Notification.findAll({where: {user_id:ac.id}});
+            notifications.forEach(function(token){
+                arrayToken.push(token.registration_token);
+            });
+        }
+        NotificationUtils.sendNotification(arrayToken,payload);
+        responseData(res, MessageHelper.getMessage(req.query.lang || 'vi', "send_notification_success"));
+    } catch (error) {
+        if (error.constructor.name === 'ConnectionRefusedError') {
+            Handler.cannotConnectDatabase(req, res);
+        } else if (error.constructor.name === 'ValidationError' ||
+            error.constructor.name === 'UniqueConstraintError') {
+            Handler.validateError(req, res, error);
+        } else if (error.constructor.name == 'ErrorModel') {
+            Handler.handlingErrorModel(res, error);
+        } else {
+            handlingCanotSendNotification(req, res);
+        }
+    }
+}
+async function sendNotificationToAdminAffterCreateProperty(payload){
+        var arrayToken = [];
+        let accounts_admin=await User.findAll({where: {role:'admin'},attributes: ['id']});
+        for (let ac of accounts_admin) {
+            let notifications=await Notification.findAll({where: {user_id:ac.id}});
+            notifications.forEach(function(token){
+                arrayToken.push(token.registration_token);
+            });
+        }
+        NotificationUtils.sendNotification(arrayToken,payload);
+}
+
+async function sendNotificatinoToUser(payload,user_id){
+    let notifications=await Notification.findAll({where: {user_id:user_id}});
+    if(notifications.length>0){
+        var registrationToken=getRegistrationToken(notifications);
+        NotificationUtils.sendNotification(registrationToken,payload);
+    }
+}
+
 async function saveRegistrationTokenForUser(req, res){
     try{
         let verify=await VerifyUtils.verifyProtectRequest(req);
@@ -69,6 +132,7 @@ async function saveRegistrationTokenForUser(req, res){
 		}
     }
 }
+
 function getRegistrationToken(notifications){
     var arrayToken = [];
     notifications.forEach(function(item) {

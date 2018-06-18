@@ -142,7 +142,6 @@ async function getDetails(req, res) {
         }
     }
 }
-
 function formatHistoryDetails(list) {
     return new Promise((resolve, reject) => {
         let size = list.length;
