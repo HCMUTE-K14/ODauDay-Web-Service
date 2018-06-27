@@ -55,7 +55,7 @@ async function login(req, res) {
 async function register(req, res) {
 	try {
 		let isAccessApiKey = await VerifyUtils.verifyPublicRequest(req);
-
+		
 		if (!isAccessApiKey) {
 			throw new ErrorModel('Api key is invalid');
 		}
