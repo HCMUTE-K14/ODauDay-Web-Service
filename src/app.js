@@ -26,6 +26,6 @@ App.use('/', Routes);
 if (Config.env === 'development') {
 	App.use(Logger("dev"));
 }
-App.set('port', (Config.port || 3000));
+App.set('port', (process.env.PORT || 8000));
 
 module.exports = App;

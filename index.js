@@ -35,16 +35,16 @@ App.listen(App.get('port'), () => {
 //     }
 // }
 async function insertPremium() {
-    try{
+    try {
         await DB.Premium.bulkCreate([
             { id: '0', description: 'Bronze', name: 'Bronze', value: 1000, real_value: 10000, status: 'active' },
             { id: '1', description: 'Silver', name: 'Silver', value: 6000, real_value: 50000, status: 'active' },
             { id: '2', description: 'Gold', name: 'Gold', value: 12000, real_value: 100000, status: 'active' }
         ]);
-    }catch(error){
+    } catch (error) {
         console.log(error);
     }
-  
+
 }
 
 async function insertCategories() {
@@ -145,49 +145,141 @@ async function insertTags() {
 //  }
 // }
 
-// function generateRandomNumber() {
-//  var min = 0.005;
-//  var max = 0.1;
-//  return Math.random() * (max - min) + min;
-// };
+function generateRandomNumber() {
+    var min = 0.005;
+    var max = 0.1;
+    return Math.random() * (max - min) + min;
+};
+let a = 8000000;
+let value = 500;
+let dataPrice = [];
+while (value <= a) {
+    if (value <= 2000) {
+        value = value + 50;
+    } else if (value > 2000 && value <= 10000) {
+        value = value + 500 - 50;
+    } else if (value > 10000 && value <= 100000) {
+        value = value + 1000 - 50;
+    } else if (value > 100000 && value <= 200000) {
+        value = value + 5000 - 50;
+    } else if (value > 200000 && value <= 500000) {
+        value = value + 10000 - 50;
+    } else if (value > 500000 && value <= 1000000) {
+        value = value + 50000 - 50;
+    } else {
+        value = value + 1000000 - 50;
+    }
+    dataPrice.push(value);
+}
 
-// function getRandomInt(min, max) {
-//     return Math.floor(Math.random() * (max - min + 1)) + min;
-// }
+function getRandomPrice(typeId) {
+    let price = dataPrice;
+    if (typeId === 'RENT') {
+        price = price.slice(0, 165);
+    }
+    var number = Math.floor(Math.random() * price.length);
+    return price[number] * 1000;
+}
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 
-// function getRandomTypeId(){
-//  var type = ['BUY', 'RENT'];
-//  var number = Math.floor(Math.random() * type.length);
-//  return type[number];
-// }
-// // let json =require('./raw/tt.json');
-// // insertProperty();
+function getRandomTypeId() {
+    var type = ['BUY', 'RENT'];
+    var number = Math.floor(Math.random() * type.length);
+    return type[number];
+}
 
-// async function insertProperty() {
-//  try {
-//      let listProperty = [];
-//      let currentDate = new Date();
-//      for (let i = 0; i < json.length; i++) {
-//          listProperty.push({
-//              id: '' + i,
-//              address: json[i].address,
-//              code: 'code#' + i,
-//              latitude: json[i].location.lat,
-//              longitude: json[i].location.long,
-//              status: 'active',
-//              postcode: 8000,
-//              price: getRandomInt(500, 80000000),
-//              num_of_bedroom: getRandomInt(1,10),
-//              num_of_bathroom: getRandomInt(1,10),
-//              num_of_parking: getRandomInt(0,10),
-//              land_size: getRandomInt(10, 10000),
-//              date_end: new Date(currentDate.getTime() + 24 * 60 * 60 * 1000 * 30),
-//              type_id: getRandomTypeId()
-//          });
-//      }
-//      await DB.Property.bulkCreate(listProperty);
-//  } catch (error) {
-//      console.log(error);
-//  }
-// }
+function getRandomImage(typeId) {
+    let living = [];
+    for (let i = 0; i < 15; i++) {
+        living.push(`living_${i + 1}`);
+    }
+
+    let bathroom = [];
+    for (let i = 0; i < 15; i++) {
+        bathroom.push(`bathroom_${i + 1}`);
+    }
+
+    let rent = [];
+    for (let i = 0; i < 15; i++) {
+        rent.push(`rent_${i + 1}`);
+    }
+
+    let indexLiving = Math.floor(Math.random() * living.length);
+    let indexBathroom = Math.floor(Math.random() * bathroom.length);
+    let indexRent = Math.floor(Math.random() * rent.length);
+
+    if (typeId === 'RENT') {
+        return [
+            { url: 'image/' + rent[Math.floor(Math.random() * rent.length)] },
+            { url: 'image/' + rent[Math.floor(Math.random() * rent.length)] },
+            { url: 'image/' + rent[Math.floor(Math.random() * rent.length)] }
+        ];
+    }
+
+    return [
+        { url: 'image/' + living[indexLiving] },
+        { url: 'image/' + living[Math.floor(Math.random() * living.length)] },
+        { url: 'image/' + bathroom[indexBathroom] },
+        { url: 'image/' + bathroom[indexBathroom] }
+    ];
+}
+let json = require('./raw/tt.json');
+insertProperty();
+
+async function insertProperty() {
+    try {
+        let listProperty = [];
+        let currentDate = new Date();
+        for (let i = 0; i < json.length; i++) {
+            let typeId = getRandomTypeId();
+            let property = {
+                address: json[i].address,
+                code: 'code#' + i,
+                latitude: json[i].location.lat,
+                longitude: json[i].location.long,
+                status: 'active',
+                postcode: 8000,
+                price: getRandomPrice(typeId),
+                num_of_bedroom: getRandomInt(1, 10),
+                num_of_bathroom: getRandomInt(1, 10),
+                num_of_parking: getRandomInt(0, 10),
+                land_size: getRandomInt(10, 10000),
+                date_end: new Date(currentDate.getTime() + 24 * 60 * 60 * 1000 * 30),
+                user_id_created: '1',
+                type_id: typeId,
+                emails: [{
+                    email: "daohuuloc9419@gmail.com"
+                }],
+                phones: [{
+                    phone_number: "01254709525"
+                }],
+                images: getRandomImage(typeId)
+            };
+            await DB.Property.create(property, {
+                include: [{
+                        model: DB.Email,
+                        as: 'emails',
+                        attributes: ['id', 'email']
+                    },
+                    {
+                        model: DB.Phone,
+                        as: 'phones',
+                        attributes: ['id', 'phone_number']
+                    },
+                    {
+                        model: DB.Image,
+                        as: 'images',
+                        attributes: ['id', 'url']
+                    }
+                ]
+            });
+        }
+        // await DB.Property.bulkCreate(listProperty,);
+    } catch (error) {
+        console.log(error);
+    }
+}

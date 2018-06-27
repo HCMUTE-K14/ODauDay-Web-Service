@@ -2077,5 +2077,838 @@
             "lat": "20.9930726",
             "long": "105.8173275"
         }
-    }
+    },
+    {
+        "address": "Hòa Điền, Tx. Hà Tiên, Kiên Giang",
+        "location": {
+           "lat": "10.388704",
+           "long": " 104.655068"
+        }
+     },
+     {
+        "address": "Bình Giang, Hòa Đất, Kiên Giang",
+        "location": {
+           "lat": "10.340409",
+           "long": " 104.856599"
+        }
+     },
+     {
+        "address": "Vông Thê, Thoại Sơn, An Giang",
+        "location": {
+           "lat": "10.293797",
+           "long": " 105.111001"
+        }
+     },
+     {
+        "address": "Vĩnh Tây 2, Núi Sam, Tp Châu Đốc, An Giang",
+        "location": {
+           "lat": "10.687050",
+           "long": " 105.089602"
+        }
+     },
+     {
+        "address": "Hòa Lạc, Tx. Tân Châu, An Giang",
+        "location": {
+           "lat": "10.678433",
+           "long": " 105.227456"
+        }
+     },
+     {
+        "address": "Phú Hiệp, Tam Nông, Đồng Tháp",
+        "location": {
+           "lat": "10.737628",
+           "long": " 105.517575"
+        }
+     },
+     {
+        "address": "TT. Vĩnh Thuận, Vĩnh Thuận, Kiên Giang",
+        "location": {
+           "lat": "9.509409",
+           "long": " 105.262334"
+        }
+     },
+     {
+        "address": "Hùng Vương, Phường 5, Thành phố Cà Mau, Cà Mau",
+        "location": {
+           "lat": "9.2159207",
+           "long": "105.1428384"
+        }
+     },
+     {
+        "address": "Ninh Hòa, Hồng Dân, Bạc Liêu, Việt Nam",
+        "location": {
+           "lat": "9.547323",
+           "long": " 105.493597"
+        }
+     },
+     {
+        "address": "Cái Bè, Tiền Giang, Việt Nam",
+        "location": {
+           "lat": "10.394571",
+           "long": " 105.925208"
+        }
+     },
+     {
+        "address": "Ba Sao, Cao Lãnh, Đồng Tháp, Việt Nam",
+        "location": {
+           "lat": "10.562933",
+           "long": " 105.681064"
+        }
+     },
+     {
+        "address": "Sơn Đông, Tp Bến Tre, Bến Tre, Việt Nam",
+        "location": {
+           "lat": "10.268130",
+           "long": " 106.354607"
+        }
+     },
+     {
+        "address": "Lương Hòa, Tp Bến Tre, Bến Tre, Việt Nam",
+        "location": {
+           "lat": "10.199883",
+           "long": " 106.460693"
+        }
+     },
+     {
+        "address": "An Vĩnh Ngại, Tp Tân An, Long An",
+        "location": {
+           "lat": "10.504590",
+           "long": " 106.405653"
+        }
+     },
+     {
+        "address": "Hẻm 226 An Dương Vương, phường 16, Quận 8, Tp Hồ Chí Minh",
+        "location": {
+           "lat": "10.731627",
+           "long": " 106.622061"
+        }
+     },
+     {
+        "address": "78, Đường số 44, Khu 5, Phường 10, Quận 6, Tp Hồ Chí Minh",
+        "location": {
+           "lat": "10.736192",
+           "long": " 106.624634"
+        }
+     },
+     {
+        "address": "Khu dân cư Nam Hùng Vương, 48 Đường số 2, An Lạc, Bình Tân, Hồ Chí Minh, Việt Nam",
+        "location": {
+           "lat": "10.7313495",
+           "long": "106.6211651"
+        }
+     },
+     {
+        "address": "Đường số 4, phường 16, Quận 8, Tp Hồ Chí Minh",
+        "location": {
+           "lat": "10.733094",
+           "long": " 106.622526"
+        }
+     },
+     {
+        "address": "12, Đường số 74, phường 10, Quận 6, Tp Hồ Chí Minh",
+        "location": {
+           "lat": "10.732801",
+           "long": " 106.625579"
+        }
+     },
+     {
+        "address": "190 Hồng Bàng, Quận 5, Tp Hồ Chí Minh",
+        "location": {
+           "lat": "10.754290",
+           "long": " 106.655160"
+        }
+     },
+     {
+        "address": "52 Bình Phú, Khu 4, phường 10, Quận 6, Tp Hồ Chí Minh",
+        "location": {
+           "lat": "10.739429",
+           "long": " 106.629136"
+        }
+     },
+     {
+        "address": "190 Bình Tiên Quận 6, Tp Hồ Chí Minh",
+        "location": {
+           "lat": "10.743687",
+           "long": " 106.643020"
+        }
+     },
+     {
+        "address": "43, Đường số 13, phường 11, Quận 6, Hồ Chí Minh",
+        "location": {
+           "lat": "10.743297",
+           "long": " 106.627975"
+        }
+     },
+     {
+        "address": "170 Đường Nguyễn Văn Cừ, An Khánh, Ninh Kiều, Cần Thơ, Việt Nam",
+        "location": {
+           "lat": "10.034017",
+           "long": "105.7533559"
+        }
+     },
+     {
+        "address": "32 Trần Bạch Đằng An Khánh, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.035882",
+           "long": " 105.755121"
+        }
+     },
+     {
+        "address": "Đường 6A An Khánh, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.038470",
+           "long": " 105.753994"
+        }
+     },
+     {
+        "address": "Trần Bạch Đằng An Khánh, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.038385",
+           "long": " 105.752803"
+        }
+     },
+     {
+        "address": "Số 25, P. Q. TP., Tô Hiến Thành, Phường An Khánh, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0394731",
+           "long": "105.7522308"
+        }
+     },
+     {
+        "address": "Võ Văn Kiệt An Hòa, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.044094",
+           "long": " 105.765049"
+        }
+     },
+     {
+        "address": "Hẻm 69 An Thới, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.046053",
+           "long": " 105.757807"
+        }
+     },
+     {
+        "address": "Đường B23, Khu dân cư 91B, An Khánh, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0231482",
+           "long": "105.7518128"
+        }
+     },
+     {
+        "address": "82 Đường B22 Khu dân cư 91B, An Khánh, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.024009",
+           "long": " 105.754983"
+        }
+     },
+     {
+        "address": "Hẻm 75 An Hòa, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.047772",
+           "long": " 105.765493"
+        }
+     },
+     {
+        "address": "160 Đường Nguyễn Văn Cừ, Cái Khế, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0527232",
+           "long": "105.7725544"
+        }
+     },
+     {
+        "address": "Hẻm 44, Cái Khế, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0530754",
+           "long": "105.7706042"
+        }
+     },
+     {
+        "address": "A8a Vành Đai Phi Trường, An Hoà, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0516013",
+           "long": "105.766859"
+        }
+     },
+     {
+        "address": "Hẻm 132 Phạm Ngũ Lảo, An Hòa, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0458272",
+           "long": "105.7709912"
+        }
+     },
+     {
+        "address": "Hẻm 136, An Hòa, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0442364",
+           "long": "105.7713837"
+        }
+     },
+     {
+        "address": "188 Đường Nguyễn Văn Cừ, An Hòa, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0485337",
+           "long": "105.7679128"
+        }
+     },
+     {
+        "address": "188/21A Đường Nguyễn Văn Cừ, An Hoà, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0492743",
+           "long": "105.766498"
+        }
+     },
+     {
+        "address": "1 Hẻm 188, An Hòa, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0481661",
+           "long": "105.76668"
+        }
+     },
+     {
+        "address": "14758 Hẻm 42, An Hòa, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0466191",
+           "long": "105.7700939"
+        }
+     },
+     {
+        "address": "25 Trần Việt Châu, An Hòa, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0492479",
+           "long": "105.7719562"
+        }
+     },
+     {
+        "address": "16 Hẻm 7, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0334984",
+           "long": "105.770989"
+        }
+     },
+     {
+        "address": "174C Huỳnh Thúc Kháng, An Nghiệp, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0390842",
+           "long": "105.770268"
+        }
+     },
+     {
+        "address": "Hẻm 116 Lý Tự Trọng, An Cư, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0380134",
+           "long": "105.7751511"
+        }
+     },
+     {
+        "address": "Hẻm 43, An Cư, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0388365",
+           "long": "105.7752849"
+        }
+     },
+     {
+        "address": "Hẻm 138, An Nghiệp, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0283085",
+           "long": "105.7452738"
+        }
+     },
+     {
+        "address": "116-152 Nguyễn Việt Hồng, An Phú, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0306789",
+           "long": "105.775426"
+        }
+     },
+     {
+        "address": "Châu Văn Liêm, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0310828",
+           "long": "105.7829413"
+        }
+     },
+     {
+        "address": "Phạm Hồng Thái, Tân An, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0356471",
+           "long": "105.7855432"
+        }
+     },
+     {
+        "address": "19 Ngô Hươu Hạnh, Tân An, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0369373",
+           "long": "105.783936"
+        }
+     },
+     {
+        "address": "26 Nguyễn Trãi, An Hội, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.039746",
+           "long": "105.7835577"
+        }
+     },
+     {
+        "address": "Hoàng Văn Thụ, An Hội, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.0417306",
+           "long": "105.7813593"
+        }
+     },
+     {
+        "address": "Trần Văn Khéo, Cái Khế, Ninh Kiều, Cần Thơ",
+        "location": {
+           "lat": "10.044985",
+           "long": "105.7826375"
+        }
+     },
+     {
+        "address": "XTT 7-1, Xuân Thới Thượng, Hóc Môn, Hồ Chí Minh",
+        "location": {
+           "lat": "10.8578589",
+           "long": "106.591823"
+        }
+     },
+     {
+        "address": "6-64 ấp 3, Xuân Thới Thượng, Hóc Môn, Hồ Chí Minh",
+        "location": {
+           "lat": "10.8588168",
+           "long": "106.5933071"
+        }
+     },
+     {
+        "address": "40-44 Tú Xương, phường 7, Quận 3, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7789404",
+           "long": "106.6823738"
+        }
+     },
+     {
+        "address": "95B Lý Chính Thắng, Phường 7, Quận 3, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7804833",
+           "long": "106.680684"
+        }
+     },
+     {
+        "address": "67 Rạch Bùng Binh, phường 9, Quận 3, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7828702",
+           "long": "106.6780291"
+        }
+     },
+     {
+        "address": "79K Trần Văn Đang, Phường 11, Quận 3, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7833603",
+           "long": "106.673955"
+        }
+     },
+     {
+        "address": "Hẻm 79 Trần Văn Đang, Quận 3, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7839465",
+           "long": "106.6737491"
+        }
+     },
+     {
+        "address": "8 Tô Hiến Thành, Phường 15, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7828333",
+           "long": "106.669536"
+        }
+     },
+     {
+        "address": "120A Tô Hiến Thành, Phường 15, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7811963",
+           "long": "106.667435"
+        }
+     },
+     {
+        "address": "4 Nguyễn Giản Thanh, Cư xá Bắc Hải, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.780041",
+           "long": "106.665518"
+        }
+     },
+     {
+        "address": "151 Tô Hiến Thành, Cư xá Bắc Hải, Phường 13, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7784817",
+           "long": "106.6641058"
+        }
+     },
+     {
+        "address": "54 Đồng Nai, Cư xá Bắc Hải, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7777112",
+           "long": "106.6617561"
+        }
+     },
+     {
+        "address": "420 Tô Hiến Thành, phường 14, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7744142",
+           "long": "106.6598376"
+        }
+     },
+     {
+        "address": "425 Kinh Dương Vương, An Lạc, Bình Tân, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7391951",
+           "long": "106.6149602"
+        }
+     },
+     {
+        "address": "25 Tuệ Tĩnh, phường 13, Quận 11, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7641126",
+           "long": "106.651712"
+        }
+     },
+     {
+        "address": "Hẽm 433 Lê Đại Hành, phường 11, Quận 11, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7679322",
+           "long": "106.6505729"
+        }
+     },
+     {
+        "address": "70 Lữ Gia, phường 15, Quận 11, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7711229",
+           "long": "106.6509915"
+        }
+     },
+     {
+        "address": "Hẻm 62 Cư Xá Lữ Gia, phường 15, Quận 11, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7721987",
+           "long": "106.6515107"
+        }
+     },
+     {
+        "address": "59 Âu Cơ, phường 9, Quận 11, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7693067",
+           "long": "106.6496065"
+        }
+     },
+     {
+        "address": "181 Số 3 Cư Xá Lữ Gia, Phường 15, Quận 11, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7722789",
+           "long": "106.6509824"
+        }
+     },
+     {
+        "address": "89/25 Nguyễn Thị Nhỏ, Phường 9, Tân Bình, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7713996",
+           "long": "106.651336"
+        }
+     },
+     {
+        "address": "92/8 Nguyễn Thị Nhỏ, Phường 9, Tân Bình, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7714386",
+           "long": "106.650866"
+        }
+     },
+     {
+        "address": "133 Âu Cơ, Phường 14, Quận 11, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7715196",
+           "long": "106.648895"
+        }
+     },
+     {
+        "address": "127/48/12 Âu Cơ, Phường 14, Quận 11, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7707766",
+           "long": "106.647718"
+        }
+     },
+     {
+        "address": "102/64 100 Bình Thới, Phường 14, Quận 11, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7702736",
+           "long": "106.647297"
+        }
+     },
+     {
+        "address": "127/93/1 Âu Cơ, Phường 14, Quận 11, Hồ Chí Minh=",
+        "location": {
+           "lat": "10.7705887",
+           "long": "106.6459634"
+        }
+     },
+     {
+        "address": "506/59-61A Lạc Long Quân, Phường 5, Quận 11, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7705523",
+           "long": "106.645293"
+        }
+     },
+     {
+        "address": "544/12 Lạc Long Quân, Phường 5, Quận 11, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7717093",
+           "long": "106.644102"
+        }
+     },
+     {
+        "address": "53 Tống Văn Trân, Quận 11, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7718247",
+           "long": "106.6392651"
+        }
+     },
+     {
+        "address": "173/113 Khuông Việt, Phú Trung, Tân Phú, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7722743",
+           "long": "106.637522"
+        }
+     },
+     {
+        "address": "Hẻm 213/79 Khuông Việt, Phú Trung, Tân Phú, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7719193",
+           "long": "106.6367913"
+        }
+     },
+     {
+        "address": "Hẻm 654 Lạc Long Quân, phường 9, Tân Bình, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7753923",
+           "long": "106.6465431"
+        }
+     },
+     {
+        "address": "303 Âu Cơ, Phú Trung, Tân Phú, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7757073",
+           "long": "106.6448559"
+        }
+     },
+     {
+        "address": "3-1 Hoàng Xuân Nhị, Phú Trung, Tân Phú, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7773817",
+           "long": "106.6436974"
+        }
+     },
+     {
+        "address": "499-479 Âu Cơ, Tân Bình, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7801785",
+           "long": "106.6419771"
+        }
+     },
+     {
+        "address": "11-6 Âu Cơ, Tân Bình, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7793421",
+           "long": "106.642555"
+        }
+     },
+     {
+        "address": "1 Lê Ngã, Phú Trung, Tân Phú, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7789778",
+           "long": "106.6424031"
+        }
+     },
+     {
+        "address": "Hẻm 319A Lý Thường Kiệt, phường 15, Quận 11, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7776833",
+           "long": "106.6533838"
+        }
+     },
+     {
+        "address": "525 Tô Hiến Thành, phường 14, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7724396",
+           "long": "106.6582881"
+        }
+     },
+     {
+        "address": "50 Thành Thái, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7696456",
+           "long": "106.6646436"
+        }
+     },
+     {
+        "address": "Hẻm 458 Ba Tháng Hai, Phường 10, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7688193",
+           "long": "106.6674378"
+        }
+     },
+     {
+        "address": "420/B20 3 Tháng 2 Tổ 58, Khu phố Khu phố 5, Phường 12, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.769256",
+           "long": "106.666389"
+        }
+     },
+     {
+        "address": "576-636 Sư Vạn Hạnh, Phường 10, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7692208",
+           "long": "106.6690292"
+        }
+     },
+     {
+        "address": "781-711 Lê Hồng Phong, Phường 12, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.771866",
+           "long": "106.6702806"
+        }
+     },
+     {
+        "address": "538 Sư Vạn Hạnh, Phường 10, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7680138",
+           "long": "106.6692956"
+        }
+     },
+     {
+        "address": "407-156 Bà Hạt, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7658876",
+           "long": "106.6662485"
+        }
+     },
+     {
+        "address": "111 Đại lộ 2 tháng 2 Tổ 14 Khu phố 2, Phường 11, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7741727",
+           "long": "106.6771767"
+        }
+     },
+     {
+        "address": "382/82a Điện biên phủ Tổ 14 Khu phố 2, Phường 11, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7740903",
+           "long": "106.677038"
+        }
+     },
+     {
+        "address": "157/9/32 Đại lộ 3 tháng 2 Tổ 37 Khu phố 4, Phường 11, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7719668",
+           "long": "106.6759778"
+        }
+     },
+     {
+        "address": "107/37 Đại lộ 3 tháng 2 Tổ 29 Khu phố 3, Phường 11, Quận 10, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7724216",
+           "long": "106.676238"
+        }
+     },
+     {
+        "address": "1101 Đường Trần Hưng Đạo, Phường 5, Quận 5, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7531041",
+           "long": "106.6716041"
+        }
+     },
+     {
+        "address": "401-365 Phan Văn Trị, phường 2, Quận 5, Hồ Chí Minh",
+        "location": {
+           "lat": "10.7554281",
+           "long": "106.6747143"
+        }
+     },
+     {
+        "address": "Đường Nguyễn Văn Hoa, phường Thống Nhất, Thành phố Biên Hòa, Đồng Nai",
+        "location": {
+           "lat": "10.9545371",
+           "long": "106.8342463"
+        }
+     },
+     {
+        "address": "51 Nguyễn Ái Quốc, Tân Tiến, Thành phố Biên Hòa, Đồng Nai",
+        "location": {
+           "lat": "10.9629404",
+           "long": "106.8346881"
+        }
+     },
+     {
+        "address": "1325-1251 Nguyễn Ái Quốc, Tân Tiến, Thành phố Biên Hòa, Đồng Nai",
+        "location": {
+           "lat": "10.965325",
+           "long": "106.8457523"
+        }
+     },
+     {
+        "address": "Khu phố 10, Tân Phong, Tp. Biên Hòa, Đồng Nai",
+        "location": {
+           "lat": "10.9816125",
+           "long": "106.8414557"
+        }
+     },
+     {
+        "address": "Hẻm 974 Đồng Khởi, Thành phố Biên Hòa, Đồng Nai",
+        "location": {
+           "lat": "10.9788236",
+           "long": "106.8482005"
+        }
+     },
+     {
+        "address": "Hẻm 521 Xa lộ Hà Nội, Long Bình, Thành phố Biên Hòa, Đồng Nai",
+        "location": {
+           "lat": "10.9532447",
+           "long": "106.8793816"
+        }
+     },
+     {
+        "address": "71-55 Nguyễn Trãi, Phước Hiệp, Bà Rịa, Bà Rịa - Vũng Tàu",
+        "location": {
+           "lat": "10.4962742",
+           "long": "107.1663038"
+        }
+     },
+     {
+        "address": "50-70 Hai Bà Trưng, Phước Hiệp, Bà Rịa, Bà Rịa - Vũng Tàu",
+        "location": {
+           "lat": "10.4958258",
+           "long": "107.1658455"
+        }
+     },
+     {
+        "address": "10-16 Bạch Đằng, Phước Hiệp, Bà Rịa, Bà Rịa - Vũng Tàu",
+        "location": {
+           "lat": "10.4943062",
+           "long": "107.1665239"
+        }
+     },
+     {
+        "address": "18-34 Bạch Đằng, Phước Hiệp, Bà Rịa, Bà Rịa - Vũng Tàu",
+        "location": {
+           "lat": "10.494112",
+           "long": "107.16707"
+        }
+     },
+     {
+        "address": "18-34 Bạch Đằng, Phước Hiệp, Bà Rịa, Bà Rịa - Vũng Tàu",
+        "location": {
+           "lat": "11.0318671",
+           "long": "106.6380213"
+        }
+     },
+     {
+        "address": "18-34 Bạch Đằng, Phước Hiệp, Bà Rịa, Bà Rịa - Vũng Tàu",
+        "location": {
+           "lat": "10.982281",
+           "long": "106.64661"
+        }
+     }
 ]

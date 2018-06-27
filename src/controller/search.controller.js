@@ -38,19 +38,19 @@ async function search(req, res) {
         let maxLong = bound[1].longitude;
 
         // console.log(`
-        // 	center_lat: ${center.latitude}
-        // 	center_long: ${center.longitude}
-        // 	radius: ${radius}
+        //  center_lat: ${center.latitude}
+        //  center_long: ${center.longitude}
+        //  radius: ${radius}
         // `);
 
         // console.log(` 
-        // 	--------------------
-        // 	Bound:
-        // 	minLat: ${minLat}
-        // 	maxLat: ${maxLat}
+        //  --------------------
+        //  Bound:
+        //  minLat: ${minLat}
+        //  maxLat: ${maxLat}
 
-        // 	minLong: ${minLong}
-        // 	maxLong: ${maxLong}`);
+        //  minLong: ${minLong}
+        //  maxLong: ${maxLong}`);
         Database.sequelize
             .query('CALL search_property($type, $user_id, $center_lat, $center_long, $radius, $min_lat, $max_lat, $min_long, $max_long)', {
                 bind: {
@@ -76,7 +76,9 @@ async function search(req, res) {
                         let filterResult = [];
                         let size = data.length;
                         if (size > 200) {
-                            size = 200;
+                            if (zoom <= 12) {
+                                size = 200;
+                            }
                         }
                         for (let i = 0; i < size; i++) {
                             let property = data[i];
