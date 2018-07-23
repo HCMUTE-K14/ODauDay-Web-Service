@@ -227,8 +227,8 @@ function getRandomImage(typeId) {
         { url: 'image/' + bathroom[indexBathroom] }
     ];
 }
-let json = require('./raw/tt.json');
-insertProperty();
+// let json = require('./raw/tt.json');
+ //insertProperty();
 
 async function insertProperty() {
     try {
@@ -247,7 +247,7 @@ async function insertProperty() {
                 num_of_bedroom: getRandomInt(1, 5),
                 num_of_bathroom: getRandomInt(1, 3),
                 num_of_parking: getRandomInt(0, 3),
-                land_size: getRandomInt(10, 10000),
+                land_size: getRandomInt(20, 1000),
                 date_end: new Date(currentDate.getTime() + 24 * 60 * 60 * 1000 * 30),
                 user_id_created: '1',
                 type_id: typeId,

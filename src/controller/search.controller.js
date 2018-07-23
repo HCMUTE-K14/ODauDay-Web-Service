@@ -12,7 +12,6 @@ module.exports = SearchController;
 
 async function search(req, res) {
     try {
-        console.log(req.headers);
         let isAccess = await VerifyUtils.verifyProtectRequest(req);
         let userIdFromHeader = isAccess.user.id;
 
@@ -25,6 +24,18 @@ async function search(req, res) {
         let core = req.body.core;
         let criteria = req.body.criteria;
 
+        if(criteria && criteria.price){
+            if(criteria.price.min){
+                criteria.price.min = criteria.price.min * 1000;
+            }
+    
+            if(criteria.price.max){
+                criteria.price.max = criteria.price.max * 1000;
+            }
+        }
+
+
+
         let bound = core.bound;
         let center = core.center;
         let end = core.end;
@@ -36,6 +47,8 @@ async function search(req, res) {
 
         let minLong = bound[0].longitude;
         let maxLong = bound[1].longitude;
+
+        console.log(req.body);
 
         // console.log(`
         //  center_lat: ${center.latitude}
