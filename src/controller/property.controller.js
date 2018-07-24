@@ -102,6 +102,9 @@ function createPayload(property_id,property_address,imgage,req){
 }
 function getPropertyTagFromBody(property_tags, property_id) {
 	let result = [];
+	if(!property_tags){
+		return result;
+	}
 	property_tags.forEach(function(item) {
 		result.push({
 			property_id: property_id,
